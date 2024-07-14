@@ -533,9 +533,3 @@ function getdatatoken(done) {
     logger(`Đã xóa các tập tin có đuôi: ${fileV.join(", ")}`, "[ DỌN DẸP ]")
   }
 })()
-
-process.on('uncaughtException', err => {
-  console.error('Unhandled Exception:', err);
-  // Perform any cleanup or logging here as needed
-  process.exit(1); // Exit the process after handling the exception
-});
