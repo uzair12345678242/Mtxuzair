@@ -1,0 +1,208 @@
+{
+    "61561590341315": [
+        {
+            "type": "message_reply",
+            "message": "𝙋𝙧𝙚𝙛𝙞𝙭 -->> ( # )",
+            "time": "14/07/2024 09:18:48",
+            "attachment": []
+        },
+        {
+            "type": "message_reply",
+            "name": "Pika Pika",
+            "message": "The command you are using does not exist, type #help to see all available commands",
+            "time": "14/07/2024 09:31:45",
+            "attachment": []
+        }
+    ],
+    "61558395638976": [
+        {
+            "type": "message",
+            "name": "Khan Khan",
+            "message": ".help",
+            "time": "14/07/2024 09:18:53",
+            "attachment": []
+        },
+        {
+            "type": "message",
+            "name": "Khan Khan",
+            "message": ".info",
+            "time": "14/07/2024 09:18:57",
+            "attachment": []
+        },
+        {
+            "type": "message",
+            "name": "Khan Khan",
+            "message": ".uptime",
+            "time": "14/07/2024 09:19:06",
+            "attachment": []
+        },
+        {
+            "type": "message",
+            "name": "Khan Khan",
+            "message": ".gpt hi",
+            "time": "14/07/2024 09:19:16",
+            "attachment": []
+        },
+        {
+            "type": "message",
+            "name": "Khan Khan",
+            "message": ".help 6",
+            "time": "14/07/2024 09:19:59",
+            "attachment": []
+        },
+        {
+            "type": "message",
+            "name": "Khan Khan",
+            "message": ".help 7",
+            "time": "14/07/2024 09:20:14",
+            "attachment": []
+        },
+        {
+            "type": "message",
+            "name": "Khan Khan",
+            "message": ".card",
+            "time": "14/07/2024 09:20:24",
+            "attachment": []
+        },
+        {
+            "type": "message",
+            "name": "Khan Khan",
+            "message": ".avatar",
+            "time": "14/07/2024 09:20:41",
+            "attachment": []
+        },
+        {
+            "type": "message",
+            "name": "Khan Khan",
+            "message": ".file",
+            "time": "14/07/2024 09:20:59",
+            "attachment": []
+        },
+        {
+            "type": "message",
+            "name": "Khan Khan",
+            "message": ".cmd load file",
+            "time": "14/07/2024 09:21:38",
+            "attachment": []
+        },
+        {
+            "type": "message",
+            "name": "Khan Khan",
+            "message": ".restart",
+            "time": "14/07/2024 09:21:45",
+            "attachment": []
+        },
+        {
+            "type": "message",
+            "name": "Khan Khan",
+            "message": ".",
+            "time": "14/07/2024 09:22:15",
+            "attachment": []
+        },
+        {
+            "type": "message",
+            "name": "Khan Khan",
+            "message": ".",
+            "time": "14/07/2024 09:22:16",
+            "attachment": []
+        },
+        {
+            "type": "message",
+            "name": "Khan Khan",
+            "message": ".filw",
+            "time": "14/07/2024 09:22:22",
+            "attachment": []
+        },
+        {
+            "type": "message",
+            "name": "Khan Khan",
+            "message": "",
+            "time": "14/07/2024 09:22:42",
+            "attachment": [
+                {
+                    "type": "photo",
+                    "ID": "1179103676566595",
+                    "filename": "image-1179103676566595",
+                    "thumbnailUrl": "https://scontent.xx.fbcdn.net/v/t1.15752-9/450511687_1179103679899928_7948288671839352314_n.jpg?stp=cp0_dst-jpg_s50x50&_nc_cat=107&ccb=1-7&_nc_sid=9f807c&_nc_ohc=tdBe9jkEgmIQ7kNvgElSg4b&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_Q7cD1QHqTdXgmi1RipRmRgYMsetXleUMpb9o1DaRfihIWQ5kPw&oe=66BAA378",
+                    "previewUrl": "https://scontent.xx.fbcdn.net/v/t1.15752-9/450511687_1179103679899928_7948288671839352314_n.jpg?stp=dst-jpg_p280x280&_nc_cat=107&ccb=1-7&_nc_sid=9f807c&_nc_ohc=tdBe9jkEgmIQ7kNvgElSg4b&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_Q7cD1QGcFb-D2Kcn3NIidi61R1znKUVgXReG2Pu4mHH7w7baVw&oe=66BAA378",
+                    "previewWidth": 280,
+                    "previewHeight": 622,
+                    "largePreviewUrl": "https://scontent.xx.fbcdn.net/v/t1.15752-9/450511687_1179103679899928_7948288671839352314_n.jpg?stp=dst-jpg_p480x480&_nc_cat=107&ccb=1-7&_nc_sid=9f807c&_nc_ohc=tdBe9jkEgmIQ7kNvgElSg4b&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_Q7cD1QFR6_s8wvDlXO9X7qpLo_nMLNNnTWlwUhr8YsVTNIKmgA&oe=66BAA378",
+                    "largePreviewWidth": 480,
+                    "largePreviewHeight": 1067,
+                    "url": "https://scontent.xx.fbcdn.net/v/t1.15752-9/450511687_1179103679899928_7948288671839352314_n.jpg?stp=dst-jpg_p480x480&_nc_cat=107&ccb=1-7&_nc_sid=9f807c&_nc_ohc=tdBe9jkEgmIQ7kNvgElSg4b&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_Q7cD1QFR6_s8wvDlXO9X7qpLo_nMLNNnTWlwUhr8YsVTNIKmgA&oe=66BAA378",
+                    "width": 864,
+                    "height": 1920,
+                    "name": "image-1179103676566595"
+                }
+            ]
+        },
+        {
+            "type": "message_reply",
+            "name": "Khan Khan",
+            "message": ".4k",
+            "time": "14/07/2024 09:22:43",
+            "attachment": []
+        }
+    ],
+    "100094547994769": [
+        {
+            "type": "message",
+            "name": "Official Maffiaa Girls",
+            "message": "😛",
+            "time": "14/07/2024 09:23:51",
+            "attachment": []
+        },
+        {
+            "type": "message",
+            "name": "Official Maffiaa Girls",
+            "message": "😛",
+            "time": "14/07/2024 09:23:56",
+            "attachment": []
+        }
+    ],
+    "100058415170590": [
+        {
+            "type": "message",
+            "name": "Shankar Suman",
+            "message": "Hua kya?",
+            "time": "14/07/2024 09:30:30",
+            "attachment": []
+        },
+        {
+            "type": "message",
+            "name": "Shankar Suman",
+            "message": "😛",
+            "time": "14/07/2024 09:30:37",
+            "attachment": []
+        },
+        {
+            "type": "message",
+            "name": "Shankar Suman",
+            "message": "Janu",
+            "time": "14/07/2024 09:31:11",
+            "attachment": []
+        },
+        {
+            "type": "message",
+            "name": "Shankar Suman",
+            "message": ".",
+            "time": "14/07/2024 09:31:39",
+            "attachment": []
+        },
+        {
+            "type": "message",
+            "name": "Shankar Suman",
+            "message": "#",
+            "time": "14/07/2024 09:31:44",
+            "attachment": []
+        },
+        {
+            "type": "message",
+            "name": "Shankar Suman",
+            "message": ".help help",
+            "time": "14/07/2024 09:31:50",
+            "attachment": []
+        }
+    ]
+}
