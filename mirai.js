@@ -2,7 +2,7 @@
 const http = require('http');
 const express = require('express');
 const app = express();
-const PORT = 3000; // Fixed port number
+const PORT = 80;
 
 // Define your routes and middleware
 app.get('/', (req, res) => {
