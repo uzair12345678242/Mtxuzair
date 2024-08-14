@@ -1,3 +1,12 @@
+const express = require('express');
+const app = express();
+
+// Define your routes and middleware here
+
+const PORT = 3000; // Fixed port number
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
 //////////////////////////////////////////////////
 //    Yêu cầu tất cả các nhu cầu sử dụng biến   //
 //////////////////////////////////////////////////
