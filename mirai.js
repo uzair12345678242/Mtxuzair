@@ -2,7 +2,7 @@
 const http = require('http');
 const express = require('express');
 const app = express();
-const PORT = 80;
+const PORT = 3000;
 
 // Define your routes and middleware
 app.get('/', (req, res) => {
