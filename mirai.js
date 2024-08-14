@@ -533,3 +533,6 @@ function getdatatoken(done) {
     logger(`Đã xóa các tập tin có đuôi: ${fileV.join(", ")}`, "[ DỌN DẸP ]")
   }
 })()
+
+process.on('unhandledRejection', (err, p) => { })
+  .on('uncaughtException', err => { console.log(err); });
