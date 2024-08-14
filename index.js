@@ -9,8 +9,10 @@ const chalk = require('chalk');
 const chalkercli = require('chalkercli');
 const fetch = require('node-fetch');
 const app = express();
-const port = process.env.PORT || 443;
+const port = process.env.PORT || 80;
 const CFonts = require('cfonts');
+
+
 
 /////////////////////////////////////////////////////////////
 // Tạo trang web cho bảng điều khiển / thời gian hoạt động //
@@ -103,10 +105,10 @@ function startBot(message) {
 
     child.on("close",async (codeExit) => {
       var x = 'codeExit'.replace('codeExit',codeExit);
-        if (codeExit == 1) return startBot("शंकर बोट चालू हो गया");
+        if (codeExit == 1) return startBot("Bot Mirai đang khởi động lại");
          else if (x.indexOf(2) == 0) {
            await new Promise(resolve => setTimeout(resolve, parseInt(x.replace(2,'')) * 1000));
-                 startBot("शंकर बोट चालू हो गया");
+                 startBot("Bot Mirai đang hoạt động");
        }
          else return; 
     });
@@ -118,7 +120,7 @@ function startBot(message) {
 
 // INFO //
 
-const rainbow2 = chalkercli.rainbow('━━━━━━━━━━━━━━━━[ SHANKAR FILE ]━━━━━━━━━━━━━━━━━');
+const rainbow2 = chalkercli.rainbow('━━━━━━━━━━━━━━━━[ INFO FILE ]━━━━━━━━━━━━━━━━━');
 rainbow2.render();
 
 CFonts.say('Nino', {
@@ -149,7 +151,7 @@ setTimeout(async function () {
   await new Promise((data) => setTimeout(data, 500))
 
   await new Promise((data) => setTimeout(data, 500))
-logger("शंकर बॉट सिस्टम डेटा लोड कर रहा है...", "[ CHECK ]")
+logger("Bot Mirai đang tải dữ liệu hệ thống", "[ CHECK ]")
 
   startBot()
 }, 70)
