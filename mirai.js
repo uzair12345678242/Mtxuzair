@@ -1,3 +1,20 @@
+// Required modules
+const http = require('http');
+const express = require('express');
+const app = express();
+const PORT = 3000; // Fixed port number
+
+// Define your routes and middleware
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
+
+// Create and start the HTTP server
+const server = http.createServer(app);
+
+server.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
 //////////////////////////////////////////////////
 //    Yêu cầu tất cả các nhu cầu sử dụng biến   //
 //////////////////////////////////////////////////
