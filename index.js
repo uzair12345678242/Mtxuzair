@@ -166,4 +166,4 @@ setTimeout(async function () {
     await new Promise((resolve) => setTimeout(resolve, 500));
     logger("शंकर बॉट सिस्टम डेटा लोड कर रहा है...", "[ CHECK ]");
     startBot();
-}, 70);
+}, 7000);
