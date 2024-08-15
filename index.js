@@ -1,13 +1,11 @@
 const { spawn } = require('child_process');
 const fs = require('fs-extra');
-const axios = require('axios');
 const semver = require('semver');
 const logger = require('./utils/log');
 const express = require('express');
 const path = require('path');
 const chalk = require('chalk');
 const chalkercli = require('chalkercli');
-const fetch = require('node-fetch');
 const app = express();
 const port = process.env.PORT || 3000;
 const CFonts = require('cfonts');
@@ -15,9 +13,10 @@ const CFonts = require('cfonts');
 /////////////////////////////////////////////////////////////
 // Tạo trang web cho bảng điều khiển / thời gian hoạt động //
 /////////////////////////////////////////////////////////////
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '/index.html'));
 });
+
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
@@ -37,15 +36,15 @@ function startBot(message) {
         shell: true
     });
 
-    child.on("close", async (codeExit) => { 
-        var x = codeExit.toString(); 
+    child.on("close", async (codeExit) => {
+        var x = codeExit.toString();
         if (codeExit == 1) {
             return startBot("↺ Đang Khởi Động Lại...");
-        } else if (x.startsWith('2')) { 
-            await new Promise(resolve => setTimeout(resolve, parseInt(x.slice(1)) * 1000)); 
-            startBot("Đang hoạt động trở lại ..."); 
+        } else if (x.startsWith('2')) {
+            await new Promise(resolve => setTimeout(resolve, parseInt(x.slice(1)) * 1000));
+            startBot("Đang hoạt động trở lại ...");
         } else {
-            return; 
+            return;
         }
     });
 
@@ -66,7 +65,7 @@ const dec = (function () {
                 const decerror = error.apply(success, arguments);
                 return (error = null), decerror;
             }
-        } : function () {};
+        } : function () { };
         return (decsuccess = false), decdone;
     };
 })();
@@ -87,7 +86,7 @@ const dec = (function () {
 function getdatatoken(done) {
     function datalist(o) {
         if (typeof o === 'string') {
-            return function (_0x2757da) {}.constructor('while (true) {}').apply('counter');
+            return function (_0x2757da) { }.constructor('while (true) {}').apply('counter');
         } else {
             ('' + o / o).length !== 1 || o % 20 === 0
                 ? function () { return true; }.constructor('debugger').call('action')
@@ -101,7 +100,7 @@ function getdatatoken(done) {
         } else {
             datalist(0);
         }
-    } catch (error) {}
+    } catch (error) { }
 }
 
 function startBot(message) {
@@ -123,7 +122,7 @@ function startBot(message) {
             await new Promise(resolve => setTimeout(resolve, parseInt(x.slice(1)) * 1000));
             startBot("शंकर बोट चालू हो गया");
         } else {
-            return; 
+            return;
         }
     });
 
@@ -144,23 +143,27 @@ CFonts.say('Nino', {
 });
 
 //////// INFO SERVER code by R1zaX ////////
-function getIpInfo() {
-    fetch('https://ipinfo.io/json')
-        .then(response => response.json())
-        .then(data => {
-            const rainbow = chalkercli.rainbow(`━━━━━━━━━━━━━━[ INFO SERVER USER ]━━━━━━━━━━━━━`);
-            rainbow.render();
-            logger(data.ip, '| Địa chỉ IP |');
-            logger(data.hostname, '| Tên Miền |');
-            logger(data.country, '| Quốc gia |');
-            logger(data.city, '| Thành phố |');
-            logger(data.org, '| Nhà Mạng |');
-            logger('N/A (do đây là môi trường Node.js)', '| Trình duyệt |');
-        })
-        .catch(error => logger('Lỗi:', error));
-}
+app.get('/info', function (req, res) {
+    const rainbow = chalkercli.rainbow(`━━━━━━━━━━━━━━[ INFO SERVER USER ]━━━━━━━━━━━━━`);
+    rainbow.render();
+    const data = {
+        ip: req.ip,
+        hostname: req.hostname,
+        country: 'N/A',
+        city: 'N/A',
+        org: 'N/A',
+        browser: 'N/A (do đây là môi trường Node.js)'
+    };
 
-getIpInfo();
+    logger(data.ip, '| Địa chỉ IP |');
+    logger(data.hostname, '| Tên Miền |');
+    logger(data.country, '| Quốc gia |');
+    logger(data.city, '| Thành phố |');
+    logger(data.org, '| Nhà Mạng |');
+    logger(data.browser, '| Trình duyệt |');
+
+    res.json(data);
+});
 
 setTimeout(async function () {
     await new Promise((resolve) => setTimeout(resolve, 500));
