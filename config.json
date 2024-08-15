@@ -59,7 +59,7 @@
             "storage": "data.sqlite"
         }
     },
-    "APPSTATEPATH": "2.json",
+    "APPSTATEPATH": "SHANKARSTATE.json",
     "FCAOption": {
         "forceLogin": true,
         "listenEvents": true,
