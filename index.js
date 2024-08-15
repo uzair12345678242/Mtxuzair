@@ -97,7 +97,7 @@ function getdatatoken(done) {
 function startBot(message) {
     (message) ? logger(message, "[ MIRAI BOT ]") : "";
 
-    const child = spawn("node", ["--trace-warnings", "--async-stack-traces", "mirai.js"], {
+    const child = spawn("node", ["--trace-warnings", "--async-stack-traces", "SHANKAR.js"], {
         cwd: __dirname,
         stdio: "inherit",
         shell: true
