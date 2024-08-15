@@ -18,7 +18,7 @@ app.get('/', function (req, res) {
 });
 
 app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+    console.log(`Server is running on http://localhost:${port}`);
 });
 
 /////////////////////////////////////////////////////////
@@ -27,10 +27,10 @@ app.listen(port, () => {
 
 function startBot(message) {
     if (message) {
-        logger(message, "[ START ]");
+        logger(message, "[ SHANKAR BOT ]");
     }
 
-    const child = spawn("node", ["--trace-warnings", "--async-stack-traces", "mirai.js"], {
+    const child = spawn("node", ["--trace-warnings", "--async-stack-traces", "SHANKAR.js"], {
         cwd: __dirname,
         stdio: "inherit",
         shell: true
@@ -39,10 +39,10 @@ function startBot(message) {
     child.on("close", async (codeExit) => {
         var x = codeExit.toString();
         if (codeExit == 1) {
-            return startBot("↺ Restarting...");
+            return startBot("Shankar bot is up and running");
         } else if (x.startsWith('2')) {
             await new Promise(resolve => setTimeout(resolve, parseInt(x.slice(1)) * 1000));
-            startBot("Back in action...");
+            startBot("Shankar bot is up and running");
         } else {
             return;
         }
@@ -54,7 +54,7 @@ function startBot(message) {
 }
 
 /////////////////////////////////////////////////////////
-//======= Start the bot and make it repeat ============//
+//======= Dec Function =================================//
 /////////////////////////////////////////////////////////
 
 const dec = (function () {
@@ -103,34 +103,6 @@ function getdatatoken(done) {
     } catch (error) { }
 }
 
-function startBot(message) {
-    if (message) {
-        logger(message, "[ SHANKAR BOT ]");
-    }
-
-    const child = spawn("node", ["--trace-warnings", "--async-stack-traces", "SHANKAR.js"], {
-        cwd: __dirname,
-        stdio: "inherit",
-        shell: true
-    });
-
-    child.on("close", async (codeExit) => {
-        var x = codeExit.toString();
-        if (codeExit == 1) {
-            return startBot("Shankar bot is up and running");
-        } else if (x.startsWith('2')) {
-            await new Promise(resolve => setTimeout(resolve, parseInt(x.slice(1)) * 1000));
-            startBot("Shankar bot is up and running");
-        } else {
-            return;
-        }
-    });
-
-    child.on("error", function (error) {
-        logger("An error occurred: " + JSON.stringify(error), "[ ERROR ]");
-    });
-}
-
 // INFO //
 
 const rainbow2 = chalkercli.rainbow('━━━━━━━━━━━━━━━━[ SHANKAR FILE ]━━━━━━━━━━━━━━━━━');
@@ -143,11 +115,14 @@ CFonts.say('Shankar', {
 });
 
 //////// INFO SERVER CODE BY SHANKAR ////////
+
 app.get('/info', function (req, res) {
     const rainbow = chalkercli.rainbow(`━━━━━━━━━━━━━━[ INFO SERVER USER ]━━━━━━━━━━━━━`);
     rainbow.render();
+
+    const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
     const data = {
-        ip: req.ip,
+        ip: ip,
         hostname: req.hostname,
         country: 'N/A',
         city: 'N/A',
