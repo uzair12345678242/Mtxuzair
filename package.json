@@ -4,7 +4,7 @@
   "description": "File Bot do R1zaX source lại.",
   "main": "mirai.js",
   "scripts": {
-    "start": "node index",
+    "start": "node index.js",
     "login": "node login",
     "test": "node --trace-warnings --use_strict --async-stack-traces mirai"
   },
