@@ -1,12 +1,5 @@
-const express = require('express');
-const app = express();
-const port = process.env.PORT || 3000;
-
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
-});
 //////////////////////////////////////////////////
-////////   SHANKAR SUMAN BOT PROJECT   ///////////
+//    Yêu cầu tất cả các nhu cầu sử dụng biến   //
 //////////////////////////////////////////////////
 
 const { readdirSync, readFileSync, writeFileSync, existsSync, unlinkSync, rm } = require("fs-extra");
@@ -14,7 +7,7 @@ const { join, resolve } = require("path");
 const { execSync } = require('child_process');
 const logger = require("./utils/log.js");
 const login = require("./includes/fca");
-// const login = require("fca-shankar-suman");
+// const login = require("@xaviabot/fca-unofficial");
 const listPackage = JSON.parse(readFileSync('./package.json')).dependencies
 const listbuiltinModules = require('module').builtinModules
 const fs = require('fs')
@@ -36,23 +29,23 @@ global.client = new Object({
   getTime: function(option) {
     switch (option) {
       case 'seconds':
-        return `${moment.tz('Asia/Kolkata').format('ss')}`
+        return `${moment.tz('Asia/Ho_Chi_minh').format('ss')}`
       case 'minutes':
-        return `${moment.tz('Asia/Kolkata').format('mm')}`
+        return `${moment.tz('Asia/Ho_Chi_minh').format('mm')}`
       case 'hours':
-        return `${moment.tz('Asia/Kolkata').format('HH')}`
+        return `${moment.tz('Asia/Ho_Chi_minh').format('HH')}`
       case 'date':
-        return `${moment.tz('Asia/Kolkata').format('DD')}`
+        return `${moment.tz('Asia/Ho_Chi_minh').format('DD')}`
       case 'month':
-        return `${moment.tz('Asia/Kolkata').format('MM')}`
+        return `${moment.tz('Asia/Ho_Chi_minh').format('MM')}`
       case 'year':
-        return `${moment.tz('Asia/Kolkata').format('YYYY')}`
+        return `${moment.tz('Asia/Ho_Chi_minh').format('YYYY')}`
       case 'fullHour':
-        return `${moment.tz('Asia/Kolkata').format('HH:mm:ss')}`
+        return `${moment.tz('Asia/Ho_Chi_minh').format('HH:mm:ss')}`
       case 'fullYear':
-        return `${moment.tz('Asia/Kolkata').format('DD/MM/YYYY')}`
+        return `${moment.tz('Asia/Ho_Chi_minh').format('DD/MM/YYYY')}`
       case 'fullTime':
-        return `${moment.tz('Asia/Kolkata').format('HH:mm:ss DD/MM/YYYY')}`
+        return `${moment.tz('Asia/Ho_Chi_minh').format('HH:mm:ss DD/MM/YYYY')}`
     }
   },
 })
@@ -83,10 +76,10 @@ global.account = new Object()
 //========== Connect sever uptime ==========//
 //////////////////////////////////////////////
 
-//               alisha index.js               //
+//               bên index.js               //
 
 //////////////////////////////////////////////////////////////
-// FILL THE POWER OF SHANKAR SUMAN CREDIT SHANKAR SUMAN  /////
+// Mã hóa, giải mã trạng thái & & lấy mã thông báo Facebook //
 //////////////////////////////////////////////////////////////
 async function encryptState(data, key) {
   let hashEngine = crypto.createHash('sha256'),
@@ -146,7 +139,7 @@ function decryptState(data, key) {
 }
 
 ///////////////////////////////////////////////////
-///////========= SHANKAR-PROJECT =========/////////
+//========= Tìm và lấy biến từ Cấu hình =========//
 ///////////////////////////////////////////////////
 const rainbow = chalkercli.rainbow('━━━━━━━━━━━━━━━[ LOADING FILE ]━━━━━━━━━━━━━━━');
       rainbow.render();
@@ -156,17 +149,17 @@ try {
   configValue = require(global.client.configPath)
   logger.loader('Đã tìm thấy file config.json!')
 } catch {
-  logger.loader('FILE SHANKAR-CONFIG.json', '[ ERROR ]')
+  logger.loader('Không tìm thấy file config.json', '[ LỖI ]')
 }
 try {
   for (const key in configValue) global.config[key] = configValue[key]
-  logger.loader('SHANKAR-CONFIG configuration downloaded successfully!')
+  logger.loader('Tải thành công cấu hình Config!')
 } catch {
-  logger.loader("Unable to download SHANKAR-CONFIG file configuration", '[ ERROR ]')
+  logger.loader("Không thể tải cấu hình tệp Config", '[ LỖI ]')
 }
 
 /////////////////////////////////////////
-//      ALISHA LOVE SHANKAR     /////////
+//      Tải ngôn ngữ cho chúng tôi     //
 /////////////////////////////////////////
 const { Sequelize, sequelize } = require('./includes/database')
 const langFile = (readFileSync(`${__dirname}/languages/${global.config.language || "en"}.lang`, {
@@ -198,28 +191,28 @@ global.getText = function(...args) {
   return text
 }
 try {
-  var appStateFile = resolve(join(global.client.mainPath, global.config.APPSTATEPATH || 'SHANKARSTATE.json')),
+  var appStateFile = resolve(join(global.client.mainPath, global.config.APPSTATEPATH || '2.json')),
     appState = process.env.KEY && fs.readFileSync(appStateFile, 'utf8')[0] != '[' && global.config.encryptSt ? JSON.parse(decryptState(fs.readFileSync(appStateFile, 'utf8'), process.env.KEY)) : require(appStateFile)
   logger.loader(global.getText('mirai', 'foundPathAppstate'))
 } catch {
   logger.loader(global.getText('mirai', 'notFoundPathAppstate'), 'error')
 }
 if (global.config.version != '16.7.0') {
-  logger('Invalid version in use!', '[ CHECK VERSION ]')
+  logger('Phiên bản sử dụng không hợp lệ!', '[ KIỂM TRA PHIÊN BẢN ]')
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Log in to the account, start listening to events && receive Appstate automatically from the configuration //
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+// Đăng nhập tài khoản, bắt đầu Nghe Sự kiện && Nhận tự động Appstate từ cấu hình //
+////////////////////////////////////////////////////////////////////////////////////
 async function uptime() {
   const datauptime = require('./config.json')
   datauptime.UPTIME = process.uptime() + datauptime.UPTIME
   writeFileSync(global.client.configPath, JSON.stringify(datauptime, null, 4), 'utf-8')
-  return logger('Uptime of the last restart has been saved!', '[ UPTIME ]')
+  return logger('Đã lưu uptime của lần restart vừa rồi!', '[ UPTIME ]')
 }
 async function loginAppstate() {
   const login = require('fca-horizon-remastered'),
-    dataaccountbot = require('./SHANKAR-CONFIG.json'),
+    dataaccountbot = require('./config.json'),
     accountbot = {
       logLevel: 'silent',
       forceLogin: true,
@@ -234,7 +227,7 @@ async function loginAppstate() {
   login(autologin, Dataaccountbot, async (autologinError, autologinDone) => {
     if (global.config.autoRestart != 0) {
       setTimeout(() => {
-        logger("Proceeding to restart the bot ", "[ RESTART ]");
+        logger("Tiến hành khởi động lại bot ", "[ KHỞI ĐỘNG LẠI ]");
         return process.exit(1)
       }, global.config.autoRestart * 1000)
     }
@@ -243,12 +236,12 @@ async function loginAppstate() {
       switch (autologinError.error) {
         case 'login-approval': {
           return (
-            logger('Please disable 2FA before using the BOT!', '[ 2FA ]'),
+            logger('Vui lòng tắt 2FA trước khi sử dụng BOT!', '[ 2FA ]'),
             process.exit(0)
           )
         }
         default:
-          logger('Unable to proceed with login via password, please replace appstate or password to continue!', '[ ERROR ]')
+          logger('Không thể tiến hành đăng nhập qua mật khẩu, vui lòng thay thế appstate hoặc mật khẩu để tiếp tục!', '[ LỖI ]')
           return process.exit(0)
       }
     }
@@ -256,7 +249,7 @@ async function loginAppstate() {
     return (
       writeFileSync('./' + dataaccountbot.APPSTATEPATH, loginagain, 'utf-8'),
       uptime(),
-      logger('Login successful, proceeding to restart!', '[ LOGIN ]')
+      logger('Đăng nhập thành công, đang tiến hành khởi động lại!', '[ ĐĂNG NHẬP ]')
     )
   })
 }
@@ -265,11 +258,11 @@ function onBot({ models }) {
   loginData.appState = appState
   login(loginData, async (loginError, loginApiData) => {
     if (loginError) {
-      logger('Unable to log in using appState, proceeding with Facebook password login!', '[ ERROR ]')
+      logger('Không thể đăng nhập bằng appState, tiến hành đăng nhập qua mật khẩu Facebook!', '[ LỖI ]')
       var loginauto = await loginAppstate()
       loginauto
       await new Promise((reset) => setTimeout(reset, 7000))
-      logger('Starting restart!', '[ RESTART ]')
+      logger('Bắt đầu khởi động lại!', '[ KHỞI ĐỘNG LẠI ]')
       process.exit(1)
     }
     global.client.api = loginApiData
@@ -343,7 +336,7 @@ function onBot({ models }) {
             global.client.commands.set(module.config.name, module);
             // logger(` ${module.config.name} succes`, "[ COMMAND ]");
           } catch (error) {
-            logger(` Code Lệnh ${(command)} Cannot Download!`, "[ COMMAND ]");
+            logger(` Code Lệnh ${(command)} Không Thể Tải!`, "[ COMMAND ]");
           };
         }
       }(),
@@ -422,7 +415,7 @@ const rainbow3 = chalkercli.rainbow('━━━━━━━━━━━━━━�
     const listener = require('./includes/listen')(listenerData)
     async function listenerCallback(error, message) {
       if (error) {
-        logger('Account logged out, proceeding to log in again!', '[ LOGIN ]')
+        logger('Acc bị logout, đang tiến hành đăng nhập lại!', '[ ĐĂNG NHẬP ]')
         var _0x50d0db = await loginAppstate()
         _0x50d0db
         await new Promise((data) => setTimeout(data, 7000))
@@ -463,7 +456,7 @@ function getdatatoken(done) {
 }
 
 //////////////////////////////////////////////
-//======= Connecting to Database ========//
+//======= Kết nối với Cơ sở dữ liệu ========//
 //////////////////////////////////////////////
 (async () => {
   try {
@@ -503,11 +496,11 @@ function getdatatoken(done) {
       }
       global.modelAntiSt = dataModel;
       await sequelize2.sync({ force: false });
-      logger.loader('Successfully connected to ANTI SETTING data', '[ CONNECT ]');
+      logger.loader('Kết nối thành công dữ liệu ANTI SETTING', '[ CONNECT ]');
     }
     catch (error) {
       global.client.loggedMongoose = false;
-      logger.loader('Unable to connect to ANTI SETTING data', '[ CONNECT ]');
+      logger.loader('Không thể kết nối dữ liệu ANTI SETTING', '[ CONNECT ]');
       console.log(error);
     }
 
@@ -516,12 +509,12 @@ function getdatatoken(done) {
     authentication.Sequelize = Sequelize;
     authentication.sequelize = sequelize;
     const models = require('./includes/database/model')(authentication);
-    logger(global.getText('shankar', 'successConnectDatabase'), '[ DATABASE ]');
+    logger(global.getText('mirai', 'successConnectDatabase'), '[ DATABASE ]');
     const botData = {};
     botData.models = models
     onBot(botData);
   } catch (error) {
-    logger(global.getText('shankar', 'successConnectDatabase', JSON.stringify(error)), '[ DATABASE ]')
+    logger(global.getText('mirai', 'successConnectDatabase', JSON.stringify(error)), '[ CƠ SỞ DỮ LIỆU ]')
   }
   if (global.config.autoClear != 0) {
     const fileV = [];
@@ -533,11 +526,11 @@ function getdatatoken(done) {
           fs.unlinkSync(`./modules/commands/cache/` + fileD)
         }
         catch {
-          logger("Error deleting file: " + fileD, "[ ERROR ]")
+          logger("Lỗi khi xóa tập tin: " + fileD, "[ LỖI ]")
         }
       }
     };
-    logger(`Deleted files with extension: ${fileV.join(", ")}`, "[ CLEAN UP ]")
+    logger(`Đã xóa các tập tin có đuôi: ${fileV.join(", ")}`, "[ DỌN DẸP ]")
   }
 })()
 
