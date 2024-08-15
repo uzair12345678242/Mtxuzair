@@ -20,13 +20,13 @@ module.exports = function({ api, models }) {
     if (day != day_now) {
       day = day_now;
       const checkttData = fs.readdirSync(checkttDataPath);
-      console.log('Starting to check new day interactions');
+      console.log('Bắt đầu kiểm tra tương tác ngày mới');
       await new Promise(async resolve => {
         for (const checkttFile of checkttData) {
           const checktt = JSON.parse(fs.readFileSync(checkttDataPath + checkttFile));
           let storage = [], count = 1;
           for (const item of checktt.day) {
-            const userName = await Users.getNameUser(item.id) || 'Name does not exist';
+            const userName = await Users.getNameUser(item.id) || 'Tên không tồn tại';
             const itemToPush = item;
             itemToPush.name = userName;
             storage.push(itemToPush);
@@ -41,7 +41,7 @@ module.exports = function({ api, models }) {
               return a.name.localeCompare(b.name);
             }
           });
-          let checkttBody = '═✿═╡°𝗖𝗛𝗘𝗖𝗞 𝗕𝗢𝗫°╞═✿═\nBelow is the message count of all members who messaged today\n\n'; checkttBody += storage.slice(0, 10).map(item => {
+          let checkttBody = '═✿═╡°𝗖𝗛𝗘𝗖𝗞 𝗕𝗢𝗫°╞═✿═\nDưới đây là số tin nhắn của tất cả thành viên đã nhắn trong ngày\n\n'; checkttBody += storage.slice(0, 10).map(item => {
             return `𝗧𝗢𝗣 ${count++} 👤${item.name} ⁠➜ ${item.count} 💬`;
           }).join('\n');
           api.sendMessage(checkttBody, checkttFile.replace('.json', ''), (err) => err ? console.log(err) : '');
@@ -57,12 +57,12 @@ module.exports = function({ api, models }) {
 
       await new Promise(async resolve => {
         if (day_now == 1) {
-          console.log('Starting to check weekly interactions');
+          console.log('Bắt đầu kiểm tra tương tác tuần mới');
           for (const checkttFile of checkttData) {
             const checktt = JSON.parse(fs.readFileSync(checkttDataPath + checkttFile));
             let storage = [], count = 1;
             for (const item of checktt.week) {
-              const userName = await Users.getNameUser(item.id) || 'Name does not exist';
+              const userName = await Users.getNameUser(item.id) || 'Tên không tồn tại';
               const itemToPush = item;
               itemToPush.name = userName;
               storage.push(itemToPush);
@@ -77,7 +77,7 @@ module.exports = function({ api, models }) {
                 return a.name.localeCompare(b.name);
               }
             });
-            let checkttBody = '═✿═╡°𝗖𝗛𝗘𝗖𝗞 𝗕𝗢𝗫°╞═✿═\nBelow is the message count of all members who messaged this week\n\n'; checkttBody += storage.slice(0, 10).map(item => {
+            let checkttBody = '═✿═╡°𝗖𝗛𝗘𝗖𝗞 𝗕𝗢𝗫°╞═✿═\nDưới đây là số tin nhắn của tất cả thành viên đã nhắn trong tuần này\n\n'; checkttBody += storage.slice(0, 10).map(item => {
               return `𝗧𝗢𝗣 ${count++} 👤${item.name} ⁠➜ ${item.count} 💬`;
             }).join('\n');
             api.sendMessage(checkttBody, checkttFile.replace('.json', ''), (err) => err ? console.log(err) : '');
@@ -94,13 +94,13 @@ module.exports = function({ api, models }) {
     }
   }, 1000 * 10);
   //////////////////////////////////////////////////////////////////////
-  //========= Push all variables from the database to environment =========//
+  //========= Push all variable from database to environment =========//
   //////////////////////////////////////////////////////////////////////
 
   (async function() {
 
     try {
-      logger(global.getText('listen', 'startLoadEnvironment'), '[ Data ]');
+      logger(global.getText('listen', 'startLoadEnvironment'), '[ Dữ liệu ]');
       let threads = await Threads.getAll(),
         users = await Users.getAll(['userID', 'name', 'data']),
         currencies = await Currencies.getAll(['userID']);
@@ -134,16 +134,16 @@ module.exports = function({ api, models }) {
       for (const dataC of currencies) global.data.allCurrenciesID.push(String(dataC['userID']));
       var spam = await api.getThreadList(50, null, ["INBOX"]) || [];
       const list = [...spam].filter(group => group.isSubscribed && group.isGroup);
-      logger.loader(`Successfully loaded ${global.data.allThreadID.length} Threads and ${global.data.allUserID.length} Users`);
-      logger.loader(`Currently, there are ${list.length} bot groups active\n`)
+      logger.loader(`Đã tải thành công ${global.data.allThreadID.length} Nhóm và ${global.data.allUserID.length} Người Dùng`);
+      logger.loader(`Hiện có ${list.length} nhóm bot đang hoạt động\n`)
     } catch (error) {
-      logger.loader(`Unable to load environment variables, error: ${error}`, 'error');
+      logger.loader(`Không thể tải biến môi trường, lỗi: ${error}`, 'error');
     }
   }());
-  logger(`〈 ${global.config.PREFIX} 〉${(!global.config.BOTNAME) ? "Mirai-Bot" : global.config.BOTNAME}`, "[ Bot Information ]");
+  logger(`〈 ${global.config.PREFIX} 〉${(!global.config.BOTNAME) ? "Mirai-Bot" : global.config.BOTNAME}`, "[ Thông tin Bot ]");
 
   ///////////////////////////////////////////////
-  //========= Require all necessary handlers =========//
+  //========= Require all handle need =========//
   //////////////////////////////////////////////
 
   const handleCommand = require("./handle/handleCommand")({ api, models, Users, Threads, Currencies });
@@ -174,7 +174,6 @@ module.exports = function({ api, models }) {
     11: 30 * 24 * 60 * 60 * 1000,
     12: 31 * 24 * 60 * 60 * 1000
   };
-
   const checkTime = (time) => new Promise((resolve) => {
     time.forEach((e, i) => time[i] = parseInt(String(e).trim()));
     const getDayFromMonth = (month) => (month == 0) ? 0 : (month == 2) ? (time[2] % 4 == 0) ? 29 : 28 : ([1, 3, 5, 7, 8, 10, 12].includes(month)) ? 31 : 30;
@@ -182,8 +181,8 @@ module.exports = function({ api, models }) {
     if (time[0] > getDayFromMonth(time[1]) || time[0] < 1) resolve("Ngày của bạn có vẻ không hợp lệ");
     if (time[2] < 2022) resolve("Bạn sống ở kỷ nguyên nào thế");
     if (time[3] > 23 || time[3] < 0) resolve("Giờ của bạn có vẻ không hợp lệ");
-    if (time[4] > 59 || time[4] < 0) resolve("Phút của bạn có vẻ không hợp lệ");
-    if (time[5] > 59 || time[5] < 0) resolve("Giây của bạn có vẻ không hợp lệ");
+    if (time[4] > 59 || time[3] < 0) resolve("Phút của bạn có vẻ không hợp lệ");
+    if (time[5] > 59 || time[3] < 0) resolve("Giây của bạn có vẻ không hợp lệ");
     yr = time[2] - 1970;
     yearToMS = (yr) * 365 * 24 * 60 * 60 * 1000;
     yearToMS += ((yr - 2) / 4).toFixed(0) * 24 * 60 * 60 * 1000;
@@ -199,13 +198,16 @@ module.exports = function({ api, models }) {
     resolve(timeMs);
   });
 
+
   const tenMinutes = 10 * 60 * 1000;
 
   const checkAndExecuteEvent = async () => {
 
+    /*smol check*/
     if (!fs.existsSync(datlichPath)) fs.writeFileSync(datlichPath, JSON.stringify({}, null, 4));
     var data = JSON.parse(fs.readFileSync(datlichPath));
 
+    //GET CURRENT TIME
     var timeVN = moment().tz('Asia/Ho_Chi_Minh').format('DD/MM/YYYY_HH:mm:ss');
     timeVN = timeVN.split("_");
     timeVN = [...timeVN[0].split("/"), ...timeVN[1].split(":")];
@@ -220,17 +222,16 @@ module.exports = function({ api, models }) {
           temp.push(data[boxID][e]); delete data[boxID][e];
         } else delete data[boxID][e];
         fs.writeFileSync(datlichPath, JSON.stringify(data, null, 4));
-      }
+      };
       resolve();
-    });
+    })
 
     await new Promise(async (resolve) => {
       for (boxID in data) {
         for (e of Object.keys(data[boxID])) await compareTime(e);
       }
       resolve();
-    });
-
+    })
     for (el of temp) {
       try {
         var all = (await Threads.getInfo(el["TID"])).participantIDs;
@@ -262,44 +263,95 @@ module.exports = function({ api, models }) {
       api.sendMessage(out, el["TID"], () => ("ATTACHMENT" in el) ? el.ATTACHMENT.forEach(a => fs.unlinkSync(__dirname + `/../modules/commands/cache/${a.fileName}`)) : "");
     }
 
-  };
-
+  }
   setInterval(checkAndExecuteEvent, tenMinutes / 10);
 
-  ///////////////////////////////////////////////
+  //////////////////////////////////////////////////
   //========= Send event to handle need =========//
   /////////////////////////////////////////////////
 
-  return async (event) => {
+ return async (event) => {
     if (event.type == "change_thread_image") api.sendMessage(`[ 𝗖𝗔̣̂𝗣 𝗡𝗛𝗔̣̂𝗧 𝗡𝗛𝗢́𝗠 ] - ${event.snippet}`, event.threadID);
     if (global.config.duyetbox == true) {
-      let data = JSON.parse(fs.readFileSync(__dirname + "/../modules/commands/hethong/approvedThreads.json"));
-      let dataThread = (await Threads.getData(event.threadID)).threadInfo;
-      let threadInfo = await api.getThreadInfo(event.threadID);
-      let threadName = threadInfo.threadName ? `${threadInfo.threadName}` : `${await Users.getNameUser(event.threadID)}`;
-      let adminBot = global.config.ADMINBOT;
-      let pendingPath = __dirname + "/../modules/commands/hethong/pendingdThreads.json";
-
-      if (!data.includes(event.threadID) && !adminBot.includes(event.senderID)) {
-        const threadSetting = global.data.threadData.get(parseInt(event.threadID)) || {};
-        const prefix = (threadSetting.hasOwnProperty("PREFIX")) ? threadSetting.PREFIX : global.config.PREFIX;
-        const moment = require("moment-timezone");
-        const time = moment.tz("Asia/Ho_Chi_Minh").format("HH:mm:s");
-
-        if (event.body == `request` || event.body == `REQUEST` || event.body == `${prefix}request`) {
-          adminBot.forEach(e => {
-            api.sendMessage(`━━━━━━[सुनो शंकर बॉस]━━━━━━\n\nग्रुप नाम: ${threadName}\n➝ ग्रुप आईडी: ${event.threadID}\n➝समय:${time}\n\n➝ जल्दी से इस ग्रुप का अप्रूवल दे दो बॉस.`, e);
-          });
-          return api.sendMessage(`➝ ( ☑️ आपका रिक्वेस्ट शंकर सुमन जी को भेज दिया हूं अब आपको अप्रूवल मिल जाएगा🤗😇😘👈: https://www.facebook.com/shankar.suman.98622733 ${time}`, event.threadID, () => {
-            let pending = JSON.parse(fs.readFileSync(pendingPath));
-            pending[event.threadID] = {
-              groupName: threadName,
-              time: time,
-              senderID: event.senderID,
-            };
-            fs.writeFileSync(pendingPath, JSON.stringify(pending, null, 4));
-          });
-        }
+    let data = JSON.parse(fs.readFileSync(__dirname + "/../modules/commands/hethong/approvedThreads.json"));
+       // let threadInfo = await api.getThreadInfo(event.threadID);
+    //let threadName = threadInfo.threadName;
+    let dataThread = (await Threads.getData(event.threadID)).threadInfo;
+    let threadInfo = await api.getThreadInfo(event.threadID);
+    let threadName = threadInfo.threadName ? `${threadInfo.threadName}` : `${await Users.getNameUser(event.threadID)}`;
+    let adminBot = global.config.ADMINBOT;
+    let pendingPath = __dirname + "/../modules/commands/hethong/pendingdThreads.json";
+    if (!data.includes(event.threadID) && !adminBot.includes(event.senderID)) {
+      //getPrefix
+      const threadSetting = global.data.threadData.get(parseInt(event.threadID)) || {};
+      const prefix = (threadSetting.hasOwnProperty("PREFIX")) ? threadSetting.PREFIX : global.config.PREFIX;
+      const moment = require("moment-timezone");
+      const hours = moment.tz("Asia/Ho_Chi_Minh").format("HH");
+      const time = moment.tz("Asia/Ho_Chi_Minh").format("HH:mm:s");
+      //check body
+      if (event.body == `request` || event.body == `request` || event.body == `REQUEST` || event.body == `${prefix}request`){
+      adminBot.forEach(e => {
+          api.sendMessage(`━━━━━━[सुनो शंकर बॉस]━━━━━━\n\nग्रुप नाम: ${threadName}\n➝ ग्रुप आईडी: ${event.threadID}\n➝समय:${time}\n\n➝ जल्दी से इस ग्रुप का अप्रूवल दे दो बॉस.`, e);
+        })
+        return api.sendMessage(`➝ ( ☑️ आपका रिक्वेस्ट शंकर सुमन जी को भेज दिया हूं अब आपको अप्रूवल मिल जाएगा🤗😇😘👈: https://www.facebook.com/shankar.suman.98622733 ${time}`, event.threadID, () => {
+      let pendingData = JSON.parse(fs.readFileSync(pendingPath));
+      if (!pendingData.includes(event.threadID) || !pendingData.includes(event.senderID)) {
+        pendingData.push(event.threadID || event.senderID);
+      fs.writeFileSync(pendingPath, JSON.stringify(pendingData));
       }
+      });
+      }
+
+      if (event.body && event.body.startsWith(prefix)) return api.sendMessage(`🙂 आपका ग्रुप में अप्रूवल नही मेरी जान
+ 😗 तो अप्रूवल के लिए रिक्वेस्ट दो ऐसे 👉 ${config.PREFIX}request
+
+ 💝 𝐎𝐖𝐍𝐄𝐑:- ☞𝐒𝐇𝐀𝐍𝐊𝐀𝐑 𝐒𝐔𝐌𝐀𝐍☜ 💫
+
+😗 सबके दिल की धड़कन 👉 💋 शंकर सुमन 💋
+
+
+🙂 शंकर बॉस की फेसबुक 🆔 लिंक 🙂 ☞ https://www.facebook.com/shankar.suman.98622733
+
+
+🙂 अगर आपको अप्रूवल नही मिल रहा है तो मेरे बॉस शंकर सुमन को डायरेक्ट एड कर सकते हो। 🙂🤟
+
+
+मेरी जान पहले ग्रुप में रिक्वेस्ट लिख के सेंड करो ऐसे 👉 ${config.PREFIX}request 🙂🤟`, event.threadID);
+    }
+    };
+    switch (event.type) {
+      //<--Nhận, xử lí dữ liệu-->//
+      case "message":
+      case "message_reply":
+      case "message_unsend":
+        handleCreateDatabase({ event });
+        handleCommand({ event });
+        handleReply({ event });
+        handleCommandEvent({ event });
+        break
+      //<--Nhận tin nhắn, thông báo thay đổi nhóm-->//
+      case "change_thread_image":
+      case "event":
+        handleEvent({ event });
+        handleRefresh({ event });
+        if (event.type != "change_thread_image" && global.config.notiGroup) {
+          var msg = '[ 𝗖𝗔̣̂𝗣 𝗡𝗛𝗔̣̂𝗧 𝗡𝗛𝗢́𝗠 ] - '
+          msg += event.logMessageBody
+          if (event.author == api.getCurrentUserID()) {
+            msg = msg.replace('Bạn ', global.config.BOTNAME)
+          }
+          api.sendMessage(msg, event.threadID);
+        }
+        break;
+      //<--Nhận cảm xúc-->//
+      case "message_reaction":
+        if(event.senderID == api.getCurrentUserID() && event.reaction == '😠') {
+          api.unsendMessage(event.messageID)
+        }
+        handleReaction({ event });
+        break;
+      default:
+        break; 
     }
   };
+};
