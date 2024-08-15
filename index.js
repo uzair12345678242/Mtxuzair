@@ -105,10 +105,10 @@ function getdatatoken(done) {
 
 function startBot(message) {
     if (message) {
-        logger(message, "[ MIRAI BOT ]");
+        logger(message, "[ SHANKAR BOT ]");
     }
 
-    const child = spawn("node", ["--trace-warnings", "--async-stack-traces", "mirai.js"], {
+    const child = spawn("node", ["--trace-warnings", "--async-stack-traces", "SHANKAR.js"], {
         cwd: __dirname,
         stdio: "inherit",
         shell: true
@@ -136,13 +136,13 @@ function startBot(message) {
 const rainbow2 = chalkercli.rainbow('━━━━━━━━━━━━━━━━[ SHANKAR FILE ]━━━━━━━━━━━━━━━━━');
 rainbow2.render();
 
-CFonts.say('Nino', {
+CFonts.say('Shankar', {
     font: 'block',
     align: 'center',
     gradient: ['red', 'magenta']
 });
 
-//////// INFO SERVER code by R1zaX ////////
+//////// INFO SERVER CODE BY SHANKAR ////////
 app.get('/info', function (req, res) {
     const rainbow = chalkercli.rainbow(`━━━━━━━━━━━━━━[ INFO SERVER USER ]━━━━━━━━━━━━━`);
     rainbow.render();
