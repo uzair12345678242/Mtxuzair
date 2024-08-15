@@ -6,7 +6,7 @@ app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
 //////////////////////////////////////////////////
-//    Yêu cầu tất cả các nhu cầu sử dụng biến   //
+////////   SHANKAR SUMAN BOT PROJECT   ///////////
 //////////////////////////////////////////////////
 
 const { readdirSync, readFileSync, writeFileSync, existsSync, unlinkSync, rm } = require("fs-extra");
@@ -14,7 +14,7 @@ const { join, resolve } = require("path");
 const { execSync } = require('child_process');
 const logger = require("./utils/log.js");
 const login = require("./includes/fca");
-// const login = require("@xaviabot/fca-unofficial");
+// const login = require("fca-shankar-suman");
 const listPackage = JSON.parse(readFileSync('./package.json')).dependencies
 const listbuiltinModules = require('module').builtinModules
 const fs = require('fs')
@@ -36,23 +36,23 @@ global.client = new Object({
   getTime: function(option) {
     switch (option) {
       case 'seconds':
-        return `${moment.tz('Asia/Ho_Chi_minh').format('ss')}`
+        return `${moment.tz('Asia/Kolkata').format('ss')}`
       case 'minutes':
-        return `${moment.tz('Asia/Ho_Chi_minh').format('mm')}`
+        return `${moment.tz('Asia/Kolkata').format('mm')}`
       case 'hours':
-        return `${moment.tz('Asia/Ho_Chi_minh').format('HH')}`
+        return `${moment.tz('Asia/Kolkata').format('HH')}`
       case 'date':
-        return `${moment.tz('Asia/Ho_Chi_minh').format('DD')}`
+        return `${moment.tz('Asia/Kolkata').format('DD')}`
       case 'month':
-        return `${moment.tz('Asia/Ho_Chi_minh').format('MM')}`
+        return `${moment.tz('Asia/Kolkata').format('MM')}`
       case 'year':
-        return `${moment.tz('Asia/Ho_Chi_minh').format('YYYY')}`
+        return `${moment.tz('Asia/Kolkata').format('YYYY')}`
       case 'fullHour':
-        return `${moment.tz('Asia/Ho_Chi_minh').format('HH:mm:ss')}`
+        return `${moment.tz('Asia/Kolkata').format('HH:mm:ss')}`
       case 'fullYear':
-        return `${moment.tz('Asia/Ho_Chi_minh').format('DD/MM/YYYY')}`
+        return `${moment.tz('Asia/Kolkata').format('DD/MM/YYYY')}`
       case 'fullTime':
-        return `${moment.tz('Asia/Ho_Chi_minh').format('HH:mm:ss DD/MM/YYYY')}`
+        return `${moment.tz('Asia/Kolkata').format('HH:mm:ss DD/MM/YYYY')}`
     }
   },
 })
@@ -83,10 +83,10 @@ global.account = new Object()
 //========== Connect sever uptime ==========//
 //////////////////////////////////////////////
 
-//               bên index.js               //
+//               alisha index.js               //
 
 //////////////////////////////////////////////////////////////
-// Mã hóa, giải mã trạng thái & & lấy mã thông báo Facebook //
+// FILL THE POWER OF SHANKAR SUMAN CREDIT SHANKAR SUMAN  /////
 //////////////////////////////////////////////////////////////
 async function encryptState(data, key) {
   let hashEngine = crypto.createHash('sha256'),
@@ -146,7 +146,7 @@ function decryptState(data, key) {
 }
 
 ///////////////////////////////////////////////////
-//========= Tìm và lấy biến từ Cấu hình =========//
+///////========= SHANKAR-PROJECT =========/////////
 ///////////////////////////////////////////////////
 const rainbow = chalkercli.rainbow('━━━━━━━━━━━━━━━[ LOADING FILE ]━━━━━━━━━━━━━━━');
       rainbow.render();
@@ -166,7 +166,7 @@ try {
 }
 
 /////////////////////////////////////////
-//      Tải ngôn ngữ cho chúng tôi     //
+//      ALISHA LOVE SHANKAR     /////////
 /////////////////////////////////////////
 const { Sequelize, sequelize } = require('./includes/database')
 const langFile = (readFileSync(`${__dirname}/languages/${global.config.language || "en"}.lang`, {
@@ -219,7 +219,7 @@ async function uptime() {
 }
 async function loginAppstate() {
   const login = require('fca-horizon-remastered'),
-    dataaccountbot = require('./config.json'),
+    dataaccountbot = require('./SHANKAR-LOGIN.json'),
     accountbot = {
       logLevel: 'silent',
       forceLogin: true,
@@ -516,21 +516,21 @@ function getdatatoken(done) {
     authentication.Sequelize = Sequelize;
     authentication.sequelize = sequelize;
     const models = require('./includes/database/model')(authentication);
-    logger(global.getText('mirai', 'successConnectDatabase'), '[ DATABASE ]');
+    logger(global.getText('shankar', 'successConnectDatabase'), '[ DATABASE ]');
     const botData = {};
     botData.models = models
     onBot(botData);
   } catch (error) {
-    logger(global.getText('mirai', 'successConnectDatabase', JSON.stringify(error)), '[ CƠ SỞ DỮ LIỆU ]')
+    logger(global.getText('shankar', 'successConnectDatabase', JSON.stringify(error)), '[ CƠ SỞ DỮ LIỆU ]')
   }
   if (global.config.autoClear != 0) {
     const fileV = [];
     for (type of global.config.autoClear) {
       fileV.push(type);
-      const fileS = fs.readdirSync(`./modules/commands/cache`).filter(file => file.endsWith(`.` + type));
+      const fileS = fs.readdirSync(`./SHANKAR/commands/cache`).filter(file => file.endsWith(`.` + type));
       for (fileD of fileS) {
         try {
-          fs.unlinkSync(`./modules/commands/cache/` + fileD)
+          fs.unlinkSync(`./SHANKAR/commands/cache/` + fileD)
         }
         catch {
           logger("Lỗi khi xóa tập tin: " + fileD, "[ LỖI ]")
