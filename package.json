@@ -1,8 +1,8 @@
 {
-  "name": "bypass-r1zax",
+  "name": "SHANKAR-BOT",
   "version": "17.0.0",
   "description": "File Bot do R1zaX source lại.",
-  "main": "mirai.js",
+  "main": "SHANKAR.js",
   "scripts": {
     "start": "node index.js",
     "login": "node login",
@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/RqzaX040/Bot12-R1zaX.git"
   },
-  "author": "R1zaX",
+  "author": "SHANKAR-SUMAN",
   "license": "GPL-3.0",
   "dependencies": {
     "@miraipr0ject/assets": "^1.0.9",
