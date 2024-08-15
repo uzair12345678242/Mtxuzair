@@ -156,13 +156,13 @@ try {
   configValue = require(global.client.configPath)
   logger.loader('Đã tìm thấy file config.json!')
 } catch {
-  logger.loader('Không tìm thấy file config.json', '[ LỖI ]')
+  logger.loader('FILE SHANKAR-CONFIG.json', '[ ERROR ]')
 }
 try {
   for (const key in configValue) global.config[key] = configValue[key]
-  logger.loader('Tải thành công cấu hình Config!')
+  logger.loader('SHANKAR-CONFIG configuration downloaded successfully!')
 } catch {
-  logger.loader("Không thể tải cấu hình tệp Config", '[ LỖI ]')
+  logger.loader("Unable to download SHANKAR-CONFIG file configuration", '[ ERROR ]')
 }
 
 /////////////////////////////////////////
@@ -198,28 +198,28 @@ global.getText = function(...args) {
   return text
 }
 try {
-  var appStateFile = resolve(join(global.client.mainPath, global.config.APPSTATEPATH || '2.json')),
+  var appStateFile = resolve(join(global.client.mainPath, global.config.APPSTATEPATH || 'SHANKARSTATE.json')),
     appState = process.env.KEY && fs.readFileSync(appStateFile, 'utf8')[0] != '[' && global.config.encryptSt ? JSON.parse(decryptState(fs.readFileSync(appStateFile, 'utf8'), process.env.KEY)) : require(appStateFile)
   logger.loader(global.getText('mirai', 'foundPathAppstate'))
 } catch {
   logger.loader(global.getText('mirai', 'notFoundPathAppstate'), 'error')
 }
 if (global.config.version != '16.7.0') {
-  logger('Phiên bản sử dụng không hợp lệ!', '[ KIỂM TRA PHIÊN BẢN ]')
+  logger('Invalid version in use!', '[ CHECK VERSION ]')
 }
 
-////////////////////////////////////////////////////////////////////////////////////
-// Đăng nhập tài khoản, bắt đầu Nghe Sự kiện && Nhận tự động Appstate từ cấu hình //
-////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Log in to the account, start listening to events && receive Appstate automatically from the configuration //
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 async function uptime() {
   const datauptime = require('./config.json')
   datauptime.UPTIME = process.uptime() + datauptime.UPTIME
   writeFileSync(global.client.configPath, JSON.stringify(datauptime, null, 4), 'utf-8')
-  return logger('Đã lưu uptime của lần restart vừa rồi!', '[ UPTIME ]')
+  return logger('Uptime of the last restart has been saved!', '[ UPTIME ]')
 }
 async function loginAppstate() {
   const login = require('fca-horizon-remastered'),
-    dataaccountbot = require('./SHANKAR-LOGIN.json'),
+    dataaccountbot = require('./SHANKAR-CONFIG.json'),
     accountbot = {
       logLevel: 'silent',
       forceLogin: true,
@@ -234,7 +234,7 @@ async function loginAppstate() {
   login(autologin, Dataaccountbot, async (autologinError, autologinDone) => {
     if (global.config.autoRestart != 0) {
       setTimeout(() => {
-        logger("Tiến hành khởi động lại bot ", "[ KHỞI ĐỘNG LẠI ]");
+        logger("Proceeding to restart the bot ", "[ RESTART ]");
         return process.exit(1)
       }, global.config.autoRestart * 1000)
     }
@@ -243,12 +243,12 @@ async function loginAppstate() {
       switch (autologinError.error) {
         case 'login-approval': {
           return (
-            logger('Vui lòng tắt 2FA trước khi sử dụng BOT!', '[ 2FA ]'),
+            logger('Please disable 2FA before using the BOT!', '[ 2FA ]'),
             process.exit(0)
           )
         }
         default:
-          logger('Không thể tiến hành đăng nhập qua mật khẩu, vui lòng thay thế appstate hoặc mật khẩu để tiếp tục!', '[ LỖI ]')
+          logger('Unable to proceed with login via password, please replace appstate or password to continue!', '[ ERROR ]')
           return process.exit(0)
       }
     }
@@ -256,7 +256,7 @@ async function loginAppstate() {
     return (
       writeFileSync('./' + dataaccountbot.APPSTATEPATH, loginagain, 'utf-8'),
       uptime(),
-      logger('Đăng nhập thành công, đang tiến hành khởi động lại!', '[ ĐĂNG NHẬP ]')
+      logger('Login successful, proceeding to restart!', '[ LOGIN ]')
     )
   })
 }
@@ -265,11 +265,11 @@ function onBot({ models }) {
   loginData.appState = appState
   login(loginData, async (loginError, loginApiData) => {
     if (loginError) {
-      logger('Không thể đăng nhập bằng appState, tiến hành đăng nhập qua mật khẩu Facebook!', '[ LỖI ]')
+      logger('Unable to log in using appState, proceeding with Facebook password login!', '[ ERROR ]')
       var loginauto = await loginAppstate()
       loginauto
       await new Promise((reset) => setTimeout(reset, 7000))
-      logger('Bắt đầu khởi động lại!', '[ KHỞI ĐỘNG LẠI ]')
+      logger('Starting restart!', '[ RESTART ]')
       process.exit(1)
     }
     global.client.api = loginApiData
@@ -343,7 +343,7 @@ function onBot({ models }) {
             global.client.commands.set(module.config.name, module);
             // logger(` ${module.config.name} succes`, "[ COMMAND ]");
           } catch (error) {
-            logger(` Code Lệnh ${(command)} Không Thể Tải!`, "[ COMMAND ]");
+            logger(` Code Lệnh ${(command)} Cannot Download!`, "[ COMMAND ]");
           };
         }
       }(),
@@ -422,7 +422,7 @@ const rainbow3 = chalkercli.rainbow('━━━━━━━━━━━━━━�
     const listener = require('./includes/listen')(listenerData)
     async function listenerCallback(error, message) {
       if (error) {
-        logger('Acc bị logout, đang tiến hành đăng nhập lại!', '[ ĐĂNG NHẬP ]')
+        logger('Account logged out, proceeding to log in again!', '[ LOGIN ]')
         var _0x50d0db = await loginAppstate()
         _0x50d0db
         await new Promise((data) => setTimeout(data, 7000))
@@ -463,7 +463,7 @@ function getdatatoken(done) {
 }
 
 //////////////////////////////////////////////
-//======= Kết nối với Cơ sở dữ liệu ========//
+//======= Connecting to Database ========//
 //////////////////////////////////////////////
 (async () => {
   try {
@@ -503,11 +503,11 @@ function getdatatoken(done) {
       }
       global.modelAntiSt = dataModel;
       await sequelize2.sync({ force: false });
-      logger.loader('Kết nối thành công dữ liệu ANTI SETTING', '[ CONNECT ]');
+      logger.loader('Successfully connected to ANTI SETTING data', '[ CONNECT ]');
     }
     catch (error) {
       global.client.loggedMongoose = false;
-      logger.loader('Không thể kết nối dữ liệu ANTI SETTING', '[ CONNECT ]');
+      logger.loader('Unable to connect to ANTI SETTING data', '[ CONNECT ]');
       console.log(error);
     }
 
@@ -521,23 +521,23 @@ function getdatatoken(done) {
     botData.models = models
     onBot(botData);
   } catch (error) {
-    logger(global.getText('shankar', 'successConnectDatabase', JSON.stringify(error)), '[ CƠ SỞ DỮ LIỆU ]')
+    logger(global.getText('shankar', 'successConnectDatabase', JSON.stringify(error)), '[ DATABASE ]')
   }
   if (global.config.autoClear != 0) {
     const fileV = [];
     for (type of global.config.autoClear) {
       fileV.push(type);
-      const fileS = fs.readdirSync(`./SHANKAR/commands/cache`).filter(file => file.endsWith(`.` + type));
+      const fileS = fs.readdirSync(`./modules/commands/cache`).filter(file => file.endsWith(`.` + type));
       for (fileD of fileS) {
         try {
-          fs.unlinkSync(`./SHANKAR/commands/cache/` + fileD)
+          fs.unlinkSync(`./modules/commands/cache/` + fileD)
         }
         catch {
-          logger("Lỗi khi xóa tập tin: " + fileD, "[ LỖI ]")
+          logger("Error deleting file: " + fileD, "[ ERROR ]")
         }
       }
     };
-    logger(`Đã xóa các tập tin có đuôi: ${fileV.join(", ")}`, "[ DỌN DẸP ]")
+    logger(`Deleted files with extension: ${fileV.join(", ")}`, "[ CLEAN UP ]")
   }
 })()
 
