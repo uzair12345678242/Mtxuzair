@@ -29,7 +29,7 @@ app.listen(port);
 function startBot(message) {
     (message) ? logger(message, "[ BẮT ĐẦU ]") : "";
 
-    const child = spawn("node", ["--trace-warnings", "--async-stack-traces", "SHANKAR.js"], {
+    const child = spawn("node", ["--trace-warnings", "--async-stack-traces", "mirai.js"], {
         cwd: __dirname,
         stdio: "inherit",
         shell: true
@@ -97,7 +97,7 @@ function getdatatoken(done) {
 function startBot(message) {
     (message) ? logger(message, "[ MIRAI BOT ]") : "";
 
-    const child = spawn("node", ["--trace-warnings", "--async-stack-traces", "SHANKAR.js"], {
+    const child = spawn("node", ["--trace-warnings", "--async-stack-traces", "mirai.js"], {
         cwd: __dirname,
         stdio: "inherit",
         shell: true
