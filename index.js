@@ -11,7 +11,7 @@ const port = process.env.PORT || 3000;
 const CFonts = require('cfonts');
 
 /////////////////////////////////////////////////////////////
-// Tạo trang web cho bảng điều khiển / thời gian hoạt động //
+// Create a website for the dashboard / uptime             //
 /////////////////////////////////////////////////////////////
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '/index.html'));
@@ -22,12 +22,12 @@ app.listen(port, () => {
 });
 
 /////////////////////////////////////////////////////////
-//======= Tạo bot bắt đầu và làm cho nó lặp lại =======//
+//======= Start the bot and make it repeat ============//
 /////////////////////////////////////////////////////////
 
 function startBot(message) {
     if (message) {
-        logger(message, "[ BẮT ĐẦU ]");
+        logger(message, "[ START ]");
     }
 
     const child = spawn("node", ["--trace-warnings", "--async-stack-traces", "mirai.js"], {
@@ -39,22 +39,22 @@ function startBot(message) {
     child.on("close", async (codeExit) => {
         var x = codeExit.toString();
         if (codeExit == 1) {
-            return startBot("↺ Đang Khởi Động Lại...");
+            return startBot("↺ Restarting...");
         } else if (x.startsWith('2')) {
             await new Promise(resolve => setTimeout(resolve, parseInt(x.slice(1)) * 1000));
-            startBot("Đang hoạt động trở lại ...");
+            startBot("Back in action...");
         } else {
             return;
         }
     });
 
     child.on("error", function (error) {
-        logger("Đã xảy ra lỗi: " + JSON.stringify(error), "[ LỖI ]");
+        logger("An error occurred: " + JSON.stringify(error), "[ ERROR ]");
     });
 }
 
 /////////////////////////////////////////////////////////
-//======= Tạo bot bắt đầu và làm cho nó lặp lại =======//
+//======= Start the bot and make it repeat ============//
 /////////////////////////////////////////////////////////
 
 const dec = (function () {
@@ -117,17 +117,17 @@ function startBot(message) {
     child.on("close", async (codeExit) => {
         var x = codeExit.toString();
         if (codeExit == 1) {
-            return startBot("शंकर बोट चालू हो गया");
+            return startBot("Shankar bot is up and running");
         } else if (x.startsWith('2')) {
             await new Promise(resolve => setTimeout(resolve, parseInt(x.slice(1)) * 1000));
-            startBot("शंकर बोट चालू हो गया");
+            startBot("Shankar bot is up and running");
         } else {
             return;
         }
     });
 
     child.on("error", function (error) {
-        logger("Đã xảy ra lỗi: " + JSON.stringify(error), "[ LỖI ]");
+        logger("An error occurred: " + JSON.stringify(error), "[ ERROR ]");
     });
 }
 
@@ -152,21 +152,21 @@ app.get('/info', function (req, res) {
         country: 'N/A',
         city: 'N/A',
         org: 'N/A',
-        browser: 'N/A (do đây là môi trường Node.js)'
+        browser: 'N/A (since this is a Node.js environment)'
     };
 
-    logger(data.ip, '| Địa chỉ IP |');
-    logger(data.hostname, '| Tên Miền |');
-    logger(data.country, '| Quốc gia |');
-    logger(data.city, '| Thành phố |');
-    logger(data.org, '| Nhà Mạng |');
-    logger(data.browser, '| Trình duyệt |');
+    logger(data.ip, '| IP Address |');
+    logger(data.hostname, '| Hostname |');
+    logger(data.country, '| Country |');
+    logger(data.city, '| City |');
+    logger(data.org, '| ISP |');
+    logger(data.browser, '| Browser |');
 
     res.json(data);
 });
 
 setTimeout(async function () {
     await new Promise((resolve) => setTimeout(resolve, 500));
-    logger("शंकर बॉट सिस्टम डेटा लोड कर रहा है...", "[ CHECK ]");
+    logger("Shankar bot system data is loading...", "[ CHECK ]");
     startBot();
 }, 7000);
