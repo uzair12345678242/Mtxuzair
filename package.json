@@ -2,7 +2,7 @@
   "name": "SHANKAR-BOT",
   "version": "17.0.0",
   "description": "File Bot do R1zaX source lại.",
-  "main": "SHANKAR.js",
+  "main": "mirai.js",
   "scripts": {
     "start": "node index.js",
     "login": "node login",
