@@ -1,5 +1,5 @@
 services:
-  - name: your-service-name
+  - name: shankar-bot
     runtime: node
     env: node
     buildCommand: "npm install"
@@ -10,9 +10,6 @@ services:
       XDG_CONFIG_HOME: "/home/render/.config"
       PATH: "/home/render/.config/npm/node_global/bin:/home/render/node_modules/.bin"
       npm_config_prefix: "/home/render/.config/npm/node_global"
-    disk:
-      - name: config
-        mountPath: /home/render/.config
     extraPorts:
       - internalPort: 80
         externalPort: 80
