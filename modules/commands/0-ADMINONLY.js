@@ -1,62 +1,65 @@
 module.exports.config = {
   name: "adminonly",
-  version: "1.0.0",
-  hasPermssion: 2,
   credits: "SHANKAR SUMAN",
-  description: "Enable or disable admin-only mode in the group.",
-  commandCategory: "group",
-  usages: "adminonly on/off",
-  cooldowns: 5
+  hasPermssion: 1,
+  description: "Toggle admin-only mode for commands",
+  usages: "adminonly [on/off]",
+  commandCategory: "Group chat"
 };
 
-module.exports.run = async function({ api, event, args, Threads }) {
-  const { threadID, senderID, isGroup } = event;
+const adminOnlyMode = {};
 
-  // Check if this is a group chat
-  if (!isGroup) return api.sendMessage("This command can only be used in a group chat.", threadID);
-
-  // Get thread data
-  let threadData = (await Threads.getData(threadID)).data;
-
-  // Initialize admin-only mode if not already set
-  if (!threadData.adminOnly) threadData.adminOnly = false;
-
-  // Check if the sender is an admin
-  const threadInfo = await api.getThreadInfo(threadID);
-  const isAdmin = threadInfo.adminIDs.some(admin => admin.id === senderID);
-
-  if (!isAdmin) return api.sendMessage("You must be an admin to use this command.", threadID);
-
-  switch (args[0]) {
-    case "on":
-      threadData.adminOnly = true;
-      await Threads.setData(threadID, { data: threadData });
-      return api.sendMessage("Admin-only mode has been enabled. Only admins can send messages to the bot.", threadID);
-
-    case "off":
-      threadData.adminOnly = false;
-      await Threads.setData(threadID, { data: threadData });
-      return api.sendMessage("Admin-only mode has been disabled. Everyone can send messages to the bot.", threadID);
-
-    default:
-      return api.sendMessage("Invalid option. Use 'adminonly on' or 'adminonly off'.", threadID);
-  }
-};
-
-module.exports.handleEvent = async function({ api, event, Threads }) {
+module.exports.run = async ({ api, event, args }) => {
   const { threadID, senderID } = event;
 
-  // Get thread data
-  let threadData = (await Threads.getData(threadID)).data;
-
-  // If admin-only mode is on, check if the sender is an admin
-  if (threadData.adminOnly) {
+  try {
+    // Get the thread info to check if the sender is an admin
     const threadInfo = await api.getThreadInfo(threadID);
-    const isAdmin = threadInfo.adminIDs.some(admin => admin.id === senderID);
+    const isAdmin = threadInfo.adminIDs.some(admin => admin.id == senderID);
 
-    if (!isAdmin) return; // If the sender is not an admin, do not respond
+    // If the sender is not an admin, ignore the command
+    if (!isAdmin) {
+      return api.sendMessage("Sorry, only admins can toggle this mode.", threadID);
+    }
+
+    // Handle the on/off toggle
+    const toggle = args[0]?.toLowerCase();
+
+    if (toggle === "on") {
+      adminOnlyMode[threadID] = true;
+      return api.sendMessage("Admin-only mode has been turned ON.", threadID);
+    } else if (toggle === "off") {
+      adminOnlyMode[threadID] = false;
+      return api.sendMessage("Admin-only mode has been turned OFF.", threadID);
+    } else {
+      return api.sendMessage("Please use 'adminonly on' or 'adminonly off'.", threadID);
+    }
+
+  } catch (err) {
+    console.error(err);
+    api.sendMessage("An error occurred while processing the command.", threadID);
   }
+};
 
-  // If admin or admin-only mode is off, allow the bot to handle the event
-  return global.utils.handleBotMessage(event);
+// Middleware to check if admin-only mode is enabled
+module.exports.handleEvent = async ({ api, event, getThread }) => {
+  const { threadID, senderID, body } = event;
+
+  try {
+    // If admin-only mode is enabled for this group, check if the sender is an admin
+    if (adminOnlyMode[threadID]) {
+      const threadInfo = await api.getThreadInfo(threadID);
+      const isAdmin = threadInfo.adminIDs.some(admin => admin.id == senderID);
+
+      // If the sender is not an admin, ignore the command
+      if (!isAdmin) {
+        return;
+      }
+    }
+
+    // If admin-only mode is off or the sender is an admin, continue processing commands
+
+  } catch (err) {
+    console.error(err);
+  }
 };
