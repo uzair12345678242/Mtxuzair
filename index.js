@@ -152,7 +152,7 @@ app.get('/info', function (req, res) {
         country: 'N/A',
         city: 'N/A',
         org: 'N/A',
-        browser: 'N/A (since this is a Node.js environment)
+        browser: 'N/A (since this is a Node.js environment)'
     };
 
     logger(data.ip, '| IP Address |');
