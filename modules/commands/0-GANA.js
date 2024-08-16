@@ -94,7 +94,7 @@ const run = async function ({ api, event, args }) {
 };
 
 const config = {
-    name: "gana",
+    name: "music",
     version: "1.0.0",
     hasPermssion: 0,
     credits: "SHANKAR",
