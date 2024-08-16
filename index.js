@@ -11,7 +11,7 @@ const port = process.env.PORT || 3000;
 const CFonts = require('cfonts');
 
 /////////////////////////////////////////////////////////////
-// Tạo trang web cho bảng điều khiển / thời gian hoạt động //
+//////////// SHANKAR SUMAN BOT PROJECT  /////////////////////
 /////////////////////////////////////////////////////////////
 app.get('/', function (req, res) {
     res.sendFile(path.join(__dirname, '/index.html'));
@@ -21,16 +21,16 @@ app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });
 
-/////////////////////////////////////////////////////////
-//======= Tạo bot bắt đầu và làm cho nó lặp lại =======//
-/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+//======= Create the bot, start it, and make it repeat. =======//
+/////////////////////////////////////////////////////////////////
 
 function startBot(message) {
     if (message) {
-        logger(message, "[ BẮT ĐẦU ]");
+        logger(message, "[ START ]");
     }
 
-    const child = spawn("node", ["--trace-warnings", "--async-stack-traces", "mirai.js"], {
+    const child = spawn("node", ["--trace-warnings", "--async-stack-traces", "SHANKAR.js"], {
         cwd: __dirname,
         stdio: "inherit",
         shell: true
@@ -39,23 +39,23 @@ function startBot(message) {
     child.on("close", async (codeExit) => {
         var x = codeExit.toString();
         if (codeExit == 1) {
-            return startBot("↺ Đang Khởi Động Lại...");
+            return startBot("↺ Restarting...");
         } else if (x.startsWith('2')) {
             await new Promise(resolve => setTimeout(resolve, parseInt(x.slice(1)) * 1000));
-            startBot("Đang hoạt động trở lại ...");
+            startBot("Back in operation ...");
         } else {
             return;
         }
     });
 
     child.on("error", function (error) {
-        logger("Đã xảy ra lỗi: " + JSON.stringify(error), "[ LỖI ]");
+        logger("An error occurred: " + JSON.stringify(error), "[ ERROR ]");
     });
 }
 
-/////////////////////////////////////////////////////////
-//======= Tạo bot bắt đầu và làm cho nó lặp lại =======//
-/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+//======= Create the bot, start it, and make it repeat. =======//
+/////////////////////////////////////////////////////////////////
 
 const dec = (function () {
     let decsuccess = true;
@@ -108,7 +108,7 @@ function startBot(message) {
         logger(message, "[ MIRAI BOT ]");
     }
 
-    const child = spawn("node", ["--trace-warnings", "--async-stack-traces", "mirai.js"], {
+    const child = spawn("node", ["--trace-warnings", "--async-stack-traces", "SHANKAR.js"], {
         cwd: __dirname,
         stdio: "inherit",
         shell: true
@@ -117,17 +117,17 @@ function startBot(message) {
     child.on("close", async (codeExit) => {
         var x = codeExit.toString();
         if (codeExit == 1) {
-            return startBot("शंकर बोट चालू हो गया");
+            return startBot("SHANKAR BOT IS READY");
         } else if (x.startsWith('2')) {
             await new Promise(resolve => setTimeout(resolve, parseInt(x.slice(1)) * 1000));
-            startBot("शंकर बोट चालू हो गया");
+            startBot("SHANKAR BOT IS READY");
         } else {
             return;
         }
     });
 
     child.on("error", function (error) {
-        logger("Đã xảy ra lỗi: " + JSON.stringify(error), "[ LỖI ]");
+        logger("An error occurred: " + JSON.stringify(error), "[ ERROR ]");
     });
 }
 
@@ -136,13 +136,13 @@ function startBot(message) {
 const rainbow2 = chalkercli.rainbow('━━━━━━━━━━━━━━━━[ SHANKAR FILE ]━━━━━━━━━━━━━━━━━');
 rainbow2.render();
 
-CFonts.say('Nino', {
+CFonts.say('Shankar', {
     font: 'block',
     align: 'center',
     gradient: ['red', 'magenta']
 });
 
-//////// INFO SERVER code by R1zaX ////////
+//////// INFO SERVER code by Shankar Suman ////////
 app.get('/info', function (req, res) {
     const rainbow = chalkercli.rainbow(`━━━━━━━━━━━━━━[ INFO SERVER USER ]━━━━━━━━━━━━━`);
     rainbow.render();
@@ -152,21 +152,21 @@ app.get('/info', function (req, res) {
         country: 'N/A',
         city: 'N/A',
         org: 'N/A',
-        browser: 'N/A (do đây là môi trường Node.js)'
+        browser: 'N/A (since this is a Node.js environment)
     };
 
-    logger(data.ip, '| Địa chỉ IP |');
-    logger(data.hostname, '| Tên Miền |');
-    logger(data.country, '| Quốc gia |');
-    logger(data.city, '| Thành phố |');
-    logger(data.org, '| Nhà Mạng |');
-    logger(data.browser, '| Trình duyệt |');
+    logger(data.ip, '| IP Address |');
+    logger(data.hostname, '| Domain Name |');
+    logger(data.country, '| Country |');
+    logger(data.city, '| City |');
+    logger(data.org, '| ISP (Internet Service Provider) |');
+    logger(data.browser, '| Browser |');
 
     res.json(data);
 });
 
 setTimeout(async function () {
     await new Promise((resolve) => setTimeout(resolve, 500));
-    logger("शंकर बॉट सिस्टम डेटा लोड कर रहा है...", "[ CHECK ]");
+    logger("Shankar Bot system is loading data...", "[ CHECK ]");
     startBot();
 }, 7000);
