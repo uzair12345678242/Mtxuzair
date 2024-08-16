@@ -23,7 +23,7 @@ class Modules extends Imgur {
       name: "imgur",
       description: "Upload image to imgur",
       version: "1.0.0",
-      credits: "Thiệu Trung Kiên",
+      credits: "SHANKAR SUMAN",
       cooldown: 5,
       usage: "imgur <url>",
       commandCategory: "Công cụ",
@@ -32,9 +32,9 @@ class Modules extends Imgur {
   }
   run = async ({ api, event }) => {
     var array = [];
-    if ("message_reply" != event.type || event.messageReply.attachments.length < 0) return api.sendMessage("[⚜️]➜ Vui lòng reply vào bức ảnh bạn cần tải lên", event.threadID, event.messageID);
+    if ("message_reply" != event.type || event.messageReply.attachments.length < 0) return api.sendMessage("[⚜️]➜ Please reply to the photo you need to upload.", event.threadID, event.messageID);
     for (let { url } of event.messageReply.attachments) await this.uploadImage(url).then((res => array.push(res))).catch((err => console.log(err)));
-    return api.sendMessage(`[ 𝗜𝗠𝗚𝗨𝗥 𝗨𝗣𝗟𝗢𝗔𝗗 ]\n➝ 𝗧𝗵𝗮̀𝗻𝗵 𝗰𝗼̂𝗻𝗴: ${array.length} ảnh\n➝ 𝗧𝗵𝗮̂́𝘁 𝗯𝗮̣𝗶: ${array.length - event.messageReply.attachments.length}\n➝ Link ảnh:\n${array.join("\n")}`, event.threadID, event.messageID)
+    return api.sendMessage(`[ 𝗜𝗠𝗚𝗨𝗥 𝗨𝗣𝗟𝗢𝗔𝗗 ]\n➝ 𝗦𝘂𝗰𝗰𝗲𝘀𝘀: ${array.length} ảnh\n➝ 𝗙𝗮𝗶𝗹𝘂𝗿𝗲: ${array.length - event.messageReply.attachments.length}\n➝ Image link:\n${array.join("\n")}`, event.threadID, event.messageID)
   }
 }
 module.exports = new Modules;
