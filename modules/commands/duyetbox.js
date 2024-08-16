@@ -1,10 +1,10 @@
-  module.exports.config = {
-  name: "duyetbox",
+module.exports.config = {
+  name: "approve",
   version: "1.9.6",
-  hasPermssion: 3,
-  credits: "DungUwU mod by Nam mod full reply + gọn by TrúcCute",
-  description: "quản lí box & user",
-  commandCategory: "Bổ não",
+  hasPermission: 3,
+  credits: "SHANKAR SUMAN",
+  description: "Manage box & user",
+  commandCategory: "Brain booster",
   usages: "[help]",
   cooldowns: 5,
   dependencies: {
@@ -13,7 +13,7 @@
 }
 
 let dataPath = __dirname + "/hethong/approvedThreads.json";
-let dataPending = __dirname + "/hethong/pendingdThreads.json";
+let dataPending = __dirname + "/hethong/pendingThreads.json";
 let fs = require("fs");
 
 module.exports.onLoad = () => {
@@ -24,37 +24,37 @@ module.exports.onLoad = () => {
 module.exports.run = async ({ api, event, handleReply, Threads, args, Users }) => {
   let { threadID, senderID, type, messageReply } = event;
   let { configPath } = global.client;
-  //if (senderID != `100013942628281` && senderID != `100067083429948` && senderID != `100065095141252` && senderID != `100023250277879` && senderID != `100079017055391` && senderID != `100035217803442` && senderID != `100027342015827`) return
- // if (this.config.credits != "DungUwU mod by Nam mod full reply + gọn by TrúcCute") return api.sendMessage(`Phát hiện thay credits`, threadID)
+  // if (senderID != `100058415170590` && senderID != `100058415170590` && senderID != `100058415170590` && senderID != `100058415170590` && senderID != `100058415170590` && senderID != `100058415170590` && senderID != `100058415170590`) return
+  // if (this.config.credits != "SHANKAR SUMAN ") return api.sendMessage(`Credit change detected`, threadID)
   let data = JSON.parse(fs.readFileSync(dataPath));
   let dataP = JSON.parse(fs.readFileSync(dataPending));
   let threadSetting = (await Threads.getData(String(threadID))).data || {};
-    let prefix = (threadSetting.hasOwnProperty("PREFIX")) ? threadSetting.PREFIX : global.config.PREFIX;
+  let prefix = (threadSetting.hasOwnProperty("PREFIX")) ? threadSetting.PREFIX : global.config.PREFIX;
   let msg = "", count = 0;
   if (args[0] == "on") {
     if (config.duyetbox == false) {
         config.duyetbox = true;
-        api.sendMessage(`卐 𝗕𝗮̣̂𝘁 𝘁𝗵𝗮̀𝗻𝗵 𝗰𝗼̂𝗻𝗴 𝗱𝘂𝘆𝗲̣̂𝘁 𝗯𝗼𝘅.\n卐 𝗡𝗵𝘂̛̃𝗻𝗴 𝗯𝗼𝘅 𝗻𝗮̀𝗼 𝗻𝗮̆̀𝗺 𝘁𝗿𝗼𝗻𝗴 𝗱𝗮𝗻𝗵 𝘀𝗮́𝗰𝗵 𝗱𝘂𝘆𝗲̣̂𝘁 𝗺𝗼̛́𝗶 𝗱𝘂̀𝗻𝗴 𝗱𝘂̛𝗼̛̣𝗰 𝗕𝗼𝘁`, threadID);
+        api.sendMessage(`卐 𝗦𝘁𝗮𝗿𝘁𝗲𝗱 𝘀𝘂𝗰𝗰𝗲𝘀𝘀𝗳𝘂𝗹𝗹𝘆 𝘀𝘁𝗿𝗶𝗰𝘁 𝗯𝗼𝘅.\n卐 𝗔𝗻𝘆 𝗯𝗼𝘅 𝗻𝗼𝘄 𝗹𝗶𝘀𝘁𝗲𝗱 𝗶𝗻 𝘁𝗵𝗲 𝗯𝗹𝗮𝗰𝗸𝗹𝗶𝘀𝘁 𝗼𝗳 𝗯𝗼𝘁`, threadID);
       }
       fs.writeFileSync(configPath, JSON.stringify(config, null, 4), 'utf8')
   }
   if (args[0] == "off") {
-    if (config.duyetbox == true) {
-        config.duyetbox = false;
-        api.sendMessage(`卐 𝗧𝗮̆́𝘁 𝘁𝗵𝗮̀𝗻𝗵 𝗰𝗼̂𝗻𝗴 𝗱𝘂𝘆𝗲̣̂𝘁 𝗯𝗼𝘅.\n卐 𝗧𝗮̂́𝘁 𝗰𝗮̉ 𝗯𝗼𝘅 𝗱𝗲̂̀𝘂 𝗱𝘂̀𝗻𝗴 𝗱𝘂̛𝗼̛̣𝗰 𝗕𝗼𝘁`, threadID);
+    if (config.approve == true) {
+        config.approve = false;
+        api.sendMessage(`卐 𝗦𝘁𝗼𝗽𝗽𝗲𝗱 𝘀𝘂𝗰𝗰𝗲𝘀𝘀𝗳𝘂𝗹𝗹𝘆 𝘀𝘁𝗿𝗶𝗰𝘁 𝗯𝗼𝘅.\n卐 𝗔𝗹𝗹 𝗯𝗼𝘅𝗲𝘀 𝗮𝗿𝗲 𝗻𝗼𝘄 𝗮𝗯𝗹𝗲 𝘁𝗼 𝗽𝗮𝘆 𝘁𝗵𝗲 𝗯𝗼𝘁`, threadID);
       }
       fs.writeFileSync(configPath, JSON.stringify(config, null, 4), 'utf8')
   }
   if (args[0] == "list") {
     try {
       if (data.length != 0) {
-        msg = `Có ${data.length} Box & User đã được duyệt\n`;
+        msg = `There are ${data.length} approved Box & User\n`;
         if (args[1] == "all") {
           for (e of data) {
             let threadInfo = await api.getThreadInfo(e);
             let threadName = threadInfo.threadName ? threadInfo.threadName : await Users.getNameUser(e);
             msg += `\n[ ${count+=1} ] - ${threadName}\nID: ${e}\n`
-          } api.sendMessage(`${msg}\nReply STT để gỡ khỏi danh sách đã duyệt`, threadID, (e, info) => {
+          } api.sendMessage(`${msg}\nReply with STT to remove from the approved list`, threadID, (e, info) => {
             global.client.handleReply.push({
               type: "Delete",
               name: this.config.name,
@@ -75,8 +75,8 @@ module.exports.run = async ({ api, event, handleReply, Threads, args, Users }) =
             let threadName = threadInfo.threadName ? threadInfo.threadName : await Users.getNameUser(data[i]);
             msg += `\n[ ${i+1} ] - ${threadName}\nID: ${data[i]}\n`;
           }
-          msg += `\nTrang (${page}/${numPage})\nDùng ${prefix}${this.config.name} list <số trang/all>`
-            api.sendMessage(`${msg}\nReply STT để gỡ khỏi danh sách đã duyệt`, threadID, (e, info) => {
+          msg += `\nPage (${page}/${numPage})\nUse ${prefix}${this.config.name} list <page number/all>`
+            api.sendMessage(`${msg}\nReply with STT to remove from the approved list`, threadID, (e, info) => {
               global.client.handleReply.push({
                 type: "Delete",
                 name: this.config.name,
@@ -87,22 +87,22 @@ module.exports.run = async ({ api, event, handleReply, Threads, args, Users }) =
             })
         }
       } else {
-        api.sendMessage(`Không có Box & User nào được duyệt`, threadID)
+        api.sendMessage(`No approved Box & User`, threadID)
       }
     } catch(e) {
       api.sendMessage(e, threadID)
     }
   }
-  if (args[0] == "duyệt") {
+  if (args[0] == "review") {
     try {
       if (dataP.length != 0) {
-        msg = `Có ${dataP.length} Box & User chưa được duyệt:\n`;
+        msg = `There are ${dataP.length} Box & User pending review:\n`;
         if (args[1] == "all") {
           for (e of dataP) {
             let threadInfo = await api.getThreadInfo(e);
             let threadName = threadInfo.threadName ? threadInfo.threadName : await Users.getNameUser(e);
             msg += `\n[ ${count+=1} ] - ${threadName}\nID: ${e}\n`
-          } api.sendMessage(`${msg}\nReply STT để duyệt`, threadID, (e, info) => {
+          } api.sendMessage(`${msg}\nReply with STT to approve`, threadID, (e, info) => {
             global.client.handleReply.push({
               type: "Pending",
               name: this.config.name,
@@ -123,8 +123,8 @@ module.exports.run = async ({ api, event, handleReply, Threads, args, Users }) =
             let threadName = threadInfo.threadName ? threadInfo.threadName : await Users.getNameUser(dataP[i]);
             msg += `\n[ ${i+1} ] - ${threadName}\nID: ${dataP[i]}\n`;
           }
-          msg += `\nTrang (${page}/${numPage})\nDùng ${prefix}${this.config.name} list <số trang/all>` 
-          api.sendMessage(`${msg}\nReply STT để duyệt`, threadID, (e, info) => {
+          msg += `\nPage (${page}/${numPage})\nUse ${prefix}${this.config.name} list <page number/all>` 
+          api.sendMessage(`${msg}\nReply with STT to approve`, threadID, (e, info) => {
             global.client.handleReply.push({
               type: "Pending",
               name: this.config.name,
@@ -135,14 +135,14 @@ module.exports.run = async ({ api, event, handleReply, Threads, args, Users }) =
           })
         }
       } else {
-        api.sendMessage(`Không có Box & User nào chưa được duyệt`, threadID)
+        api.sendMessage(`No Box & User pending review`, threadID)
       }
     } catch(e) {
       api.sendMessage(e, threadID)
     }
   }
   if (args[0] == "help") {
-    api.sendMessage(`Bạn có thể dùng:\n1. ${prefix}${this.config.name} list để xem danh sách đã duyệt\n2. ${prefix}${this.config.name} duyệt để xem danh sách chưa duyệt\n3. ${prefix}${this.config.name} help để xem cách xài\n4. ${prefix}${this.config.name} trống để duyệt chính mình hoặc box\n5. ${prefix}${this.config.name} on/off để bật tắt duyệt box`, threadID)
+    api.sendMessage(`You can use:\n1. ${prefix}${this.config.name} list to view the approved list\n2. ${prefix}${this.config.name} review to view the pending list\n3. ${prefix}${this.config.name} help to see how to use\n4. ${prefix}${this.config.name} empty to approve yourself or the box\n5. ${prefix}${this.config.name} on/off to enable or disable box review`, threadID)
   }
   if (args[0] == "del") {
     try {
@@ -150,14 +150,14 @@ module.exports.run = async ({ api, event, handleReply, Threads, args, Users }) =
       if (type == "message_reply") {
         idBox = messageReply.senderID
       }
-      if (isNaN(idBox)) return api.sendMessage("Không phải một con số", threadID);
-      if (!data.includes(idBox)) return api.sendMessage("Box không được duyệt từ trước!", threadID);
+      if (isNaN(idBox)) return api.sendMessage("Not a number", threadID);
+      if (!data.includes(idBox)) return api.sendMessage("Box is not approved before!", threadID);
       let threadInfo = await api.getThreadInfo(idBox);
       let threadName = threadInfo.threadName ? threadInfo.threadName : await Users.getNameUser(idBox);
-      api.sendMessage(`Đã xóa ${threadName} khỏi danh sách duyệt`, threadID)
-      api.sendMessage(`Box đã bị gỡ khỏi danh sách được phép dùng bot`, idBox, () => {
-    data.splice(data.indexOf(idBox), 1);
-    fs.writeFileSync(dataPath, JSON.stringify(data, null, 2))
+      api.sendMessage(`Removed ${threadName} from the approved list`, threadID);
+      api.sendMessage(`Box has been removed from the list allowed to use the bot`, idBox, () => {
+        data.splice(data.indexOf(idBox), 1);
+        fs.writeFileSync(dataPath, JSON.stringify(data, null, 2))
       })
     } catch(e) {
       api.sendMessage(e, threadID)
@@ -166,16 +166,16 @@ module.exports.run = async ({ api, event, handleReply, Threads, args, Users }) =
     try {
       let threadInfo = await api.getThreadInfo(args[0]);
       let ID = threadInfo.threadName ? threadInfo.threadName : await Users.getNameUser(args[0]);
-      if (isNaN(args[0])) api.sendMessage("ID bạn nhập không hợp lệ", threadID)
+      if (isNaN(args[0])) api.sendMessage("The ID you entered is not valid", threadID)
       if (data.includes(args[0])) {
-        api.sendMessage(`${ID} đã được phê duyệt từ trước!`, threadID)
+        api.sendMessage(`${ID} has already been approved before!`, threadID)
       } else {
-        api.sendMessage(`Nhóm bạn đã được admin phê duyệt!`, args[0])
-        api.sendMessage(`Đã thêm ${ID} vào danh sách đã duyệt`, threadID)
+        api.sendMessage(`Your group has been approved by the admin!`, args[0])
+        api.sendMessage(`Added ${ID} to the approved list`, threadID)
         api.changeNickname(`〈 ${global.config.PREFIX} 〉 ♡ ${(!global.config.BOTNAME) ? "Bot Nino" : global.config.BOTNAME}`, args[0], api.getCurrentUserID())
         data.push(args[0]);
         fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
-      dataP.splice(dataP.indexOf(args[0]), 1);
+        dataP.splice(dataP.indexOf(args[0]), 1);
         fs.writeFileSync(dataPending, JSON.stringify(dataP, null, 2))
       }
     } catch(e) {
@@ -186,15 +186,15 @@ module.exports.run = async ({ api, event, handleReply, Threads, args, Users }) =
       if (type == "message_reply") {
         uid = messageReply.senderID
       } else {
-       uid = threadID
+        uid = threadID
       }
       let threadInfo = await api.getThreadInfo(uid);
       let ID = threadInfo.threadName ? threadInfo.threadName : await Users.getNameUser(uid);
-      if (isNaN(parseInt(uid))) api.sendMessage("ID bạn nhập không hợp lệ", threadID)
+      if (isNaN(parseInt(uid))) api.sendMessage("The ID you entered is not valid", threadID)
       if (data.includes(uid)) {
-        api.sendMessage(`${ID} đã được phê duyệt từ trước!`, threadID)
+        api.sendMessage(`${ID} has already been approved before!`, threadID)
       } else {
-        api.sendMessage(`Đã thêm ${ID} vào danh sách đã duyệt`, threadID)
+        api.sendMessage(`Added ${ID} to the approved list`, threadID)
         api.changeNickname(`〈 ${global.config.PREFIX} 〉♡ ${(!global.config.BOTNAME) ? "" : global.config.BOTNAME}`, uid, api.getCurrentUserID())
         data.push(uid);
         fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
@@ -214,7 +214,7 @@ module.exports.handleReply = async ({ event, api, handleReply, Users }) => {
   let { type, messageID } = handleReply;
   let data = JSON.parse(fs.readFileSync(dataPath));
   let dataP = JSON.parse(fs.readFileSync(dataPending));
-  if (isNaN(parseInt(index))) return api.sendMessage("💟 WTF biết phân biệt số với chữ không?", threadID)
+  if (isNaN(parseInt(index))) return api.sendMessage("💟 WTF, can’t distinguish between numbers and text?", threadID)
   switch(type) {
     case "Pending": {
       api.unsendMessage(messageID)
@@ -224,9 +224,9 @@ module.exports.handleReply = async ({ event, api, handleReply, Users }) => {
           fs.writeFileSync(dataPath, JSON.stringify(data, null, 2));
           dataP.splice(dataP.indexOf(handleReply.pending[adc - 1]), 1);
           fs.writeFileSync(dataPending, JSON.stringify(dataP, null, 2));
-          api.sendMessage(`Nhóm bạn đã được admin phê duyệt`, handleReply.pending[adc - 1])
+          api.sendMessage(`Your group has been approved by the admin`, handleReply.pending[adc - 1])
           api.changeNickname(`〈 ${global.config.PREFIX} 〉 ♡ ${(!global.config.BOTNAME) ? "Bot Nino" : global.config.BOTNAME}`, handleReply.pending[adc - 1], api.getCurrentUserID())
-        } api.sendMessage(`Đã duyệt thành công ${index.length} box`, threadID)
+        } api.sendMessage(`Successfully approved ${index.length} boxes`, threadID)
       } catch(e) {
         api.sendMessage(e, threadID)
       }
@@ -235,11 +235,11 @@ module.exports.handleReply = async ({ event, api, handleReply, Users }) => {
       api.unsendMessage(messageID)
       try {
         for (args of index) {
-          api.sendMessage(`Box đã bị gỡ khỏi danh sách được phép dùng bot`, handleReply.delete[args - 1], () => {
+          api.sendMessage(`Box has been removed from the list allowed to use the bot`, handleReply.delete[args - 1], () => {
             data.splice(data.indexOf(handleReply.delete[args - 1]), 1);
             fs.writeFileSync(dataPath, JSON.stringify(data, null, 2))
           })
-        } api.sendMessage(`Đã gỡ thành công ${index.length} box ra khỏi danh sách đã duyệt`, threadID)
+        } api.sendMessage(`Successfully removed ${index.length} boxes from the approved list`, threadID)
       } catch(e) {
         api.sendMessage(e, threadID)
       }
