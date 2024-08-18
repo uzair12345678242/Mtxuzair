@@ -1,85 +1,81 @@
 module.exports.config = {
-	name: "leaveNoti",
-	eventType: ["log:unsubscribe"],
-	version: "1.0.0",
-	credits: "", //mod by RqzaX
-	description: "Thông báo bot hoặc người rời khỏi nhóm có random gif/ảnh/video",
-	dependencies: {
-		"fs-extra": "",
-		"path": ""
-	}
+  name: "leave",
+  eventType: ["log:unsubscribe"],
+  version: "1.1.0",
+  credits: "SHANKAR SUMAN", // Mod by H.Thanh, Updated by Your Name
+  description: "Notify the Bot or the person leaving the group with a random Imgur GIF/photo/video",
+  dependencies: {
+    "fs-extra": "",
+    "path": "",
+    "imgur": ""
+  }
 };
-
-const checkttPath = __dirname + './../../modules/commands/tt/'
 
 module.exports.onLoad = function () {
     const { existsSync, mkdirSync } = global.nodemodule["fs-extra"];
     const { join } = global.nodemodule["path"];
-	const path = join(__dirname, "cache", "leaveMP4");
-	if (existsSync(path)) mkdirSync(path, { recursive: true });	
 
-	const path2 = join(__dirname, "cache", "leaveMP4", "random");
+    const path = join(__dirname, "cache", "leaveGif");
+    if (!existsSync(path)) mkdirSync(path, { recursive: true });
+
+    const path2 = join(__dirname, "cache", "leaveGif", "randomgif");
     if (!existsSync(path2)) mkdirSync(path2, { recursive: true });
+
     return;
-}
+};
 
 module.exports.run = async function({ api, event, Users, Threads }) {
-   var fullYear = global.client.getTime("fullYear");
-   var getHours = await global.client.getTime("hours");
-	 var session = `${getHours < 3 ? "đêm khuya" : getHours < 8 ? "buổi sáng sớm" : getHours < 12 ? "buổi trưa" : getHours < 17 ? "buổi chiều" : getHours < 23 ? "buổi tối" : "đêm khuya"}`
-	const { createReadStream, existsSync, mkdirSync, readdirSync } = global.nodemodule["fs-extra"];
-	const { join } =  global.nodemodule["path"];
-	const { threadID } = event;
+  if (event.logMessageData.leftParticipantFbId == api.getCurrentUserID()) return;
+  const { existsSync, readdirSync, createReadStream } = global.nodemodule["fs-extra"];
+  const { join } = global.nodemodule["path"];
+  const imgur = require('imgur');
+  const { threadID } = event;
   const moment = require("moment-timezone");
-    var gio = moment.tz("Asia/Ho_Chi_Minh").format("D/MM/YYYY || HH:mm:ss");
-    var thu = moment.tz('Asia/Ho_Chi_Minh').format('dddd');
-     if (thu == 'Sunday') thu = 'Chủ Nhật'
-  if (thu == 'Monday') thu = 'Thứ Hai'
-  if (thu == 'Tuesday') thu = 'Thứ Ba'
-  if (thu == 'Wednesday') thu = 'Thứ Tư'
-  if (thu == "Thursday") thu = 'Thứ Năm'
-  if (thu == 'Friday') thu = 'Thứ Sáu'
-  if (thu == 'Saturday') thu = 'Thứ Bảy'
-	const data = global.data.threadData.get(parseInt(threadID)) || (await Threads.getData(threadID)).data;
-	const name = global.data.userName.get(event.logMessageData.leftParticipantFbId) || await Users.getNameUser(event.logMessageData.leftParticipantFbId);
-  const uid = (event.logMessageData.leftParticipantFbId);
-	const type = (event.author == event.logMessageData.leftParticipantFbId) ? " đã tự 𝗿𝗼̛̀𝗶 𝗸𝗵𝗼̉𝗶 𝗻𝗵𝗼́𝗺 vào {buoi} {thu} || {gio}\n\n🥲 𝗫𝗶𝗻 𝗰𝗵𝗮̀𝗼 𝘃𝗮̀ 𝗵𝗲̣𝗻 𝗴𝗮̣̆𝗽 𝗹𝗮̣𝗶...\n" : "vì không tương tác nên đã bị 👑 {author} ⚔️ 𝗸𝗶𝗰𝗸 khỏi nhóm\n𝗧𝗜𝗠𝗘: {buoi} {thu} lúc {gio}\n\n🥲 𝗫𝗶𝗻 𝗰𝗵𝗮̀𝗼 𝘃𝗮̀ 𝗵𝗲̣𝗻 𝗴𝗮̣̆𝗽 𝗹𝗮̣𝗶...\n";
-	const path = join(__dirname, "cache", "leaveMP4", "random");
-	const gifPath = join(__dirname, `random`);
-	var msg, formPush
-  
-//////////////// Beta Test ////////////////
-if (existsSync(checkttPath + threadID + '.json')) {
-        const threadData = JSON.parse(readFileSync(checkttPath + threadID + '.json'));
-        const userData_week_index = threadData.week.findIndex(e => e.id == event.logMessageData.leftParticipantFbId);
-        const userData_day_index = threadData.day.findIndex(e => e.id == event.logMessageData.leftParticipantFbId);
-        const userData_total_index = threadData.total.findIndex(e => e.id == event.logMessageData.leftParticipantFbId);
-        if (userData_total_index != -1) {
-            threadData.total.splice(userData_total_index, 1);
-        }
-        if (userData_week_index != -1) {
-            threadData.week.splice(userData_week_index, 1);
-        }
-        if (userData_day_index != -1) {
-            threadData.day.splice(userData_day_index, 1);
-        }
-        writeFileSync(checkttPath + threadID + '.json', JSON.stringify(threadData, null, 4));
-    } 
-//////////////// Beta Test ////////////////
-    if (existsSync(path)) mkdirSync(path, { recursive: true });
+  const time = moment.tz("Asia/Kolkata").format("DD/MM/YYYY || HH:mm:s");
+  const hours = moment.tz("Asia/Kolkata").format("HH");
+  const data = global.data.threadData.get(parseInt(threadID)) || (await Threads.getData(threadID)).data;
+  const name = global.data.userName.get(event.logMessageData.leftParticipantFbId) || await Users.getNameUser(event.logMessageData.leftParticipantFbId);
+  const type = (event.author == event.logMessageData.leftParticipantFbId) ? "खुद ही भाग गया😐👈" : "एडमिन ने गुस्से में निकाल दिया।😑👈";
 
-	(typeof data.customLeave == "undefined") ? msg = "🌸{name} {type}\n🌸𝗣𝗥𝗢𝗙𝗜𝗟𝗘: https://facebook.com/profile.php?id={uid}" : msg = data.customLeave;
-   var nameAuthor = await Users.getNameUser(event.author)
-	msg = msg.replace(/\{name}/g, name) .replace(/\{type}/g, type).replace(/\{buoi}/g, session).replace(/\{thu}/g, thu).replace(/\{gio}/g, gio).replace(/\{author}/g, nameAuthor).replace(/\{uidAuthor}/g, event.author).replace(/\{uid}/g, uid);
+  const path = join(__dirname, "cache", "leaveGif");
+  const pathGif = join(path, `${threadID}.mp4`);
+  let msg, formPush;
 
-	const randomPath = readdirSync(join(__dirname, "cache", "leaveMP4", "random"));
+  (typeof data.customLeave == "undefined") ? msg = "सुकर है एक ठरकी इस ग्रुप में कम हो गया😑👈\nनाम👉 {name}\nरीजन👉 {type} \n हमारे साथ अपना कीमती समय देने के लिए धन्यवाद {name} जल्द ही फिर मिलेंगे😊💔\n\n[❤️‍🔥] बाय बाय खुश रहना हमेशा. {session} || {time} \n▰▱▰▱▰▱▰▱▰▱▰▱▰▱▰▱ \n credit:-SHANKAR-SUMAN \n " : msg = data.customLeave;
+  msg = msg.replace(/\{name}/g, name).replace(/\{type}/g, type).replace(/\{session}/g, hours <= 10 ? "𝙈𝙤𝙧𝙣𝙞𝙣𝙜" : 
+    hours > 10 && hours <= 12 ? "𝘼𝙛𝙩𝙚𝙧𝙣𝙤𝙤𝙣" :
+    hours > 12 && hours <= 18 ? "𝙀𝙫𝙚𝙣𝙞𝙣𝙜" : "𝙉𝙞𝙜𝙝𝙩").replace(/\{time}/g, time);  
 
-	if (existsSync(gifPath)) formPush = msg
-	else if (randomPath.length != 0) {
-		const pathRandom = join(__dirname, "cache", "leaveMP4", "random", `${randomPath[Math.floor(Math.random() * randomPath.length)]}`);
-		formPush = msg
-	}
-	else formPush = msg
-	
-	return api.sendMessage(formPush, threadID);
-}
+  const randomPath = readdirSync(join(__dirname, "cache", "leaveGif", "randomgif"));
+
+  // Fake Imgur Links
+  const fakeImgurLinks = [
+    "https://i.imgur.com/5n88mQU.gif",
+    "https://i.imgur.com/S60tB8i.gif",
+    "https://i.imgur.com/XWvd9Nl.gif",
+    "https://i.imgur.com/FL3xoVQ.gif"
+  ];
+
+  let imgurLink = "";
+
+  try {
+    if (existsSync(pathGif)) {
+      imgurLink = await imgur.uploadFile(pathGif).then(response => response.data.link);
+    } else if (randomPath.length != 0) {
+      const pathRandom = join(__dirname, "cache", "leaveGif", "randomgif",`${randomPath[Math.floor(Math.random() * randomPath.length)]}`);
+      imgurLink = await imgur.uploadFile(pathRandom).then(response => response.data.link);
+    }
+
+    // Fallback to a random fake link if Imgur upload fails
+    if (!imgurLink) {
+      imgurLink = fakeImgurLinks[Math.floor(Math.random() * fakeImgurLinks.length)];
+    }
+  } catch (error) {
+    // In case of any error, use a random fake Imgur link
+    imgurLink = fakeImgurLinks[Math.floor(Math.random() * fakeImgurLinks.length)];
+  }
+
+  formPush = { body: `${msg}\n\n[GIF/Photo]: ${imgurLink}` };
+
+  return api.sendMessage(formPush, threadID);
+};
