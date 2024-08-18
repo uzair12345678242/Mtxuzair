@@ -2,9 +2,9 @@ module.exports.config = {
   name: "out",
   version: "1.0.0",
   hasPermssion: 2,
-  credits: "DũngUwU",
+  credits: "SHANKAR",
   description: "out box",
-  commandCategory: "Tài khoản",
+  commandCategory: "group leave",
   usages: "[tid]",
   cooldowns: 3
 };
@@ -16,5 +16,5 @@ module.exports.run = async function({ api, event, args }) {
   } else {
     id = parseInt(args.join(" "));
   }
-  return api.sendMessage('Đã nhận lệnh out nhóm từ admin!', id, () => api.removeUserFromGroup(api.getCurrentUserID(), id))
+  return api.sendMessage('Received a command to leave the group from the admin.!', id, () => api.removeUserFromGroup(api.getCurrentUserID(), id))
 }
