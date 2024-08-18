@@ -1,6 +1,8 @@
+#    SHANKAR SUMAN PROJECT
+
 # Security Policy
 
-+ if have any Vulnerability finded contact: Author(KanzuWakazaki.Main@proton.me) or (Facebook.com/Lazic.Kanzu). Thanks!
++ if have any Vulnerability finded contact: Author(shankarraj7295@gmail.com) or (https://www.facebook.com/shankar.suman.98622733). Thanks!
 
 ## Supported Versions
 
