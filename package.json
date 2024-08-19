@@ -1,7 +1,7 @@
 {
   "name": "shankar-bot",
   "version": "17.0.0",
-  "description": "File Bot do R1zaX source lại.",
+  "description": "Shankar bot project.",
   "main": "SHANKAR.js",
   "scripts": {
     "start": "node index",
