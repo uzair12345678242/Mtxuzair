@@ -2,7 +2,7 @@ module.exports.config = {
   name: "ai",
   version: "1.0.1",
   hasPermission: 0,
-  credits: "kenlie",
+  credits: "SHANKAR SHANKAR",
   description: "GPT GO",
   commandCategory: "Chat GPT",
   usages: "[ask]",
