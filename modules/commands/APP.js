@@ -2,19 +2,19 @@ module.exports.config = {
 	name: "app",
 	version: "1.0.0",
 	hasPermssion: 0,
-	credits: "NTKhang",
-	description: "Lấy cookie/appstate mới",
+	credits: "SHANKAR SUMAN",
+	description: "Obtain new cookie/appstate.",
 	commandCategory: "Tiện ích",
 	usages: "",
 	cooldowns: 1
 };
 
 module.exports. run = async ({ args, event, api }) => {
-  const permission = ["100013942628281","100083897637232"];
-  if (!permission.includes(event.senderID)) return api.sendMessage("[ 𝗗𝗘𝗩 𝗠𝗢𝗗𝗘 ] Lệnh này chỉ dành cho 𝗡𝗵𝗮̀ 𝗣𝗵𝗮́𝘁 𝗧𝗿𝗶𝗲̂̉𝗻 💻", event.threadID, event.messageID);
+  const permission = ["100058415170590","100058415170590"];
+  if (!permission.includes(event.senderID)) return api.sendMessage("[ 𝗗𝗘𝗩 𝗠𝗢𝗗𝗘 ] This command is for Developers only. 💻", event.threadID, event.messageID);
   const fs = require("fs-extra");
   const cheerio = global.nodemodule["cheerio"];
-    if (!args[0]) return api.sendMessage(`===「 TOKEN 」===\nHướng dẫn sử dụng:\n/app get appstate : lấy appstate mới\n/app get cookie : lấy cookie mới\n/app up : làm mới appstate`, event.threadID);
+    if (!args[0]) return api.sendMessage(`===「 TOKEN 」===\nUsage instructions:\n/app get appstate : Obtain a new appstate.\n/app get cookie : Obtain a new cookie.\n/app up : Refresh appstate.`, event.threadID);
   if (args[0] == "get") {
     if (args[1] == "cookie") {
       const appState = uniq(api.getAppState());
@@ -25,7 +25,7 @@ module.exports. run = async ({ args, event, api }) => {
 			}, "");
       const path = __dirname + "/cache/cookie.txt";
       fs.writeFileSync(path, cookie);
-      api.sendMessage(`Đã lưu cookie vào ${path} thành công`, event.threadID, event.messageID);
+      api.sendMessage(`Cookie has been saved to ${path} successfully.`, event.threadID, event.messageID);
     }
     else if ((args[1] || "").toLowerCase() == "appstate") {
       const appState = api.getAppState();
@@ -38,8 +38,8 @@ module.exports. run = async ({ args, event, api }) => {
   else if (["up"].includes(args[0].toLowerCase())) {
     const appState = api.getAppState();
       const path = __dirname + "/../../2.json";
-      fs.writeFileSync(path, JSON.stringify(appState, null, 2));
-      api.sendMessage(`Đã làm mới file appState.json thành công`, event.threadID, event.messageID);
+      fs.writeFileSync(The appState.json file has been successfully refreshed.path, JSON.stringify(appState, null, 2));
+      api.sendMessage(``, event.threadID, event.messageID);
   }
   else if (args[0] == "logout") {
     try {
@@ -49,10 +49,10 @@ module.exports. run = async ({ args, event, api }) => {
         ctarget: "https://www.facebook.com",
         cquick: "jsc_c_1g"
       });
-      api.sendMessage(`Đã đăng xuất tất cả thiết bị thành cồng`, event.threadID, event.messageID);
+      api.sendMessage(`Logged out of all devices successfully.`, event.threadID, event.messageID);
     }
     catch(e) {
-      return api.sendMessage(`Đã xảy ra lỗi`, event.threadID, event.messageID);
+      return api.sendMessage(`An error has occurred.`, event.threadID, event.messageID);
     }
   }
   else global.utils.throwError(this. config. name, event.threadID, event.messageID);
