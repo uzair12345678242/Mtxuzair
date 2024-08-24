@@ -2,7 +2,7 @@ module.exports.config = {
   name: 'autoadd',
   version: '1.1.1',
   hasPermssion: 0,
-  credits: 'Hakira',
+  credits: 'SHANKAR SUMAN',
   description: '',
   commandCategory: 'System',
   usages: 'abc',
@@ -29,8 +29,8 @@ if(find.auto == true){
 const link = event.body.match(regex);
     const res = (await axios.get('https://golike.com.vn/func-api.php?user=' + link[0])).data.data.uid
      api.addUserToGroup(res, threadID, (err) => {
-  if (participantIDs.includes(uidUser)) return api.sendMessage(`Thành viên đã có mặt trong nhóm`, threadID, messageID);
-    else api.sendMessage(`Them Thanh Vien Thanh cong`, threadID, messageID);
+  if (participantIDs.includes(uidUser)) return api.sendMessage(`The member is already in the group.`, threadID, messageID);
+    else api.sendMessage(`Member added successfully.`, threadID, messageID);
   })}
 }
 }
@@ -45,6 +45,6 @@ var { threadID, messageID } = event;
           find.auto = true
       }
   fs.writeFileSync(auto, JSON.stringify(data, null, 4), "utf-8");
-  return api.sendMessage(`Đã ${find.auto} thành công`, threadID, messageID)
+  return api.sendMessage(`Successfully ${find.auto}.`, threadID, messageID)
 }
 catch(e){console.log(e)}}
