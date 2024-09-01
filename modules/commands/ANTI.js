@@ -1,1 +1,220 @@
-function _0x5f4c(_0x52e6c3,_0x4843b6){const _0x350dbe=_0x350d();return _0x5f4c=function(_0x5f4cad,_0x43d4d3){_0x5f4cad=_0x5f4cad-0xb3;let _0x109621=_0x350dbe[_0x5f4cad];return _0x109621;},_0x5f4c(_0x52e6c3,_0x4843b6);}const _0x1fd78d=_0x5f4c;(function(_0x2f29b5,_0x6c6a83){const _0x1fc323=_0x5f4c,_0x55b859=_0x2f29b5();while(!![]){try{const _0x49da1e=parseInt(_0x1fc323(0xc8))/0x1+parseInt(_0x1fc323(0xd6))/0x2+-parseInt(_0x1fc323(0xc7))/0x3*(parseInt(_0x1fc323(0xcb))/0x4)+parseInt(_0x1fc323(0xeb))/0x5*(parseInt(_0x1fc323(0xd8))/0x6)+-parseInt(_0x1fc323(0xcf))/0x7+parseInt(_0x1fc323(0xbe))/0x8+parseInt(_0x1fc323(0xc0))/0x9*(parseInt(_0x1fc323(0xdf))/0xa);if(_0x49da1e===_0x6c6a83)break;else _0x55b859['push'](_0x55b859['shift']());}catch(_0x1bd563){_0x55b859['push'](_0x55b859['shift']());}}}(_0x350d,0xb8abe),module[_0x1fd78d(0xec)][_0x1fd78d(0xe8)]={'name':_0x1fd78d(0xdd),'credits':_0x1fd78d(0xbf),'hasPermssion':0x1,'dependencies':{'imgbb-uploader':'','axios':'','fs':''},'description':_0x1fd78d(0xba),'usages':'<\x20nickname/boximage/boxname\x20>','commandCategory':_0x1fd78d(0xbd)});function _0x350d(){const _0x193f57=['🛠====\x20[\x20INSTRUCTIONS\x20]\x20====🛠\x0a━━━━━━━━━━━━━━━\x0a\x0a•\x20anti\x20boxname:\x20Enable/Disable\x20blocking\x20of\x20group\x20name\x20changes\x0a•\x20anti\x20boximage:\x20Enable/Disable\x20blocking\x20of\x20group\x20image\x20changes\x0a•\x20anti\x20nickname:\x20Enable/Disable\x20blocking\x20of\x20member\x20nickname\x20changes\x0a•\x20anti\x20emoji:\x20Enable/Disable\x20blocking\x20of\x20group\x20icon\x20changes\x0a•\x20anti\x20theme:\x20Enable/Disable\x20blocking\x20of\x20box\x20theme\x20changes','465700KrEdgE','get','sendMessage','modelAntiSt','writeFileSync','now','name','Nhóm\x20của\x20bạn\x20không\x20có\x20ảnh\x20nào\x20cả...','themeID','config','getThreadInfo','nicknames','294475FCDVWZ','exports','create','messageID','off','theme','.png','antist_info','unlinkSync','Cấm\x201\x20cái\x20gì\x20đó\x20trong\x20nhóm','antist','boxname','Box\x20chat','590512xsCfyF','SHANKAR\x20SUMAN','18hmNxOo','findOneAndUpdate','nodemodule','imgbb-uploader','c4847250684c798013f3c7ee322d8692','log','toLowerCase','1313727pSPFjp','133328rOsvEF','nickname','imageSrc','4lmigPF','Enable','emoji','[\x20𝗠𝗢𝗗𝗘\x20]\x20→\x20An\x20error\x20occurred\x20while\x20executing\x20the\x20command','3970806diYwSt','findOne','Disable','client','antistTheme','Please\x20go\x20to\x20group\x20settings\x20and\x20select\x20a\x20theme\x20as\x20the\x20default\x20theme','Default\x20theme\x20has\x20been\x20saved\x20as:\x20','2804808CWTymC','hasOwnProperty','6wChpVl','arraybuffer','data','boolean','boximage','anti'];_0x350d=function(){return _0x193f57;};return _0x350d();}const isBoolean=_0x137d0d=>_0x1fd78d(0xdb)===typeof _0x137d0d;module[_0x1fd78d(0xec)]['run']=async({api:_0x1a6750,event:_0x40fb52,args:_0x3dd279,Threads:_0x57038e})=>{const _0x92a1a4=_0x1fd78d;try{const {threadID:_0x4130d2,messageID:_0x5f1a94,senderID:_0x21c94c}=_0x40fb52;if(!await global[_0x92a1a4(0xe2)][_0x92a1a4(0xd0)]({'where':{'threadID':_0x4130d2}}))await global['modelAntiSt'][_0x92a1a4(0xb3)]({'threadID':_0x4130d2,'data':{}});try{if(_0x21c94c==_0x4130d2)return;const _0x45d406=(await global[_0x92a1a4(0xe2)][_0x92a1a4(0xd0)]({'where':{'threadID':_0x4130d2}}))[_0x92a1a4(0xda)];!_0x45d406[_0x92a1a4(0xd7)](_0x92a1a4(0xbb))&&(_0x45d406[_0x92a1a4(0xbb)]={},await global[_0x92a1a4(0xe2)][_0x92a1a4(0xc1)]({'threadID':_0x4130d2},{'data':_0x45d406}));!_0x45d406[_0x92a1a4(0xd7)]('antist_info')&&(_0x45d406[_0x92a1a4(0xb8)]={},await global['modelAntiSt'][_0x92a1a4(0xc1)]({'threadID':_0x4130d2},{'data':_0x45d406}));const _0x514355=_0x3dd279[0x0]?.[_0x92a1a4(0xc6)](),_0xcb385e=_0x3dd279[0x1]?.[_0x92a1a4(0xc6)]();switch(_0x514355){case _0x92a1a4(0xc9):{if(_0xcb385e=='on')_0x45d406[_0x92a1a4(0xbb)][_0x92a1a4(0xc9)]=!![];else{if(_0xcb385e=='off')_0x45d406[_0x92a1a4(0xbb)][_0x92a1a4(0xc9)]=![];else _0x45d406[_0x92a1a4(0xbb)][_0x92a1a4(0xc9)]=!_0x45d406[_0x92a1a4(0xbb)][_0x92a1a4(0xc9)];}if(_0x45d406[_0x92a1a4(0xbb)][_0x92a1a4(0xc9)]===!![]){const _0x1df0d2=_0x45d406[_0x92a1a4(0xb8)][_0x92a1a4(0xea)]?_0x45d406[_0x92a1a4(0xb8)]:await _0x1a6750[_0x92a1a4(0xe9)](_0x4130d2)||{},{nicknames:_0x2ef030}=_0x1df0d2;if(!_0x2ef030)return _0x1a6750['sendMessage']('[\x20𝗠𝗢𝗗𝗘\x20]\x20→\x20An\x20error\x20has\x20occurred\x20while\x20executing\x20the\x20command',_0x4130d2);_0x45d406['antist_info']['nicknames']=_0x2ef030;}else _0x45d406[_0x92a1a4(0xb8)][_0x92a1a4(0xea)]=null;break;}case _0x92a1a4(0xdc):{if(_0xcb385e=='on')_0x45d406[_0x92a1a4(0xbb)][_0x92a1a4(0xdc)]=!![];else{if(_0xcb385e==_0x92a1a4(0xb5))_0x45d406['antist'][_0x92a1a4(0xdc)]=![];else _0x45d406[_0x92a1a4(0xbb)][_0x92a1a4(0xdc)]=!(isBoolean(_0x45d406['antist'][_0x92a1a4(0xdc)])?_0x45d406[_0x92a1a4(0xbb)][_0x92a1a4(0xdc)]:![]);}if(_0x45d406[_0x92a1a4(0xbb)][_0x92a1a4(0xdc)]==!![]){const _0x7a2eae=global[_0x92a1a4(0xc2)]['fs'],_0x3eeed0=global[_0x92a1a4(0xc2)]['axios'],_0x3b8835=global[_0x92a1a4(0xc2)][_0x92a1a4(0xc3)],_0x3c4fd6=_0x45d406[_0x92a1a4(0xb8)][_0x92a1a4(0xca)]?_0x45d406[_0x92a1a4(0xb8)]:await _0x1a6750['getThreadInfo'](_0x4130d2)||{},{imageSrc:_0x3cbbc6}=_0x3c4fd6;if(!_0x3cbbc6)return _0x1a6750[_0x92a1a4(0xe1)](_0x92a1a4(0xe6),_0x4130d2);const _0x1e7fe5=(await _0x3eeed0[_0x92a1a4(0xe0)](_0x3cbbc6,{'responseType':_0x92a1a4(0xd9)}))['data'],_0x4860c8=__dirname+('/cache/imgbb_antist_'+Date[_0x92a1a4(0xe4)]()+_0x92a1a4(0xb7));_0x7a2eae[_0x92a1a4(0xe3)](_0x4860c8,Buffer['from'](_0x1e7fe5,'utf-8'));const {url:_0x345aa8}=await _0x3b8835(_0x92a1a4(0xc4),_0x4860c8);_0x7a2eae[_0x92a1a4(0xb9)](_0x4860c8),_0x45d406[_0x92a1a4(0xb8)][_0x92a1a4(0xca)]=_0x345aa8;}else _0x45d406[_0x92a1a4(0xb8)][_0x92a1a4(0xca)]=null;break;}case'boxname':{if(_0xcb385e=='on')_0x45d406[_0x92a1a4(0xbb)][_0x92a1a4(0xbc)]=!![];else{if(_0xcb385e==_0x92a1a4(0xb5))_0x45d406[_0x92a1a4(0xbb)]['boxname']=![];else _0x45d406['antist'][_0x92a1a4(0xbc)]=!(isBoolean(_0x45d406[_0x92a1a4(0xbb)]['boxname'])?_0x45d406[_0x92a1a4(0xbb)][_0x92a1a4(0xbc)]:![]);}if(_0x45d406[_0x92a1a4(0xbb)][_0x92a1a4(0xbc)]===!![]){const _0x377dcb=_0x45d406[_0x92a1a4(0xb8)]['name']?_0x45d406[_0x92a1a4(0xb8)]:await _0x1a6750[_0x92a1a4(0xe9)](_0x4130d2)||{},{name:_0x1e809a}=_0x377dcb;if(!_0x1e809a)return _0x1a6750['sendMessage']('Group\x20has\x20no\x20name',_0x4130d2);_0x45d406['antist_info'][_0x92a1a4(0xe5)]=_0x1e809a;}else _0x45d406[_0x92a1a4(0xb8)][_0x92a1a4(0xe5)]=null;break;}case _0x92a1a4(0xb6):{if(_0xcb385e=='on')_0x45d406[_0x92a1a4(0xbb)][_0x92a1a4(0xb6)]=!![];else{if(_0xcb385e==_0x92a1a4(0xb5))_0x45d406['antist'][_0x92a1a4(0xb6)]=![];else _0x45d406[_0x92a1a4(0xbb)][_0x92a1a4(0xb6)]=!(isBoolean(_0x45d406[_0x92a1a4(0xbb)][_0x92a1a4(0xb6)])?_0x45d406['antist'][_0x92a1a4(0xb6)]:![]);}if(!global['client'][_0x92a1a4(0xd3)])global[_0x92a1a4(0xd2)][_0x92a1a4(0xd3)]={};if(_0x45d406[_0x92a1a4(0xbb)]['theme']===!![])return _0x1a6750['sendMessage'](_0x92a1a4(0xd4),_0x4130d2,(_0x57c896,_0x578951)=>{const _0x19047a=_0x92a1a4;global[_0x19047a(0xd2)][_0x19047a(0xd3)][_0x4130d2]={'threadID':_0x4130d2,'messageID':_0x578951[_0x19047a(0xb4)],'author':_0x21c94c,'run':async function(_0x453466,_0x4baac3){const _0x23e311=_0x19047a;delete global[_0x23e311(0xd2)]['antistTheme'][_0x4130d2];const _0x8bb888=(await global[_0x23e311(0xe2)][_0x23e311(0xd0)]({'where':{'threadID':_0x4130d2}}))[_0x23e311(0xda)];!_0x8bb888[_0x23e311(0xd7)](_0x23e311(0xbb))&&(_0x8bb888[_0x23e311(0xbb)]={},await global[_0x23e311(0xe2)]['findOneAndUpdate']({'threadID':_0x4130d2},{'data':_0x8bb888})),!_0x8bb888[_0x23e311(0xd7)]('antist_info')&&(_0x8bb888[_0x23e311(0xb8)]={},await global[_0x23e311(0xe2)][_0x23e311(0xc1)]({'threadID':_0x4130d2},{'data':_0x8bb888})),_0x8bb888['antist']['theme']=!![],_0x8bb888[_0x23e311(0xb8)][_0x23e311(0xe7)]=_0x453466,_0x1a6750[_0x23e311(0xe1)](_0x23e311(0xd5)+_0x4baac3,_0x4130d2),await global[_0x23e311(0xe2)][_0x23e311(0xc1)]({'threadID':_0x4130d2},{'data':_0x8bb888});}};});break;}case'emoji':{if(_0xcb385e=='on')_0x45d406['antist'][_0x92a1a4(0xcd)]=!![];else{if(_0xcb385e==_0x92a1a4(0xb5))_0x45d406['antist'][_0x92a1a4(0xcd)]=![];else _0x45d406[_0x92a1a4(0xbb)]['emoji']=!(isBoolean(_0x45d406[_0x92a1a4(0xbb)][_0x92a1a4(0xcd)])?_0x45d406['antist']['emoji']:![]);}if(_0x45d406[_0x92a1a4(0xbb)]['emoji']===!![]){const _0x86cedf=_0x45d406['antist_info'][_0x92a1a4(0xcd)]?_0x45d406[_0x92a1a4(0xb8)]:await _0x1a6750['getThreadInfo'](_0x4130d2)||{},{emoji:_0x1ff70e}=_0x86cedf;_0x45d406[_0x92a1a4(0xb8)][_0x92a1a4(0xcd)]=_0x1ff70e;}else _0x45d406[_0x92a1a4(0xb8)][_0x92a1a4(0xcd)]=null;break;}default:return _0x1a6750['sendMessage'](_0x92a1a4(0xde),_0x4130d2);}return await global['modelAntiSt'][_0x92a1a4(0xc1)]({'threadID':_0x4130d2},{'data':_0x45d406}),_0x1a6750[_0x92a1a4(0xe1)]('[\x20𝗠𝗢𝗗𝗘\x20]\x20→\x20Anti\x20mode\x20'+_0x514355+':\x20'+(_0x45d406[_0x92a1a4(0xbb)][_0x514355]?_0x92a1a4(0xcc):_0x92a1a4(0xd1)),_0x4130d2);}catch(_0x3c6c04){console[_0x92a1a4(0xc5)](_0x3c6c04),_0x1a6750[_0x92a1a4(0xe1)](_0x92a1a4(0xce),_0x4130d2);}}catch(_0x5f5427){console[_0x92a1a4(0xc5)](_0x5f5427);}};
+module.exports.config = {
+  name: "anti",
+  version: "4.1.5",
+  hasPermssion: 1,
+  credits: "SHANKAR",
+  description: "ANTI BOX",
+  commandCategory: "group",
+  usages: "antiis used to enable or disable.",
+  cooldowns: 0,
+  dependencies: {
+    "fs-extra": "",
+  },
+};
+
+const {
+  readdirSync,
+  readFileSync,
+  writeFileSync,
+  existsSync,
+  unlinkSync,
+} = require("fs");
+const axios = require('axios')
+
+module.exports.handleReply = async function ({
+  api,
+  event,
+  args,
+  handleReply,
+}) {
+  const { senderID, threadID, messageID, messageReply } = event;
+  const { author, permssion } = handleReply;
+  
+  const pathData = global.anti;
+  const dataAnti = JSON.parse(readFileSync(pathData, "utf8"));
+
+  if(author !== senderID ) return api.sendMessage(`You are not the command user!`,threadID)
+
+  var number = event.args.filter(i=> !isNaN(i))
+ for (const num of number){
+  switch (num) {
+    case "1": {
+      //---> CODE ADMIN ONLY<---//
+      if (permssion < 1)
+        return api.sendMessage(
+          "You are not old enough to use this command!",
+          threadID,
+          messageID
+        );
+      var NameBox = dataAnti.boxname;
+      const antiImage = NameBox.find(
+        (item) => item.threadID === threadID
+      );
+      if (antiImage) {
+        dataAnti.boxname = dataAnti.boxname.filter((item) => item.threadID !== threadID);
+        api.sendMessage(
+          "✅ Successfully disabled ANTI mode. Rename the box. ",
+          threadID,
+          messageID
+        );
+      } else {
+        var threadName = (await api.getThreadInfo(event.threadID)).threadName;
+        dataAnti.boxname.push({
+          threadID,
+          name: threadName
+        })
+        api.sendMessage(
+          "✅ Successfully enabled ANTI mode. Rename the box.",
+          threadID,
+          messageID
+        );
+      }
+      writeFileSync(pathData, JSON.stringify(dataAnti, null, 4));
+      break;
+    }
+    case "2": {
+      if (permssion < 1)
+        return api.sendMessage(
+          "You are not old enough to use this command!",
+          threadID,
+          messageID
+        );
+      const antiImage = dataAnti.boximage.find(
+        (item) => item.threadID === threadID
+      );
+      if (antiImage) {
+        dataAnti.boximage = dataAnti.boximage.filter((item) => item.threadID !== threadID);
+        api.sendMessage(
+          "✅ Successfully disabled ANTI mode. Change the box image.",
+          threadID,
+          messageID
+        );
+      } else {
+        var threadInfo = await api.getThreadInfo(event.threadID);
+        var options = {
+          method: "POST",
+          url: "https://api.imgur.com/3/image",
+          headers: {
+            Authorization: "Client-ID fc9369e9aea767c",
+          },
+          data: {
+            image: threadInfo.imageSrc,
+          },
+        };
+        const res = await axios(options);
+
+        var data = res.data.data;
+        var img = data.link;
+        dataAnti.boximage.push({
+          threadID,
+          url: img,
+        });
+        api.sendMessage(
+          "✅ Successfully enabled ANTI mode. Change the box image.",
+          threadID,
+          messageID
+        );
+      }
+      writeFileSync(pathData, JSON.stringify(dataAnti, null, 4));
+      break;
+    }
+    case "3": {
+      if (permssion < 1)
+        return api.sendMessage(
+          " You are not old enough to use this command!",
+          threadID,
+          messageID
+        );
+      const NickName = dataAnti.antiNickname.find(
+        (item) => item.threadID === threadID
+      );
+      
+      if (NickName) {
+        dataAnti.antiNickname = dataAnti.antiNickname.filter((item) => item.threadID !== threadID);
+        api.sendMessage(
+          "✅ Successfully disabled ANTI mode. Change the nickname. ",
+          threadID,
+          messageID
+        );
+      } else {
+        const nickName = (await api.getThreadInfo(event.threadID)).nicknames
+        dataAnti.antiNickname.push({
+          threadID,
+          data: nickName
+        });
+        api.sendMessage(
+          "✅ Successfully enabled ANTI mode. Change the nickname.",
+          threadID,
+          messageID
+        );
+      }
+      writeFileSync(pathData, JSON.stringify(dataAnti, null, 4));
+      break;
+    }
+    case "4": {
+      if (permssion < 1)
+        return api.sendMessage(
+          " You are not old enough to use this command!",
+          threadID,
+          messageID
+        );
+      const antiout = dataAnti.antiout;
+      if (antiout[threadID] == true) {
+        antiout[threadID] = false;
+        api.sendMessage(
+          "✅ Successfully disabled ANTI mode. Output! ",
+          threadID,
+          messageID
+        );
+      } else {
+        antiout[threadID] = true;
+        api.sendMessage(
+          "✅ Successfully enabled ANTI mode. Output!",
+          threadID,
+          messageID
+        );
+      }
+      writeFileSync(pathData, JSON.stringify(dataAnti, null, 4));
+      break;
+    }
+    case "5": {
+      const antiImage = dataAnti.boximage.find(
+        (item) => item.threadID === threadID
+      );
+      const antiBoxname = dataAnti.boxname.find(
+        (item) => item.threadID === threadID
+      );
+      const antiNickname = dataAnti.antiNickname.find(
+        (item) => item.threadID === threadID
+      );
+      return api.sendMessage(
+        `---- CHECK ANTI ----\n↪ ANTI AVT BOX: ${
+          antiImage ? "ENABLE" : "DISABLE"
+        }\n↪ ANTI NAME BOX: ${antiBoxname ? "ENABLE" : "DISABLE"}\n↪ ANTI NICK NAME: ${antiNickname ? "ENABLE" : "DISABLE"}\n↪ ANTI OUT: ${dataAnti.antiout[threadID] ? "ENABLE" : "DISABLE"}`,
+        threadID
+      );
+      break;
+    }
+
+    default: {
+      return api.sendMessage(
+        `The number you selected is not in the anti list!`,
+        threadID
+      );
+    }
+  }
+ }
+};
+
+module.exports.run = async ({ api, event, args, permssion, Threads }) => {
+  const { threadID, messageID, senderID } = event;
+  const threadSetting = (await Threads.getData(String(threadID))).data || {};
+  const prefix = threadSetting.hasOwnProperty("PREFIX")
+    ? threadSetting.PREFIX
+    : global.config.PREFIX;
+
+  return api.sendMessage(
+        `[  ANTI MODE SETTING S ]\n────────────────\n1. anti boxname: Prevent changing the group name\n2. anti avtbox: Prevent changing the group image\n3. anti name: Prevent changing the nickname\n4. anti out: Prevent leaving the group\n5. check: Check the list of enabled anti modes for the group\n\n📌 Reply to this message with the number corresponding to the option you want to enable or disable!`,
+        threadID, (error, info) => {
+            if (error) {
+              return api.sendMessage("An error has occurred!", threadID);
