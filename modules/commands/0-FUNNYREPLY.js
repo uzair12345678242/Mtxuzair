@@ -33,10 +33,10 @@ module.exports.handleEvent = async function({ api, event, Users }) {
       const userInfo = await api.getUserInfo(senderID);
       const userName = userInfo[senderID].name;
 
-      // Fetch user's gender
+      // Fetch user's gender correctly
       const ThreadInfo = await api.getThreadInfo(threadID);
       const user = ThreadInfo.userInfo.find(user => user.id === senderID);
-      const gender = user ? (user.gender === 1 ? "FEMALE" : "MALE") : "MALE";
+      const gender = user ? (user.gender === "MALE" ? "MALE" : "FEMALE") : "MALE"; 
 
       // Randomly select a response from the appropriate array based on gender
       const genderResponses = responses[emoji][gender] || responses[emoji]["MALE"];
