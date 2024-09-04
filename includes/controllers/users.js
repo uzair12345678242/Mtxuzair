@@ -7,14 +7,21 @@ module.exports = function ({ models, api }) {
 
 	async function getNameUser(id) {
 		try {
-			if (global.data.userName.has(id)) return global.data.userName.get(id);
-			else if (global.data.allUserID.includes(id)) {
+			if (global.data.userName.has(id)) {
+				return global.data.userName.get(id);
+			} else if (global.data.allUserID.includes(id)) {
 				const nameUser = (await this.getData(id)).name;
-				if (nameUser) return nameUser;
-				else return "Người dùng facebook";
-			} else return "Người dùng facebook";
+				if (nameUser) {
+					return nameUser;
+				} else {
+					return `User_${id}`; // Fallback: Use userID as name
+				}
+			} else {
+				return `User_${id}`; // Fallback: Use userID as name
+			}
+		} catch {
+			return `User_${id}`; // Fallback in case of an error
 		}
-		catch { return "Người dùng facebook" }
 	}
 
 	async function getAll(...data) {
@@ -26,8 +33,7 @@ module.exports = function ({ models, api }) {
 		}
 		try {
 			return (await Users.findAll({ where, attributes })).map(e => e.get({ plain: true }));
-		}
-		catch (error) {
+		} catch (error) {
 			console.error(error);
 			throw new Error(error);
 		}
@@ -38,8 +44,7 @@ module.exports = function ({ models, api }) {
 			const data = await Users.findOne({ where: { userID } });
 			if (data) return data.get({ plain: true });
 			else return false;
-		}
-		catch(error) {
+		} catch(error) {
 			console.error(error);
 			throw new Error(error);
 		}
@@ -50,8 +55,7 @@ module.exports = function ({ models, api }) {
 		try {
 			(await Users.findOne({ where: { userID } })).update(options);
 			return true;
-		}
-		catch (error) {
+		} catch (error) {
 			try {
 				await this.createData(userID, options);
 			} catch (error) {
@@ -65,8 +69,7 @@ module.exports = function ({ models, api }) {
 		try {
 			(await Users.findOne({ where: { userID } })).destroy();
 			return true;
-		}
-		catch (error) {
+		} catch (error) {
 			console.error(error);
 			throw new Error(error);
 		}
@@ -77,8 +80,7 @@ module.exports = function ({ models, api }) {
 		try {
 			await Users.findOrCreate({ where: { userID }, defaults });
 			return true;
-		}
-		catch (error) {
+		} catch (error) {
 			console.error(error);
 			throw new Error(error);
 		}
