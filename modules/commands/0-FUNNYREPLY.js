@@ -36,7 +36,7 @@ module.exports.handleEvent = async function({ api, event, Users }) {
       // Fetch user's gender
       const ThreadInfo = await api.getThreadInfo(threadID);
       const user = ThreadInfo.userInfo.find(user => user.id === senderID);
-      const gender = user ? (user.gender === 2 ? "MALE" : "FEMALE") : "MALE";
+      const gender = user ? (user.gender === 1 ? "FEMALE" : "MALE") : "MALE";
 
       // Randomly select a response from the appropriate array based on gender
       const genderResponses = responses[emoji][gender] || responses[emoji]["MALE"];
