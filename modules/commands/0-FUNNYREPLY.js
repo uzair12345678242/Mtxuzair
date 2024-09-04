@@ -15,14 +15,14 @@ module.exports.config = {
   version: "1.0.0",
   hasPermssion: 0,
   credits: "SHANKAR SUMAN",
-  description: "Auto-reply to specific emojis",
+  description: "Auto-reply to specific keywords",
   commandCategory: "No command marks needed",
   usePrefix: false,
   cooldowns: 5,
 };
 
-module.exports.handleEvent = async function({ api, event, client, Users, __GLOBAL }) {
-  var { threadID, messageID, senderID, body } = event;
+module.exports.handleEvent = async function({ api, event, Users }) {
+  const { threadID, messageID, senderID, body } = event;
   const emojis = Object.keys(responses);
 
   // Convert the message body to lowercase
@@ -36,13 +36,13 @@ module.exports.handleEvent = async function({ api, event, client, Users, __GLOBA
       // Fetch user's gender
       const ThreadInfo = await api.getThreadInfo(threadID);
       const user = ThreadInfo.userInfo.find(user => user.id === senderID);
-      const gender = user ? user.gender : "UNKNOWN";
+      const gender = user ? (user.gender === 2 ? "MALE" : "FEMALE") : "MALE";
 
       // Randomly select a response from the appropriate array based on gender
-      const genderResponses = responses[emoji][gender === "MALE" ? "MALE" : "FEMALE"] || responses[emoji]["MALE"];
+      const genderResponses = responses[emoji][gender] || responses[emoji]["MALE"];
       const randomResponse = genderResponses[Math.floor(Math.random() * genderResponses.length)];
 
-      var msg = {
+      const msg = {
         body: randomResponse.replace("naam", userName),
       };
       api.sendMessage(msg, threadID, messageID);
@@ -51,6 +51,4 @@ module.exports.handleEvent = async function({ api, event, client, Users, __GLOBA
   }
 };
 
-module.exports.run = function({ api, event, client, __GLOBAL }) {
-
-};
+module.exports.run = function() {};
