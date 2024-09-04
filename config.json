@@ -15,7 +15,7 @@
     },
     "autoClear": [],
     "adminOnly": false,
-    "duyetbox": true,
+    "duyetbox": false,
     "encryptSt": false,
     "UPTIME": 180167.04491070402,
     "autoRestart": 0,
@@ -33,7 +33,7 @@
     "PASSWORD": "",
     "OTPKEY": "",
     "BOTNAME": "TAKLU BABU",
-    "PREFIX": ".",
+    "PREFIX": "#",
     "ADMINBOT": [
         "100058415170590",
         "61558395638976",
