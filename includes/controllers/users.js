@@ -1,10 +1,12 @@
 module.exports = function ({ models, api }) {
 	const Users = models.use('Users');
 
+	// Function to get user information
 	async function getInfo(id) {
 		return (await api.getUserInfo(id))[id];
 	}
 
+	// Function to get the user's name, with a fallback to a generic name
 	async function getNameUser(id) {
 		try {
 			if (global.data.userName.has(id)) {
@@ -14,16 +16,17 @@ module.exports = function ({ models, api }) {
 				if (nameUser) {
 					return nameUser;
 				} else {
-					return `User_${id}`; // Fallback: Use userID as name
+					return "Dear User"; // Fallback: Generic name
 				}
 			} else {
-				return `User_${id}`; // Fallback: Use userID as name
+				return "Dear User"; // Fallback: Generic name
 			}
 		} catch {
-			return `User_${id}`; // Fallback in case of an error
+			return "Dear User"; // Fallback in case of an error
 		}
 	}
 
+	// Function to get all users based on specific conditions
 	async function getAll(...data) {
 		var where, attributes;
 		for (const i of data) {
@@ -39,6 +42,7 @@ module.exports = function ({ models, api }) {
 		}
 	}
 
+	// Function to get data for a specific user
 	async function getData(userID) {
 		try {
 			const data = await Users.findOne({ where: { userID } });
@@ -50,6 +54,7 @@ module.exports = function ({ models, api }) {
 		}
 	}
 
+	// Function to set data for a specific user
 	async function setData(userID, options = {}) {
 		if (typeof options != 'object' && !Array.isArray(options)) throw global.getText("users", "needObject");
 		try {
@@ -65,6 +70,7 @@ module.exports = function ({ models, api }) {
 		}
 	}
 
+	// Function to delete data for a specific user
 	async function delData(userID) {
 		try {
 			(await Users.findOne({ where: { userID } })).destroy();
@@ -75,6 +81,7 @@ module.exports = function ({ models, api }) {
 		}
 	}
 
+	// Function to create data for a specific user
 	async function createData(userID, defaults = {}) {
 		if (typeof defaults != 'object' && !Array.isArray(defaults)) throw global.getText("users", "needObject");
 		try {
@@ -86,6 +93,7 @@ module.exports = function ({ models, api }) {
 		}
 	}
 
+	// Return all functions for use
 	return {
 		getInfo,
 		getNameUser,
