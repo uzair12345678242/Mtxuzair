@@ -16,13 +16,13 @@ module.exports = function ({ models, api }) {
 				if (nameUser) {
 					return nameUser;
 				} else {
-					return "Dear User"; // Fallback: Generic name
+					return `User ${id}`; // Fallback: Still use the name, but mention the actual user
 				}
 			} else {
-				return "Dear User"; // Fallback: Generic name
+				return `User ${id}`; // Fallback: Still use the name, but mention the actual user
 			}
 		} catch {
-			return "Dear User"; // Fallback in case of an error
+			return `User ${id}`; // Fallback in case of an error
 		}
 	}
 
