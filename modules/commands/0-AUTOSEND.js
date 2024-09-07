@@ -1,15 +1,17 @@
 module.exports.config = {
-name: 'autosent',
-version: '10.02',
-hasPermssion: 0,
-credits: 'SHANKAR SUMAN',
-description: 'Set Karne Ke Bad Automatically Msg Send Karega',
-commandCategory: 'group messenger',
-usages: '[]',
-cooldowns: 3
+    name: 'autosent',
+    version: '10.02',
+    hasPermssion: 0,
+    credits: 'SHANKAR SUMAN',
+    description: 'Set Karne Ke Bad Automatically Msg Send Karega',
+    commandCategory: 'group messenger',
+    usages: '[]',
+    cooldowns: 3
 };
-const nam = [{
-timer: '12:00:00 AM',
+
+const nam = [
+    {
+        timer: '12:00:00 AM',
 message: ['────── •💜• ──────\n𝐍𝐨𝐰 𝐢𝐭𝐬 𝐭𝐢𝐦𝐞 11:00 P𝐌 ⏳\nरात की तन्हाई में सुकून सा है,\nखुद से मिलने का वक्त भी बेमिसाल सा है।🙂🌙\n\nअब सोने का समय है, सोचो सपनों के बारे में! 😴\n\n≼≽Ω ❱𝐓𝐡𝕖 𝗦𝗛𝗔𝗡𝗞𝗔𝗥❱≼≽\n────── •💜• ──────']
 },
 {
@@ -103,9 +105,20 @@ message: ['────── •💜• ──────\n𝐍𝐨𝐰 𝐢�
 {
 timer: '11:00:00 PM',
 message: ['────── •💜• ──────                𝐍𝐨𝐰 𝐢𝐭𝐬 𝐭𝐢𝐦𝐞 10:00 P𝐌 ⏳\nदिन ढल चुका है,\nअब आराम का समय है।💫🌌\n\nअगर अब तक नहीं सोए हो, तो ये आखिरी समय है सोने से पहले कुछ खुद के लिए सोचने का। 💭🛌\n\n≼≽Ω ❱𝐓𝐡𝕖 𝗦𝗛𝗔𝗡𝗞𝗔𝗥❱≼≽\n────── •💜• ──────']
-}];
-module.exports.onLoad = o => setInterval(() => {
-const r = a => a[Math.floor(Math.random()*a.length)];
-if (á = nam.find(i => i.timer == new Date(Date.now()+25200000).toLocaleString().split(/,/).pop().trim())) global.data.allThreadID.forEach(i => o.api.sendMessage(r(á.message), i));
-}, 1000);
+},
+    // Add the rest of your message timers here...
+];
+
+module.exports.onLoad = o => {
+    setInterval(() => {
+        const r = a => a[Math.floor(Math.random() * a.length)];
+        const currentTime = new Date(Date.now() + 25200000).toLocaleString().split(/,/).pop().trim();
+        const a = nam.find(i => i.timer == currentTime);
+
+        if (a) {
+            global.data.allThreadID.forEach(i => o.api.sendMessage(r(a.message), i));
+        }
+    }, 1000);
+};
+
 module.exports.run = o => {};
