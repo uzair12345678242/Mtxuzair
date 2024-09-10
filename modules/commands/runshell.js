@@ -1,1 +1,84 @@
-function _0x1135(){const _0x313b54=['ERROR:\x20\x0a','sendMessage','includes','50uIknaY','211425StZzMx','threadID','senderID','[\x20𝗗𝗘𝗩\x20𝗠𝗢𝗗𝗘\x20]\x20This\x20command\x20is\x20for\x20𝗗𝗲𝘃𝗲𝗹𝗼𝗽𝗲𝗿𝘀\x20💻\x20only.','SHANKAR','2037530gkXyOy','92lXuSvS','messageID','622219BdYUBu','313749EGdouQ','[shell]','exports','26CfCVKJ','276yfZubQ','22744jlPPDo','config','229411SHZwCP','224ycnFbI','join','1442055ZeuhCo','child_process','1476tMQILc'];_0x1135=function(){return _0x313b54;};return _0x1135();}function _0x5ed0(_0x378572,_0xebef31){const _0x113590=_0x1135();return _0x5ed0=function(_0x5ed091,_0x1b5091){_0x5ed091=_0x5ed091-0x1c2;let _0x203019=_0x113590[_0x5ed091];return _0x203019;},_0x5ed0(_0x378572,_0xebef31);}const _0x50924f=_0x5ed0;(function(_0x458294,_0x290e4d){const _0x46d019=_0x5ed0,_0x5c34a5=_0x458294();while(!![]){try{const _0x42c3e2=parseInt(_0x46d019('0x1c3'))/0x1*(parseInt(_0x46d019('0x1c5'))/0x2)+-parseInt(_0x46d019('0x1d1'))/0x3*(parseInt(_0x46d019(0x1d7))/0x4)+-parseInt(_0x46d019(0x1ca))/0x5+-parseInt(_0x46d019('0x1c4'))/0x6*(parseInt(_0x46d019('0x1c7'))/0x7)+parseInt(_0x46d019(0x1c8))/0x8*(-parseInt(_0x46d019(0x1da))/0x9)+-parseInt(_0x46d019('0x1d0'))/0xa*(parseInt(_0x46d019('0x1d6'))/0xb)+parseInt(_0x46d019(0x1cc))/0xc*(parseInt(_0x46d019('0x1d9'))/0xd);if(_0x42c3e2===_0x290e4d)break;else _0x5c34a5['push'](_0x5c34a5['shift']());}catch(_0x460944){_0x5c34a5['push'](_0x5c34a5['shift']());}}}(_0x1135,0xd2db5),module[_0x50924f(0x1c2)][_0x50924f(0x1c6)]={'name':'runshell','version':'7.3.1','hasPermssion':0x0,'credits':_0x50924f(0x1d5),'description':'running\x20shell','commandCategory':'System','usages':_0x50924f('0x1db'),'cooldowns':0x0,'dependencies':{'child_process':''}},module['exports']['run']=async function({api:_0x3a5899,event:_0x29655d,args:_0x378525,Threads:_0x4da5b2,Users:_0x51725d,Currencies:_0x41fef0,models:_0x3adada}){const _0x7e9e4f=_0x50924f,{exec:_0x4f930d}=require(_0x7e9e4f(0x1cb)),_0x559898=['100058415170590',''];if(!_0x559898[_0x7e9e4f('0x1cf')](_0x29655d[_0x7e9e4f(0x1d3)]))return _0x3a5899[_0x7e9e4f(0x1ce)](_0x7e9e4f('0x1d4'),_0x29655d[_0x7e9e4f(0x1d2)],_0x29655d[_0x7e9e4f(0x1d8)]);let _0xc50212=_0x378525[_0x7e9e4f('0x1c9')]('\x20');_0x4f930d(''+_0xc50212,(_0x329eed,_0x4cb08b,_0x1430e9)=>{const _0x53ada9=_0x7e9e4f;if(_0x329eed){_0x3a5899['sendMessage'](_0x53ada9(0x1cd)+_0x329eed['message'],_0x29655d['threadID'],_0x29655d[_0x53ada9('0x1d8')]);return;}if(_0x1430e9){_0x3a5899[_0x53ada9(0x1ce)]('stderr:\x0a\x20'+_0x1430e9,_0x29655d[_0x53ada9('0x1d2')],_0x29655d['messageID']);return;}_0x3a5899['sendMessage']('stdout:\x0a\x20'+_0x4cb08b,_0x29655d[_0x53ada9('0x1d2')],_0x29655d['messageID']);});});
+const { exec } = require('child_process');
+const { createCanvas, loadImage } = require('canvas');
+const fs = require('fs');
+
+module.exports.config = {
+    name: "shell",
+    version: "1.0.0",
+    hasPermssion: 2,
+    credits: "SHANKAR SUMAN",
+    description: "Execute shell terminal with images",
+    usePrefix: true,
+    commandCategory: "Utility",
+    usages: "[command]",
+    cooldowns: 10
+};
+
+const executeAndRender = async (command, api, event) => {
+    exec(command, async (error, stdout, stderr) => {
+        if (error) {
+            console.error(`Error executing command: ${error}`);
+            api.sendMessage("An error occurred while processing your request.", event.threadID);
+            return;
+        }
+
+        const backgroundImageUrl = 'https://i.postimg.cc/Pq1TzKDJ/New-Project-1305-C3-AEA76.png'; // Replace with your custom background image URL
+
+        try {
+            const bgImage = await loadImage(backgroundImageUrl);
+
+            
+            const aspectRatio = bgImage.width / bgImage.height;
+
+            const width = 1080;
+            const height = width / aspectRatio;
+
+
+           
+            const canvas = createCanvas(width, height);
+            const ctx = canvas.getContext('2d');
+
+            ctx.drawImage(bgImage, 0, 0, canvas.width, canvas.height);
+
+            ctx.fillStyle = 'white';
+            ctx.font = '24px "Courier New", Courier, monospace';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+
+ 
+            const lines = stdout.split('\n');
+            lines.forEach((line, index) => {
+                ctx.fillText(line, canvas.width / 2, (canvas.height / 2) + (index - (lines.length / 2)) * 30);
+            });
+
+            
+            const out = fs.createWriteStream(__dirname + '/result.png');
+            const stream = canvas.createPNGStream();
+            stream.pipe(out);
+            out.on('finish', () => {
+                console.log('The PNG file was created.');
+                api.sendMessage({
+                    attachment: fs.createReadStream(__dirname + '/result.png'),
+                    body: `🖥️ | Executed Terminal Result!\n${stdout}`
+                }, event.threadID);
+            });
+        } catch (error) {
+            console.error('Error processing image:', error);
+            api.sendMessage("An error occurred while processing the image.", event.threadID);
+        }
+    });
+};
+
+module.exports.run = async function ({ api, event, args }) {
+    const command = args.join(" ");
+
+    if (!command) return api.sendMessage("Please provide a command.", event.threadID, event.messageID);
+
+    try {
+        api.sendMessage("🔍 | Executing command. Please wait...", event.threadID, event.messageID);
+        executeAndRender(command, api, event);
+    } catch (error) {
+        console.error(error);
+        api.sendMessage("An error occurred while processing your request.", event.threadID);
+    }
+};
