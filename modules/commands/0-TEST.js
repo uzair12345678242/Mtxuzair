@@ -1,17 +1,23 @@
 module.exports.config = {
-  name: "test",
-  version: "1.3.0",
+  name: "pair",
+  version: "1.1.0", 
   hasPermission: 0,
-  credits: "SHANKAR SUMAN",
-  description: "Pairing with suitable partners based on gender",
-  commandCategory: "Love",
-  usages: "pair",
+  credits: "SHANKAR",
+  description: "Pairing users based on gender",
+  usePrefix: false,
+  commandCategory: "Love", 
+  usages: "pair", 
   cooldowns: 0
 };
 
 module.exports.run = async function({ api, event }) {
     const axios = global.nodemodule["axios"];
     const fs = global.nodemodule["fs-extra"];
+
+    // Check user balance (assuming this is for demonstration; remove if not needed)
+    // var data = await Currencies.getData(event.senderID);
+    // var money = data.money;
+    // if(money < 500) return api.sendMessage("You need 500 USD for 1 pairing, please use ${global.config.PREFIX}work to earn money or contact the bot admin.\n🤑 There's something new to eat 🤑", event.threadID, event.messageID);
 
     // Fetch user info
     let userInfo = await api.getUserInfo(event.senderID);
@@ -44,11 +50,12 @@ module.exports.run = async function({ api, event }) {
     // Fetch partner details
     let partnerInfo = await api.getUserInfo(partnerID);
     let partnerName = partnerInfo[partnerID].name;
+    let partnerGender = partnerInfo[partnerID].gender;
 
     // Fetch avatars and GIFs
     let userAvatar = (await axios.get(`https://graph.facebook.com/${event.senderID}/picture?height=720&width=720`, { responseType: "arraybuffer" })).data;
     let partnerAvatar = (await axios.get(`https://graph.facebook.com/${partnerID}/picture?height=720&width=720`, { responseType: "arraybuffer" })).data;
-    let gifLove = (await axios.get(`https://i.imgur.com/vcydK3t.gif`, { responseType: "arraybuffer" })).data;
+    let gifLove = (await axios.get(`https://i.imgur.com/MBETCWy.gif`, { responseType: "arraybuffer" })).data;
 
     // Save files
     fs.writeFileSync(__dirname + "/cache/user_avatar.png", Buffer.from(userAvatar, "utf-8"));
@@ -62,7 +69,7 @@ module.exports.run = async function({ api, event }) {
         fs.createReadStream(__dirname + "/cache/partner_avatar.png")
     ];
     let msg = {
-        body: `🥰 Successful pairing!\n💌 Wish you two hundred years of happiness\nYour partner is of the opposite gender\nDual ratio: ${Math.floor(Math.random() * 100) + 1}%\n\n${userName} ❤️ ${partnerName}`,
+        body: `🥰 सफल जोड़ियाँ!\n💌 आपके साथी ${partnerName} हैं।\n💕 ${userName} और ${partnerName} का प्यार ${Math.floor(Math.random() * 100) + 1}% है।\n\nआपके साथी का लिंग: ${partnerGender === 1 ? "Female👩‍🦰" : "Male🧑"}`,
         attachment: images
     };
 
