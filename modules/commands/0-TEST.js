@@ -1,53 +1,102 @@
-const axios = require('axios');
-const fs = require('fs-extra');
-const path = require('path');
+module.exports.config = {
+  name: "test",
+  version: "2.0.4",
+  hasPermssion: 0,
+  credits: "Grey",
+  description: "Play a song",
+  commandCategory: "utility",
+  usages: "[title]",
+  prefix: true,
+  cooldowns: 20,
+  dependencies: {
+    "fs-extra": "",
+    "request": "",
+    "axios": "",
+    "@distube/ytdl-core": "",
+    "yt-search": ""
+  }
+};
 
-module.exports = {
-  name: "dalle",
-  Programmer: "August Quinn",
-  info: "Generate images with DALL-E.",
-  hasPermission: "members",
-  category: "AI",
-  usage: "/dalle [text]",
-  cooldowns: 5,
-  prefix: "disable",
-  letStart: async function ({ pushMessage, target, event}) {
-    try {
-      const text = target.join(" ");
+module.exports.run = async ({ api, event }) => {
+  // Set environment variable to disable ytdl-core update check
+  process.env.YTDL_NO_UPDATE = 'true';
 
-      const apiUrl = 'http://openai-dall-e.august-quinn-api.repl.co/generate-images';
-      const response = await axios.post(apiUrl, { text, num_images: 4 });
+  const axios = require("axios");
+  const fs = require("fs-extra");
+  const ytdl = require("@distube/ytdl-core");
+  const request = require("request");
+  const yts = require("yt-search");
 
-      const imgData = [];
+  const input = event.body;
+  const text = input.substring(12);
+  const data = input.split(" ");
 
-      for (let i = 0; i < response.data.openai.items.length; i++) {
-        const imgUrl = response.data.openai.items[i].image_resource_url;
+  if (data.length < 2) {
+    return api.sendMessage("Please put a song", event.threadID);
+  }
 
-        if (imgUrl) {
-          const imgResponse = await axios.get(imgUrl, { responseType: 'arraybuffer' });
-          const imgPath = path.join(__dirname, 'cache', `dalle_${i + 1}.jpg`);
+  data.shift();
+  const song = data.join(" ");
 
-          await fs.outputFile(imgPath, imgResponse.data);
-          imgData.push(fs.createReadStream(imgPath));
+  try {
+    api.sendMessage(`Finding "${song}". Please wait...`, event.threadID);
 
-          if (fs.existsSync(imgPath)) {
-            await fs.unlink(imgPath);
-          }
-        }
+    const searchResults = await yts(song);
+    if (!searchResults.videos.length) {
+      return api.sendMessage("Error: Invalid request.", event.threadID, event.messageID);
+    }
+
+    const video = searchResults.videos[0];
+    const videoUrl = video.url;
+
+    // Start downloading the audio
+    const stream = ytdl(videoUrl, { filter: "audioonly" });
+
+    const fileName = `${event.senderID}.mp3`;
+    const filePath = __dirname + `/cache/${fileName}`;
+
+    stream.pipe(fs.createWriteStream(filePath));
+
+    stream.on('response', () => {
+      console.info('[DOWNLOADER]', 'Starting download now!');
+    });
+
+    stream.on('info', (info) => {
+      console.info('[DOWNLOADER]', `Downloading ${info.videoDetails.title} by ${info.videoDetails.author.name}`);
+    });
+
+    stream.on('end', () => {
+      console.info('[DOWNLOADER] Downloaded');
+
+      if (fs.statSync(filePath).size > 26214400) {
+        fs.unlinkSync(filePath);
+        return api.sendMessage('[ERR] The file could not be sent because it is larger than 25MB.', event.threadID);
       }
 
-      if (imgData.length > 0) {
-        await pushMessage.reply({
-          body: `Generated Images with DALL-E:`,
-          attachment: imgData
-        }, event.threadID);
-      } else {
-        await pushMessage.reply('No images generated.', event.threadID);
-      }
+      const message = {
+        body: `Here's your music, enjoy!🥰\n\nTitle: ${video.title}\nArtist: ${video.author.name}`,
+        attachment: fs.createReadStream(filePath)
+      };
 
-    } catch (error) {
-      console.error(error);
-      await pushMessage.reply(`Image generation failed!\nError: ${error.message}`, event.threadID);
+      api.sendMessage(message, event.threadID, () => {
+        fs.unlinkSync(filePath);
+      });
+    });
+
+    // Handle stream errors (if any)
+    stream.on('error', (err) => {
+      console.error('[STREAM ERROR]', err);
+      return api.sendMessage('An error occurred while downloading the music.', event.threadID);
+    });
+
+  } catch (error) {
+    console.error('[ERROR]', error);
+
+    // Check if the error is due to authentication or API issues
+    if (error.message.includes('Not logged in')) {
+      api.sendMessage('Error: Not logged in. Please check your authentication.', event.threadID);
+    } else {
+      api.sendMessage('An error occurred while processing the command.', event.threadID);
     }
   }
 };
