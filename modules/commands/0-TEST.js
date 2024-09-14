@@ -24,7 +24,7 @@ module.exports.run = async ({ api, event }) => {
   const data = input.split(" ");
 
   if (data.length < 2) {
-    return api.sendMessage("Please put a song title.", event.threadID);
+    return api.sendMessage("Please provide a song title.", event.threadID);
   }
 
   data.shift();
@@ -33,10 +33,9 @@ module.exports.run = async ({ api, event }) => {
   try {
     api.sendMessage(`Finding "${song}". Please wait...`, event.threadID);
 
-    // Search for the song using yt-search
     const searchResults = await yts(song);
     if (!searchResults.videos.length) {
-      return api.sendMessage("Error: No results found.", event.threadID, event.messageID);
+      return api.sendMessage("Error: No results found.", event.threadID);
     }
 
     const video = searchResults.videos[0];
@@ -44,24 +43,34 @@ module.exports.run = async ({ api, event }) => {
     const fileName = `${event.senderID}.mp3`;
     const filePath = __dirname + `/cache/${fileName}`;
 
-    // Use ytdl-core to download the audio
     const stream = ytdl(videoUrl, { filter: 'audioonly' });
     const writeStream = fs.createWriteStream(filePath);
+
     stream.pipe(writeStream);
 
-    stream.on('end', () => {
+    writeStream.on('finish', () => {
+      console.log(`[INFO] Download complete for ${fileName}`);
+
       const stats = fs.statSync(filePath);
-      if (stats.size > 26214400) {
+      if (stats.size > 26214400) { // 25MB
         fs.unlinkSync(filePath);
-        return api.sendMessage('[ERR] The file could not be sent because it is larger than 25MB.', event.threadID);
+        return api.sendMessage('[ERROR] The file is larger than 25MB and cannot be sent.', event.threadID);
       }
 
-      api.sendMessage({
+      const message = {
         body: `Here's your music, enjoy!🥰\n\nTitle: ${video.title}\nArtist: ${video.author.name}`,
         attachment: fs.createReadStream(filePath)
-      }, event.threadID, () => {
-        fs.unlinkSync(filePath); // Delete the file after sending
+      };
+
+      api.sendMessage(message, event.threadID, () => {
+        fs.unlinkSync(filePath);
+        console.log(`[INFO] File sent and deleted successfully.`);
       });
+    });
+
+    stream.on('error', (error) => {
+      console.error('[ERROR] Download failed:', error);
+      api.sendMessage('An error occurred while downloading the song.', event.threadID);
     });
 
   } catch (error) {
