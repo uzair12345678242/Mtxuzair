@@ -1,6 +1,9 @@
 #!/bin/bash
 set -e
 
-# yt-dlp ko install karein
-curl -L https://github.com/yt-dlp/yt-dlp/releases/download/2024.09.13/yt-dlp_linux_amd64 -o /usr/local/bin/yt-dlp
-chmod a+rx /usr/local/bin/yt-dlp
+# Create local bin directory
+mkdir -p ./bin
+
+# Download yt-dlp to the local bin directory
+curl -L https://github.com/yt-dlp/yt-dlp/releases/download/2024.09.13/yt-dlp_linux_amd64 -o ./bin/yt-dlp
+chmod a+rx ./bin/yt-dlp
