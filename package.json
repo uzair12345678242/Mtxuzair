@@ -28,7 +28,7 @@
     "bitly": "^7.1.2",
     "bluebird": "^3.7.2",
     "body-parser": "",
-    "bypass": "^3.3.0",
+    "bypass": "^0.0.2",
     "caesar-salad": "^2.1.0",
     "canvas": "^2.11.2",
     "cfonts": "^3.1.0",
