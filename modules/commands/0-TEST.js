@@ -3,7 +3,7 @@ const fs = require('fs-extra');
 const path = require('path');
 
 module.exports = {
-  name: "dalle",
+  name: "test",
   Programmer: "August Quinn",
   info: "Generate images with DALL-E.",
   hasPermission: "members",
