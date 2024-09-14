@@ -1,6 +1,7 @@
 const { exec } = require('child_process');
 const fs = require('fs-extra');
 const yts = require('yt-search');
+const path = require('path');
 
 module.exports.config = {
   name: "test",
@@ -43,7 +44,7 @@ module.exports.run = async ({ api, event }) => {
     const filePath = __dirname + `/cache/${fileName}`;
 
     // Use yt-dlp to download the audio
-    exec(`yt-dlp -f bestaudio --extract-audio --audio-format mp3 -o "${filePath}" "${videoUrl}"`, (error, stdout, stderr) => {
+    exec(`./bin/yt-dlp -f bestaudio --extract-audio --audio-format mp3 -o "${filePath}" "${videoUrl}"`, (error, stdout, stderr) => {
       if (error) {
         console.error(`[ERROR] Download failed: ${error.message}`);
         return api.sendMessage('Error occurred while downloading the song.', event.threadID);
