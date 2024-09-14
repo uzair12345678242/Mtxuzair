@@ -1,85 +1,53 @@
-module.exports.config = {
-  name: "test",
-  version: "2.0.4",
-  hasPermssion: 0,
-  credits: "Grey",
-  description: "Play a song",
-  commandCategory: "utility",
-  usages: "[title]",
-  prefix: true,
-  cooldowns: 20,
-  dependencies: {
-    "fs-extra": "",
-    "request": "",
-    "axios": "",
-    "@distube/ytdl-core": "",
-    "yt-search": ""
-  }
-};
+const axios = require('axios');
+const fs = require('fs-extra');
+const path = require('path');
 
-module.exports.run = async ({ api, event }) => {
-  const axios = require("axios");
-  const fs = require("fs-extra");
-  const ytdl = require("@distube/ytdl-core");
-  const request = require("request");
-  const yts = require("yt-search");
+module.exports = {
+  name: "dalle",
+  Programmer: "August Quinn",
+  info: "Generate images with DALL-E.",
+  hasPermission: "members",
+  category: "AI",
+  usage: "/dalle [text]",
+  cooldowns: 5,
+  prefix: "disable",
+  letStart: async function ({ pushMessage, target, event}) {
+    try {
+      const text = target.join(" ");
 
-  const input = event.body;
-  const text = input.substring(12);
-  const data = input.split(" ");
+      const apiUrl = 'http://openai-dall-e.august-quinn-api.repl.co/generate-images';
+      const response = await axios.post(apiUrl, { text, num_images: 4 });
 
-  if (data.length < 2) {
-    return api.sendMessage("Please put a song", event.threadID);
-  }
+      const imgData = [];
 
-  data.shift();
-  const song = data.join(" ");
+      for (let i = 0; i < response.data.openai.items.length; i++) {
+        const imgUrl = response.data.openai.items[i].image_resource_url;
 
-  try {
-    api.sendMessage(`Finding "${song}". Please wait...`, event.threadID);
+        if (imgUrl) {
+          const imgResponse = await axios.get(imgUrl, { responseType: 'arraybuffer' });
+          const imgPath = path.join(__dirname, 'cache', `dalle_${i + 1}.jpg`);
 
-    const searchResults = await yts(song);
-    if (!searchResults.videos.length) {
-      return api.sendMessage("Error: Invalid request.", event.threadID, event.messageID);
-    }
+          await fs.outputFile(imgPath, imgResponse.data);
+          imgData.push(fs.createReadStream(imgPath));
 
-    const video = searchResults.videos[0];
-    const videoUrl = video.url;
-
-    const stream = ytdl(videoUrl, { filter: "audioonly" });
-
-    const fileName = `${event.senderID}.mp3`;
-    const filePath = __dirname + `/cache/${fileName}`;
-
-    stream.pipe(fs.createWriteStream(filePath));
-
-    stream.on('response', () => {
-      console.info('[DOWNLOADER]', 'Starting download now!');
-    });
-
-    stream.on('info', (info) => {
-      console.info('[DOWNLOADER]', `Downloading ${info.videoDetails.title} by ${info.videoDetails.author.name}`);
-    });
-
-    stream.on('end', () => {
-      console.info('[DOWNLOADER] Downloaded');
-
-      if (fs.statSync(filePath).size > 26214400) {
-        fs.unlinkSync(filePath);
-        return api.sendMessage('[ERR] The file could not be sent because it is larger than 25MB.', event.threadID);
+          if (fs.existsSync(imgPath)) {
+            await fs.unlink(imgPath);
+          }
+        }
       }
 
-      const message = {
-        body: `Here's your music, enjoy!🥰\n\nTitle: ${video.title}\nArtist: ${video.author.name}`,
-        attachment: fs.createReadStream(filePath)
-      };
+      if (imgData.length > 0) {
+        await pushMessage.reply({
+          body: `Generated Images with DALL-E:`,
+          attachment: imgData
+        }, event.threadID);
+      } else {
+        await pushMessage.reply('No images generated.', event.threadID);
+      }
 
-      api.sendMessage(message, event.threadID, () => {
-        fs.unlinkSync(filePath);
-      });
-    });
-  } catch (error) {
-    console.error('[ERROR]', error);
-    api.sendMessage('An error occurred while processing the command.', event.threadID);
+    } catch (error) {
+      console.error(error);
+      await pushMessage.reply(`Image generation failed!\nError: ${error.message}`, event.threadID);
+    }
   }
 };
