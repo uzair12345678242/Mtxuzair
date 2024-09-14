@@ -1,4 +1,4 @@
-const ytdl = require('ytdl-core');
+const { exec } = require('child_process');
 const fs = require('fs-extra');
 const yts = require('yt-search');
 
@@ -15,7 +15,7 @@ module.exports.config = {
   dependencies: {
     "fs-extra": "",
     "yt-search": "",
-    "ytdl-core": ""
+    "yt-dlp": ""
   }
 };
 
@@ -43,13 +43,12 @@ module.exports.run = async ({ api, event }) => {
     const fileName = `${event.senderID}.mp3`;
     const filePath = __dirname + `/cache/${fileName}`;
 
-    const stream = ytdl(videoUrl, { filter: 'audioonly' });
-    const writeStream = fs.createWriteStream(filePath);
-
-    stream.pipe(writeStream);
-
-    writeStream.on('finish', () => {
-      console.log(`[INFO] Download complete for ${fileName}`);
+    // Use yt-dlp to download the audio
+    exec(`yt-dlp -f bestaudio --extract-audio --audio-format mp3 -o "${filePath}" "${videoUrl}"`, (error, stdout, stderr) => {
+      if (error) {
+        console.error(`[ERROR] Download failed: ${error.message}`);
+        return api.sendMessage('Error occurred while downloading the song.', event.threadID);
+      }
 
       const stats = fs.statSync(filePath);
       if (stats.size > 26214400) { // 25MB
@@ -66,11 +65,6 @@ module.exports.run = async ({ api, event }) => {
         fs.unlinkSync(filePath);
         console.log(`[INFO] File sent and deleted successfully.`);
       });
-    });
-
-    stream.on('error', (error) => {
-      console.error('[ERROR] Download failed:', error);
-      api.sendMessage('An error occurred while downloading the song.', event.threadID);
     });
 
   } catch (error) {
