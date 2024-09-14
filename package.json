@@ -36,7 +36,7 @@
     "chalkercli": "^1.6.4",
     "cheerio": "^1.0.0-rc.12",
     "chem-eb": "^0.1.13",
-    "child_process": "^7.0.3",
+    "child_process": "^1.0.2",
     "clean": "^4.0.2",
     "crypto": "^1.0.1",
     "crypto-js": "^4.1.1",
