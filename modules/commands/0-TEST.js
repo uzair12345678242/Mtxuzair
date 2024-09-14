@@ -1,4 +1,4 @@
-const { exec } = require('child_process');
+const youtubedl = require('youtube-dl-exec');
 const fs = require('fs-extra');
 const yts = require('yt-search');
 
@@ -14,8 +14,8 @@ module.exports.config = {
   cooldowns: 20,
   dependencies: {
     "fs-extra": "",
-    "axios": "",
-    "yt-search": ""
+    "yt-search": "",
+    "youtube-dl-exec": ""
   }
 };
 
@@ -44,17 +44,13 @@ module.exports.run = async ({ api, event }) => {
     const fileName = `${event.senderID}.mp3`;
     const filePath = __dirname + `/cache/${fileName}`;
 
-    // Use yt-dlp to download the audio
-    exec(`yt-dlp -f bestaudio --extract-audio --audio-format mp3 -o "${filePath}" "${videoUrl}"`, (error, stdout, stderr) => {
-      if (error) {
-        console.error(`[YT-DLP ERROR] ${error.message}`);
-        return api.sendMessage('An error occurred while downloading the music.', event.threadID);
-      }
-
-      if (stderr) {
-        console.error(`[YT-DLP STDERR] ${stderr}`);
-      }
-
+    // Use youtube-dl-exec to download the audio
+    youtubedl(videoUrl, {
+      extractAudio: true,
+      audioFormat: "mp3",
+      output: filePath
+    })
+    .then(() => {
       // Check if the file is larger than 25MB
       const stats = fs.statSync(filePath);
       if (stats.size > 26214400) {
@@ -69,7 +65,12 @@ module.exports.run = async ({ api, event }) => {
       }, event.threadID, () => {
         fs.unlinkSync(filePath); // Delete the file after sending
       });
+    })
+    .catch(error => {
+      console.error('[YT-DLP ERROR]', error);
+      return api.sendMessage('An error occurred while downloading the music.', event.threadID);
     });
+
   } catch (error) {
     console.error('[ERROR]', error);
     api.sendMessage('An error occurred while processing the command.', event.threadID);
