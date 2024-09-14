@@ -14,8 +14,7 @@ module.exports.config = {
   cooldowns: 20,
   dependencies: {
     "fs-extra": "",
-    "yt-search": "",
-    "yt-dlp": ""
+    "yt-search": ""
   }
 };
 
