@@ -1,2 +1,123 @@
-var _0xca1d=["\x63\x6F\x6E\x66\x69\x67","\x65\x78\x70\x6F\x72\x74\x73","\x73\x69\x6E\x67","\x31\x2E\x30\x2E\x30","\x4C\xEA\x20\u0110\u1ECB\x6E\x68","\x50\x68\xE1\x74\x20\x76\x69\x64\x65\x6F\x20\x74\x68\xF4\x6E\x67\x20\x71\x75\x61\x20\x6C\x69\x6E\x6B\x20\x59\x6F\x75\x54\x75\x62\x65\x20\x68\x6F\u1EB7\x63\x20\x74\u1EEB\x20\x6B\x68\x6F\xE1\x20\x74\xEC\x6D\x20\x6B\x69\u1EBF\x6D","\x74\x69\u1EC7\x6E\x20\xED\x63\x68","\x5B\x73\x65\x61\x72\x63\x68\x56\x69\x64\x65\x6F\x73\x5D",""];module[_0xca1d[1]][_0xca1d[0]]= {name:_0xca1d[2],version:_0xca1d[3],hasPermssion:0,credits:_0xca1d[4],description:_0xca1d[5],commandCategory:_0xca1d[6],usages:_0xca1d[7],cooldowns:10,dependencies:{"\x79\x74\x64\x6C\x2D\x63\x6F\x72\x65":_0xca1d[8],"\x73\x69\x6D\x70\x6C\x65\x2D\x79\x6F\x75\x74\x75\x62\x65\x2D\x61\x70\x69":_0xca1d[8]}},module.exports.handleReply=async function({api:e,event:a,handleReply:t}){const n=global.nodemodule.axios,s=global.nodemodule["fs-extra"],i=(global.nodemodule.request,await n.get("https://raw.githubusercontent.com/ledingg1997/ledingg-/main/video.json")),r=i.data.keyVideo.length,o=i.data.keyVideo[Math.floor(Math.random()*r)],{createReadStream:d,createWriteStream:m,unlinkSync:l,statSync:h}=global.nodemodule["fs-extra"];var c,u=a.body;if(c=u,isNaN(c)||(c<1||c>6))return e.sendMessage("Error! An error occurred. Please try again later.",a.threadID,a.messageID);e.unsendMessage(t.messageID);try{var g={method:"GET",url:"https://ytstream-download-youtube-videos.p.rapidapi.com/dl",params:{id:`${t.link[a.body-1]}`},headers:{"x-rapidapi-host":"ytstream-download-youtube-videos.p.rapidapi.com","x-rapidapi-key":`${o.API_KEY}`}};var p=(await n.request(g)).data,y=p.title;if("fail"==p.status)return e.sendMessage("Không thể gửi file này.",a.threadID);var f=Object.keys(p.link)[1],b=p.link[f][0];path1=__dirname+"/cache/1.mp3";const i=(await n.get(`${b}`,{responseType:"arraybuffer"})).data;return s.writeFileSync(path1,Buffer.from(i,"utf-8")),e.unsendMessage(t.messageID),s.statSync(__dirname+"/cache/1.mp3").size>26e6?e.sendMessage("The file could not be sent because it is larger than 25MB.",a.threadID,(()=>l(__dirname+"/cache/1.mp3")),a.messageID):e.sendMessage({body:`» ${y}`,attachment:s.createReadStream(__dirname+"/cache/1.mp3")},a.threadID,(()=>s.unlinkSync(__dirname+"/cache/1.mp3")),a.messageID)}catch{return e.sendMessage("Unable to send this file!",a.threadID,a.messageID)}for(let e=1;e<7;e++)l(__dirname+`/cache/${e}.png`)},module.exports.run=async function({api:e,event:a,args:t}){const n=global.nodemodule.axios,s=global.nodemodule["fs-extra"],i=(global.nodemodule.request,await 
-n.get("https://raw.githubusercontent.com/ledingg1997/ledingg-/main/video.json")),r=i.data.keyVideo.length,o=i.data.keyVideo[Math.floor(Math.random()*r)],d=(global.nodemodule["ytdl-core"],global.nodemodule["simple-youtube-api"]),{createReadStream:m,createWriteStream:l,unlinkSync:h,statSync:c}=global.nodemodule["fs-extra"];var u=["AIzaSyB5A3Lum6u5p2Ki2btkGdzvEqtZ8KNLeXo","AIzaSyAyjwkjc0w61LpOErHY_vFo6Di5LEyfLK0","AIzaSyBY5jfFyaTNtiTSBNCvmyJKpMIGlpCSB4w","AIzaSyCYCg9qpFmJJsEcr61ZLV5KsmgT1RE5aI4"];const g=u[Math.floor(Math.random()*u.length)],p=new d(g);if(0==t.length||!t)return e.sendMessage("❗Search cannot be left blank!",a.threadID,a.messageID);const y=t.join(" ");if(0==t.join(" ").indexOf("https://")){var f={method:"GET",url:"https://ytstream-download-youtube-videos.p.rapidapi.com/dl",params:{id:t.join(" ").split(/^.*(youtu.be\/|v\/|embed\/|watch\?|youtube.com\/user\/[^#]*#([^\/]*?\/)*)\??v?=?([^#\&\?]*).*/)[3]},headers:{"x-rapidapi-host":"ytstream-download-youtube-videos.p.rapidapi.com","x-rapidapi-key":`${o.API_KEY}`}};var b=(await n.request(f)).data,v=b.title;if("fail"==b.status)return e.sendMessage("❗This file could not be sent.",a.threadID);var k=Object.keys(b.link)[1],I=b.link[k][0];path1=__dirname+"/cache/1.mp3";const i=(await n.get(`${I}`,{responseType:"arraybuffer"})).data;return s.writeFileSync(path1,Buffer.from(i,"utf-8")),s.statSync(__dirname+"/cache/1.mp3").size>26e6?e.sendMessage("Sorry, Files above 25mb cannot be sent.",a.threadID,(()=>h(__dirname+"/cache/1.mp3")),a.messageID):e.sendMessage({body:`♪${v}`,attachment:s.createReadStream(__dirname+"/cache/1.mp3")},a.threadID,(()=>s.unlinkSync(__dirname+"/cache/1.mp3")),a.messageID)}try{const t=global.nodemodule["fs-extra"],n=global.nodemodule.axios;var w=[],_="",D=0,S=0,M=[],$=await p.searchVideos(y,6);for(let e of $){if(void 0===e.id)return;w.push(e.id);e.id;let a=__dirname+`/cache/${S+=1}.png`,s=`https://img.youtube.com/vi/${e.id}/hqdefault.jpg`,i=(await n.get(`${s}`,{responseType:"arraybuffer"})).data,r=(await n.get(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${e.id}&key=${g}`)).data.items[0].contentDetails.duration.slice(2).replace("S","").replace("M",":");(await n.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${e.id}&key=${g}`)).data.items[0].snippet.channelTitle;if(t.writeFileSync(a,Buffer.from(i,"utf-8")),M.push(t.createReadStream(__dirname+`/cache/${S}.png`)),1==(D=D+=1))var x="1";if(2==D)x="2";if(3==D)x="3";if(4==D)x="4";if(5==D)x="5";if(6==D)x="6";_+=`${x} 《${r}》 ${e.title}\n\n`}var j=`Search Success! There are ${w.length} songs.\n\n${_}Reply (reply) by Order of number you want to choose.`;return e.sendMessage({attachment:M,body:j},a.threadID,((e,t)=>global.client.handleReply.push({name:this.config.name,messageID:t.messageID,author:a.senderID,link:w})),a.messageID)}catch(t){return e.sendMessage("The request could not be processed due to an error: "+t.message,a.threadID,a.messageID)}};
+module.exports.config = {
+	name: "test",
+	version: "1.0.5",
+	hasPermssion: 0,
+	credits: "HChong",
+	description: "Phát nhạc thông qua link YouTube, SoundCloud hoặc từ khoá tìm kiếm",
+	commandCategory: "media",
+	usages: "[link or content need search]",
+	cooldowns: 10,
+	dependencies: {
+		"ytdl-core": "",
+		"simple-youtube-api": "",
+		"soundcloud-downloader": "",
+		"fs-extra": "",
+		"axios": ""
+	},
+	envConfig: {
+		"YOUTUBE_API": "AIzaSyDH-HVpxrvn5tldQSqwYZdbLoIuDzM9jFI",
+		"SOUNDCLOUD_API": "M4TSyS6eV0AcMynXkA3qQASGcOFQTWub"
+	}
+};
+
+module.exports.handleReply = async function({ api, event, handleReply }) {
+	const ytdl = global.nodemodule["ytdl-core"];
+	const { createReadStream, createWriteStream, unlinkSync, statSync } = global.nodemodule["fs-extra"];
+	ytdl.getInfo(handleReply.link[event.body - 1]).then(res => {
+	let body = res.videoDetails.title;
+	api.sendMessage(`Đang xử lý audio !\n◆━━━━━━━━━━━━━◆\n${body}\n◆━━━━━━━━━━━━━◆\nXin Vui lòng Đợi !`, event.threadID, (err, info) =>
+	setTimeout(() => {api.unsendMessage(info.messageID) } , 10000));
+    });
+	try {
+		ytdl.getInfo(handleReply.link[event.body - 1]).then(res => {
+		let body = res.videoDetails.title;
+		ytdl(handleReply.link[event.body - 1])
+			.pipe(createWriteStream(__dirname + `/cache/${handleReply.link[event.body - 1]}.m4a`))
+			.on("close", () => {
+				if (statSync(__dirname + `/cache/${handleReply.link[event.body - 1]}.m4a`).size > 26214400) return api.sendMessage('Không thể gửi file vì dung lượng lớn hơn 25MB.', event.threadID, () => unlinkSync(__dirname + `/cache/${handleReply.link[event.body - 1]}.m4a`), event.messageID);
+				else return api.sendMessage({body : `${body}`, attachment: createReadStream(__dirname + `/cache/${handleReply.link[event.body - 1]}.m4a`)}, event.threadID, () => unlinkSync(__dirname + `/cache/${handleReply.link[event.body - 1]}.m4a`), event.messageID)
+			})
+			.on("error", (error) => api.sendMessage(`Đã xảy ra vấn đề khi đang xử lý request, lỗi: \n${error}`, event.threadID, event.messageID));
+		});
+		}
+	catch {
+		api.sendMessage("Không thể xử lý yêu cầu của bạn!", event.threadID, event.messageID);
+	}
+	return api.unsendMessage(handleReply.messageID);
+}
+
+module.exports.run = async function({ api, event, args }) {
+	const ytdl = global.nodemodule["ytdl-core"];
+	const YouTubeAPI = global.nodemodule["simple-youtube-api"];
+	const scdl = global.nodemodule["soundcloud-downloader"].default;
+	const axios = global.nodemodule["axios"];
+	const { createReadStream, createWriteStream, unlinkSync, statSync } = global.nodemodule["fs-extra"];
+	
+	const youtube = new YouTubeAPI(global.configModule[this.config.name].YOUTUBE_API);
+	const keyapi = global.configModule[this.config.name].YOUTUBE_API
+	if (args.length == 0 || !args) return api.sendMessage('Phần tìm kiếm không được để trống!', event.threadID, event.messageID);
+	const keywordSearch = args.join(" ");
+	const videoPattern = /^(https?:\/\/)?(www\.)?(m\.)?(youtube\.com|youtu\.?be)\/.+$/gi;
+	const scRegex = /^https?:\/\/(soundcloud\.com)\/(.*)$/;
+	const urlValid = videoPattern.test(args[0]);
+	
+	if (urlValid) {
+		try {
+			ytdl.getInfo(args[0]).then(res => {
+			let body = res.videoDetails.title;
+			var id = args[0].split(/(vi\/|v=|\/v\/|youtu\.be\/|\/embed\/)/);
+            (id[2] !== undefined) ? id = id[2].split(/[^0-9a-z_\-]/i)[0] : id = id[0];
+			ytdl(args[0])
+				.pipe(createWriteStream(__dirname + `/cache/${id}.m4a`))
+				.on("close", () => {
+					if (statSync(__dirname + `/cache/${id}.m4a`).size > 26214400) return api.sendMessage('Không thể gửi file vì dung lượng lớn hơn 25MB.', event.threadID, () => unlinkSync(__dirname + `/cache/${id}.m4a`), event.messageID);
+					else return api.sendMessage({body : `${body}`, attachment: createReadStream(__dirname + `/cache/${id}.m4a`)}, event.threadID, () => unlinkSync(__dirname + `/cache/${id}.m4a`) , event.messageID)
+				})
+				.on("error", (error) => api.sendMessage(`Đã xảy ra vấn đề khi đang xử lý request, lỗi: \n${error}`, event.threadID, event.messageID));
+			});
+			}
+		catch (e) {
+			console.log(e);
+			api.sendMessage("Không thể xử lý yêu cầu của bạn!", event.threadID, event.messageID);
+		}
+
+	}
+	else if (scRegex.test(args[0])) {
+		let body;
+		try {
+			var songInfo = await scdl.getInfo(args[0], global.configModule[this.config.name].SOUNDCLOUD_API);
+			var timePlay = Math.ceil(songInfo.duration / 1000);
+			body = `Tiêu đề: ${songInfo.title} | ${(timePlay - (timePlay %= 60)) / 60 + (9 < timePlay ? ':' : ':0') + timePlay}]`;
+		}
+		catch (error) {
+			if (error.statusCode == "404") return api.sendMessage("Không tìm thấy bài nhạc của bạn thông qua link trên ;w;", event.threadID, event.messageID);
+			api.sendMessage("Không thể xử lý request do dã phát sinh lỗi: " + error.message, event.threadID, event.messageID);
+		}
+		try {
+			await scdl.downloadFormat(args[0], scdl.FORMATS.OPUS, global.configModule[this.config.name].SOUNDCLOUD_API ? global.configModule[this.config.name].SOUNDCLOUD_API : undefined).then(songs => songs.pipe(createWriteStream(__dirname + "/cache/music.mp3")).on("close", () => api.sendMessage({ body, attachment: createReadStream(__dirname + "/cache/music.mp3" )}, event.threadID, () => unlinkSync(__dirname + "/cache/music.mp3"), event.messageID)));
+		}
+		catch (error) {
+			await scdl.downloadFormat(args[0], scdl.FORMATS.MP3, global.configModule[this.config.name].SOUNDCLOUD_API ? global.configModule[this.config.name].SOUNDCLOUD_API : undefined).then(songs => songs.pipe(createWriteStream(__dirname + "/cache/music.mp3")).on("close", () => api.sendMessage({ body, attachment: createReadStream(__dirname + "/cache/music.mp3" )}, event.threadID, () => unlinkSync(__dirname + "/cache/music.mp3"), event.messageID)));
+		}
+	}
+	else {
+		try {
+			var link = [], msg = "", num = 0;
+			var results = await youtube.searchVideos(keywordSearch, 5);
+			for (let value of results) {
+				if (typeof value.id == 'undefined') return;
+				link.push(value.id);
+				let datab = (await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${value.id}&key=${keyapi}`)).data;
+				let gettime = datab.items[0].contentDetails.duration;
+				let time = (gettime.slice(2));
+				let datac = (await axios.get(`https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${value.id}&key=${keyapi}`)).data;
+				let channel = datac.items[0].snippet.channelTitle;
+				msg += (`${num+=1}. ${value.title}\nTime: ${time}\nChannel: ${channel}\n◆━━━━━━━━━━━━━◆\n`);
+			}
+			return api.sendMessage(`🎼 Có ${link.length} kết quả trùng với từ khoá tìm kiếm của bạn: \n${msg}\nHãy reply(phản hồi) chọn một trong những tìm kiếm trên\nThời Gian Bài Hát Tối Đa Là 10M!`, event.threadID,(error, info) => global.client.handleReply.push({ name: this.config.name, messageID: info.messageID, author: event.senderID, link }), event.messageID);
+		}
+		catch (error) {
+			api.sendMessage("Không thể xử lý request do dã phát sinh lỗi: " + error.message, event.threadID, event.messageID);
+		}
+	}
+                                                                                   }
