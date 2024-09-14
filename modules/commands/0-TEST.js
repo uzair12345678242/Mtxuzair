@@ -1,4 +1,4 @@
-const youtubedl = require('youtube-dl-exec');
+const ytdl = require('ytdl-core');
 const fs = require('fs-extra');
 const yts = require('yt-search');
 
@@ -15,7 +15,7 @@ module.exports.config = {
   dependencies: {
     "fs-extra": "",
     "yt-search": "",
-    "youtube-dl-exec": ""
+    "ytdl-core": ""
   }
 };
 
@@ -44,31 +44,24 @@ module.exports.run = async ({ api, event }) => {
     const fileName = `${event.senderID}.mp3`;
     const filePath = __dirname + `/cache/${fileName}`;
 
-    // Use youtube-dl-exec to download the audio
-    youtubedl(videoUrl, {
-      extractAudio: true,
-      audioFormat: "mp3",
-      output: filePath
-    })
-    .then(() => {
-      // Check if the file is larger than 25MB
+    // Use ytdl-core to download the audio
+    const stream = ytdl(videoUrl, { filter: 'audioonly' });
+    const writeStream = fs.createWriteStream(filePath);
+    stream.pipe(writeStream);
+
+    stream.on('end', () => {
       const stats = fs.statSync(filePath);
       if (stats.size > 26214400) {
         fs.unlinkSync(filePath);
         return api.sendMessage('[ERR] The file could not be sent because it is larger than 25MB.', event.threadID);
       }
 
-      // Send the downloaded music file
       api.sendMessage({
         body: `Here's your music, enjoy!🥰\n\nTitle: ${video.title}\nArtist: ${video.author.name}`,
         attachment: fs.createReadStream(filePath)
       }, event.threadID, () => {
         fs.unlinkSync(filePath); // Delete the file after sending
       });
-    })
-    .catch(error => {
-      console.error('[YT-DLP ERROR]', error);
-      return api.sendMessage('An error occurred while downloading the music.', event.threadID);
     });
 
   } catch (error) {
