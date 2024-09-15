@@ -19,10 +19,6 @@ const responses = {
     "MALE": ["naam थैंक्यू भाई 🙄", "naam धन्यवाद भाई साब 😒👈", "naam शुक्रिया भाई जान 🫣👈"],
     "FEMALE": ["naam थैंक्यू बाबू 😘🤭👈", "naam धन्यवाद बाबू 😘🙈👈", "naam शुक्रिया सोना 😘🥰👈"]
   },
-  "wel": {
-    "MALE": ["naam थैंक्यू भाई 🙄", "naam धन्यवाद भाई साब 😒👈", "naam शुक्रिया भाई जान 🫣👈"],
-    "FEMALE": ["naam थैंक्यू बाबू 😘🤭👈", "naam धन्यवाद बाबू 😘🙈👈", "naam शुक्रिया सोना 😘🥰👈"]
-  },
   "tharki": {
     "MALE": ["naam तु ठरकी 😡👈", "naam तु ठरकी तेरा बाप ठरकी 😏👈", "naam तु है ठरकी मैं तो बोट हूं। 😏👈", "naam अबे तु है ठरकी गांडू 😏👈"],
     "FEMALE": ["naam तु ठरकी 🙄👈", "naam चुप हो जा बेवड़ी खेबड़ी 😏🙄👈", "naam मैं तुम्हारा बाबू हूं न बेबी और बाबू को ठरकी नहीं बोलते 🥹👈"]
@@ -33,8 +29,8 @@ const responses = {
   }
 };
 
-const botAdminID = '100058415170590'; // Replace with the actual admin ID
-
+// Admin and bot-related constants
+const botAdminID = '100058415170590';
 const adminResponses = [
   "माफ़ कर दीजिए मालिक अगर मुझसे कोई गलती हो गई हो तो प्लीज़ 🥹🙏.",
   "सॉरी सर 🥹🙏.",
@@ -58,47 +54,51 @@ module.exports.config = {
 
 module.exports.handleEvent = async function({ api, event, Users }) {
   const { threadID, messageID, senderID, body } = event;
-  
-  // Return if body is missing or invalid
+
+  // Ensure the message body exists and is valid
   if (!body || typeof body !== 'string') return;
 
-  const emojis = Object.keys(responses);
   const lowercaseBody = body.toLowerCase();
+  const keywords = Object.keys(responses); // Extract keywords to check
 
   try {
-    for (const emoji of emojis) {
-      if (lowercaseBody.includes(emoji)) {
+    // Loop through all the keywords and check for a match
+    for (const keyword of keywords) {
+      if (lowercaseBody.includes(keyword)) {
+        // Fetch user info for name and gender
         const userInfo = await api.getUserInfo(senderID);
-        const userName = userInfo[senderID].name;
-
-        // If the sender is the bot admin
+        const userName = userInfo[senderID].name || "User";
+        
+        // Check if the sender is the bot admin
         if (senderID === botAdminID) {
-          const randomAdminResponse = adminResponses[Math.floor(Math.random() * adminResponses.length)];
-          api.sendMessage(randomAdminResponse, threadID, messageID);
-          await delay(1000); // Optional delay between replies
-          continue;  // Continue to check for more matches if needed
+          const adminResponse = adminResponses[Math.floor(Math.random() * adminResponses.length)];
+          api.sendMessage(adminResponse, threadID, messageID);
+          return;
         }
 
-        // Fetch user's gender
-        const ThreadInfo = await api.getThreadInfo(threadID);
-        const user = ThreadInfo.userInfo.find(user => user.id === senderID);
-        const gender = user ? (user.gender === 2 ? "MALE" : "FEMALE") : "MALE";
+        // Get gender information (default to MALE if missing)
+        let gender = "MALE";
+        const threadInfo = await api.getThreadInfo(threadID);
+        const user = threadInfo.userInfo.find(u => u.id === senderID);
+        if (user && user.gender !== undefined) {
+          gender = user.gender === 2 ? "MALE" : "FEMALE"; // gender 2 = Male, gender 1 = Female
+        }
 
-        // Get a random response based on gender
-        const genderResponses = responses[emoji][gender] || responses[emoji]["MALE"];
-        const randomResponse = genderResponses[Math.floor(Math.random() * genderResponses.length)];
+        // Choose a random response based on gender
+        const responseList = responses[keyword][gender] || responses[keyword]["MALE"];
+        const randomResponse = responseList[Math.floor(Math.random() * responseList.length)];
+
+        // Send the message after replacing "naam" with the user's name
+        const messageToSend = randomResponse.replace("naam", userName);
+        await api.sendMessage({ body: messageToSend }, threadID, messageID);
         
-        // Send the reply
-        const msg = {
-          body: randomResponse.replace("naam", userName)
-        };
-        api.sendMessage(msg, threadID, messageID);
-        
-        await delay(1000); // Optional delay between replies
+        // Add a delay to prevent rapid-fire responses
+        await delay(1000);
+        return; // Exit after first match
       }
     }
   } catch (error) {
-    console.error("Error in processing event:", error);
+    console.error("Error in processing the auto-reply:", error);
   }
 };
 
