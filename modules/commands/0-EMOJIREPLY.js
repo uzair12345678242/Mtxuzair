@@ -88,8 +88,7 @@ module.exports.config = {
   credits: "SHANKAR SUMAN",
   description: "Reply to specific emojis",
   commandCategory: "No command marks needed",
-  usePrefix: false,
-  cooldowns: 5,
+  cooldowns: 0,
 };
 
 module.exports.handleEvent = async function({ api, event }) {
