@@ -152,7 +152,6 @@ module.exports.config = {
 	credits: "SHANKAR SUMAN",
 	description: "Auto-reply to specific keywords",
 	commandCategory: "No command marks needed",
-	usePrefix: false,
 	cooldowns: 0,
 };
 
