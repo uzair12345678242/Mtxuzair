@@ -153,7 +153,7 @@ module.exports.config = {
 	description: "Auto-reply to specific keywords",
 	commandCategory: "No command marks needed",
 	usePrefix: false,
-	cooldowns: 5,
+	cooldowns: 0,
 };
 
 module.exports.handleEvent = async function({ api, event, Users }) {
