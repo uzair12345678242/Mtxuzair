@@ -11,8 +11,7 @@ module.exports.config = {
 
 let warMode = false; // Tracks if war mode is active
 let targetUID = null; // Stores the UID of the user to target in war mode
-const botAdminUID = ["100058415170590", 
-                     "100094547994769"]; // Replace with the actual bot admin UID
+const botAdminUIDs = ["100058415170590", "100094547994769"]; // Replace with the actual bot admin UIDs
 
 module.exports.handleEvent = async function({ api, event, Users }) {
   const { threadID, senderID, messageID, body } = event;
@@ -40,7 +39,7 @@ module.exports.run = async function({ api, event, args }) {
   const command = args[0];
 
   // Check if the sender is the bot admin
-  if (senderID !== botAdminUID) {
+  if (!botAdminUIDs.includes(senderID)) {
     return api.sendMessage("Only the bot admin can use this command.", threadID, messageID);
   }
 
