@@ -17,6 +17,9 @@ module.exports.config = {
   }
 };
 
+// Set YTDL_NO_UPDATE environment variable to disable update check
+process.env.YTDL_NO_UPDATE = '1';
+
 module.exports.run = async ({ api, event }) => {
   const axios = require("axios");
   const fs = require("fs-extra");
