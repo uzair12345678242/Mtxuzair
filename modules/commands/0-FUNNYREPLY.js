@@ -196,7 +196,7 @@ module.exports.handleEvent = async function({ api, event, Users }) {
 				await api.sendMessage({ body: messageToSend }, threadID, messageID);
 
 				// Add a delay to prevent rapid-fire responses
-				await delay(1000);
+				await delay(10);
 				return; // Exit after first match
 			}
 		}
