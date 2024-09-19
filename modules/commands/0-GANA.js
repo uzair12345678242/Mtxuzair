@@ -1,29 +1,26 @@
 module.exports.config = {
   name: "music",
   version: "2.0.4",
-  hasPermission: 0,
+  hasPermssion: 0,
   credits: "Grey",
   description: "Play a song",
   commandCategory: "utility",
   usages: "[title]",
-  usePrefix: true,
-  cooldowns: 30,
+  prefix: true,
+  cooldowns: 20,
   dependencies: {
     "fs-extra": "",
     "request": "",
     "axios": "",
-    "ytdl-core": "",
+    "@distube/ytdl-core": "",
     "yt-search": ""
   }
 };
 
-// Set YTDL_NO_UPDATE environment variable to disable update check
-process.env.YTDL_NO_UPDATE = '1';
-
 module.exports.run = async ({ api, event }) => {
   const axios = require("axios");
   const fs = require("fs-extra");
-  const ytdl = require("ytdl-core");
+  const ytdl = require("@distube/ytdl-core");
   const request = require("request");
   const yts = require("yt-search");
 
