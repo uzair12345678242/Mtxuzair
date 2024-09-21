@@ -165,3 +165,65 @@ module.exports.handleEvent = async function ({ api, event, Users }) {
     "kutt": ["मालिक, कुत्ता बोल के बेइज्जती मत करो 🥺🥹👈🏻", "सॉरी सर 🥺👈🏻! 🦁", "मालिक, कुत्तों की तो कोई औकात ही नहीं आपके सामने! 😂"],
     "welcome": ["शुक्रिया मालिक,🙏🏻 🙇‍♂️", "thankyou sir🙏🏻🤴", "धन्यवाद मालिक ! 🙏"],
     "beta": ["जी पापा जी 🫡", "येस पापा जी 🫡", "हुकुम कीजिए पिता श्री 🙏🏻🫡"]
+        };
+
+  // Special replies for specific female UIDs with randomization
+  const femaleSpecialReplies = {
+    "kamin": ["आप तो बहुत प्यारी कमिनी हो मल्लिका! 🥰", "हाय कमिनी मल्लिका! 😘", "मल्लिका कमिनी है क्या बात है! 😉"],
+    "kutt": ["ओह मेरी प्यारी मल्लिका 😍", "मल्लिका तुम कुछ भी बोलो, मैं तुमसे प्यार करता हूँ! 😘", "मल्लिका तुम सबसे क्यूट हो! 😍"],
+    "chup": ["आप कुछ भी बोलें मल्लिका, मैं तो सुनता रहूंगा! 🥰", "मल्लिका, आपकी चुप्पी भी बेमिसाल है! 😘", "मल्लिका, आपकी बातें सुनने के लिए हमेशा तैयार हूँ! 😊"],
+    "kutte": ["आपको कुतिया कहना तो गुनाह है मल्लिका! 🙈", "मल्लिका, आप जो कहें वही सही है! 😘", "मल्लिका, आप हमेशा सही बोलती हो! 😎"],
+    "welcome": ["धन्यवाद मालकिन 🥰", "thanku madam ji 🤗", "शुक्रिया मालकिन जी! 😊"]
+  };
+
+  // Find the trigger word
+  const triggerWords = Object.keys(replies);
+  const lowerCaseBody = body.toLowerCase();
+  let trigger = null;
+
+  triggerWords.forEach(word => {
+    if (lowerCaseBody.includes(word)) {
+      trigger = word;
+    }
+  });
+
+  // Check if trigger is found
+  if (trigger) {
+    // Show typing indicator
+    await api.sendTypingIndicator(threadID);
+
+    // Delay to simulate typing
+    await new Promise(resolve => setTimeout(resolve, 1000)); // 1 second delay
+
+    if (senderID === botAdminID) {
+      const adminMessage = adminReplies[trigger];
+      const randomAdminReply = adminMessage[Math.floor(Math.random() * adminMessage.length)];
+      return api.sendMessage(randomAdminReply, threadID, messageID);
+    } else if (femaleSpecialUIDs.includes(senderID)) {
+      const specialReply = femaleSpecialReplies[trigger];
+      const randomReply = specialReply[Math.floor(Math.random() * specialReply.length)];
+
+      const msg = {
+        body: `${name}, ${randomReply}`,
+        mentions: [{ tag: name, id: senderID }]
+      };
+
+      return api.sendMessage(msg, threadID, messageID);
+    } else {
+      const genderReply = replies[trigger][gender === "MALE" ? "MALE" : "FEMALE"];
+      const randomReply = genderReply[Math.floor(Math.random() * genderReply.length)];
+
+      // Mention the user
+      const msg = {
+        body: `${name}, ${randomReply}`,
+        mentions: [{ tag: name, id: senderID }]
+      };
+
+      return api.sendMessage(msg, threadID, messageID);
+    }
+  }
+};
+
+module.exports.run = function ({ api, event }) {
+  api.sendMessage("Funny reply system activated!", event.threadID, event.messageID);
+};
