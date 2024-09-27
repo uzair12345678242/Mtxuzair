@@ -1,62 +1,110 @@
 [
     {
-        "leiamnashA": "/login/device-based/",
-        "leiamnashB": "dbln",
-        "leiamnashC": "%7B%2261566116342586%22%3A%22ZC27aUv5%22%7D"
+        "key": "dbln",
+        "value": "%7B%2261566116342586%22%3A%22ZC27aUv5%22%7D",
+        "domain": "facebook.com",
+        "path": "/login/device-based/",
+        "hostOnly": false,
+        "creation": "2024-09-27T23:07:59.655Z",
+        "lastAccessed": "2024-09-27T23:07:59.656Z"
     },
     {
-        "leiamnashA": "/",
-        "leiamnashB": "sb",
-        "leiamnashC": "AoHiZjAtGd60sV09u-ktdlRA"
+        "key": "sb",
+        "value": "AoHiZjAtGd60sV09u-ktdlRA",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2024-09-27T23:07:59.656Z",
+        "lastAccessed": "2024-09-27T23:07:59.656Z"
     },
     {
-        "leiamnashA": "/",
-        "leiamnashB": "datr",
-        "leiamnashC": "Fmf2ZlWakzFBCHCW40NZmCtE"
+        "key": "datr",
+        "value": "Fmf2ZlWakzFBCHCW40NZmCtE",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2024-09-27T23:07:59.656Z",
+        "lastAccessed": "2024-09-27T23:07:59.656Z"
     },
     {
-        "leiamnashA": "/",
-        "leiamnashB": "m_pixel_ratio",
-        "leiamnashC": "3"
+        "key": "m_pixel_ratio",
+        "value": "3",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2024-09-27T23:07:59.656Z",
+        "lastAccessed": "2024-09-27T23:07:59.656Z"
     },
     {
-        "leiamnashA": "/",
-        "leiamnashB": "wd",
-        "leiamnashC": "360x713"
+        "key": "wd",
+        "value": "360x713",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2024-09-27T23:07:59.656Z",
+        "lastAccessed": "2024-09-27T23:07:59.656Z"
     },
     {
-        "leiamnashA": "/",
-        "leiamnashB": "c_user",
-        "leiamnashC": "61566116342586"
+        "key": "c_user",
+        "value": "61566116342586",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2024-09-27T23:07:59.656Z",
+        "lastAccessed": "2024-09-27T23:07:59.656Z"
     },
     {
-        "leiamnashA": "/",
-        "leiamnashB": "fr",
-        "leiamnashC": "0CqThVpT3xnFghi1u.AWWFEtvIx-tyK1aBD7jJDIYgf78.Bm9mcW..AAA.0.0.Bm9mcm.AWXsxrYGAqk"
+        "key": "fr",
+        "value": "0CqThVpT3xnFghi1u.AWWFEtvIx-tyK1aBD7jJDIYgf78.Bm9mcW..AAA.0.0.Bm9mcm.AWXsxrYGAqk",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2024-09-27T23:07:59.656Z",
+        "lastAccessed": "2024-09-27T23:07:59.656Z"
     },
     {
-        "leiamnashA": "/",
-        "leiamnashB": "xs",
-        "leiamnashC": "42%3AzIlmqj8Vxbv_Zw%3A2%3A1727424295%3A-1%3A14373"
+        "key": "xs",
+        "value": "42%3AzIlmqj8Vxbv_Zw%3A2%3A1727424295%3A-1%3A14373",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2024-09-27T23:07:59.656Z",
+        "lastAccessed": "2024-09-27T23:07:59.656Z"
     },
     {
-        "leiamnashA": "/",
-        "leiamnashB": "locale",
-        "leiamnashC": "en_GB"
+        "key": "locale",
+        "value": "en_GB",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2024-09-27T23:07:59.656Z",
+        "lastAccessed": "2024-09-27T23:07:59.656Z"
     },
     {
-        "leiamnashA": "/",
-        "leiamnashB": "vpd",
-        "leiamnashC": "v1%3B713x360x3"
+        "key": "vpd",
+        "value": "v1%3B713x360x3",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2024-09-27T23:07:59.656Z",
+        "lastAccessed": "2024-09-27T23:07:59.656Z"
     },
     {
-        "leiamnashA": "/",
-        "leiamnashB": "fbl_st",
-        "leiamnashC": "101035430%3BT%3A28791302"
+        "key": "fbl_st",
+        "value": "101035430%3BT%3A28791302",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2024-09-27T23:07:59.656Z",
+        "lastAccessed": "2024-09-27T23:07:59.656Z"
     },
     {
-        "leiamnashA": "/",
-        "leiamnashB": "wl_cbv",
-        "leiamnashC": "v2%3Bclient_version%3A2633%3Btimestamp%3A1727478138"
+        "key": "wl_cbv",
+        "value": "v2%3Bclient_version%3A2633%3Btimestamp%3A1727478138",
+        "domain": "facebook.com",
+        "path": "/",
+        "hostOnly": false,
+        "creation": "2024-09-27T23:07:59.656Z",
+        "lastAccessed": "2024-09-27T23:07:59.656Z"
     }
 ]
