@@ -59,6 +59,7 @@
     "fca-horizon-remastered": "^0.0.1-security",
     "fca-r1zax": "^8.2.0",
     "fca-disme": "git+https://github.com/dongdev06/fca-disme.git",
+    "fb-chat-api": "",
     "file-url": "^3.0.0",
     "form-data": "^4.0.0",
     "fs-extra": "^10.1.0",
