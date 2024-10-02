@@ -73,6 +73,7 @@
     "headers": "^0.9.6",
     "https": "^1.0.0",
     "https-proxy-agent": "^4.0.0",
+    "helyt": "",
     "image-downloader": "^4.3.0",
     "img": "^3.0.3",
     "imgbb-uploader": "^1.5.1",
