@@ -13,27 +13,27 @@ module.exports = function ({ models, api }) {
         }
     }
 
-    // Get the user's name (first from cache, then DB, then API)
+    // Get the user's name (first from cache, then DB, then API) and mention the user
     async function getNameUser(id) {
         try {
             // Check if name is already cached
             if (global.data.userName.has(id)) {
-                return global.data.userName.get(id);
+                return `@${global.data.userName.get(id)}`;  // Mention the user
             } 
             // Check if user is in the known user list
             else if (global.data.allUserID.includes(id)) {
                 const userInfo = await getData(id);
                 console.log(`Database Response for ID ${id}:`, userInfo);  // Debugging
                 if (userInfo && userInfo.name) {
-                    global.data.userName.set(id, userInfo.name); // Cache the name
-                    return userInfo.name;
+                    global.data.userName.set(id, userInfo.name);  // Cache the name
+                    return `@${userInfo.name}`;  // Mention the user
                 } else {
                     const apiUserInfo = await getInfo(id);
                     if (apiUserInfo && apiUserInfo.name) {
-                        global.data.userName.set(id, apiUserInfo.name); // Cache the name
-                        return apiUserInfo.name;
+                        global.data.userName.set(id, apiUserInfo.name);  // Cache the name
+                        return `@${apiUserInfo.name}`;  // Mention the user
                     } else {
-                        return `Unknown User (${id})`;  // Return ID if name is not found
+                        return `@Unknown User (${id})`;  // Return ID if name is not found
                     }
                 }
             } 
@@ -41,15 +41,15 @@ module.exports = function ({ models, api }) {
             else {
                 const apiUserInfo = await getInfo(id);
                 if (apiUserInfo && apiUserInfo.name) {
-                    global.data.userName.set(id, apiUserInfo.name); // Cache the name
-                    return apiUserInfo.name;
+                    global.data.userName.set(id, apiUserInfo.name);  // Cache the name
+                    return `@${apiUserInfo.name}`;  // Mention the user
                 } else {
-                    return `Unknown User (${id})`;  // Return ID if name is not found
+                    return `@Unknown User (${id})`;  // Return ID if name is not found
                 }
             }
         } catch (error) {
             console.error(`Error in getNameUser for ID ${id}:`, error);
-            return `Unknown User (${id})`;  // Return ID if there's an error
+            return `@Unknown User (${id})`;  // Return ID if there's an error
         }
     }
 
