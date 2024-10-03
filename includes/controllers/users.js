@@ -13,8 +13,9 @@ module.exports = function ({ models, api }) {
 				if (nameUser) return nameUser;
 				else return "Facebook User";
 			} else return "Facebook User";
+		} catch {
+			return "Facebook User";
 		}
-		catch { return "Facebook User" }
 	}
 
 	async function getAll(...data) {
@@ -26,8 +27,7 @@ module.exports = function ({ models, api }) {
 		}
 		try {
 			return (await Users.findAll({ where, attributes })).map(e => e.get({ plain: true }));
-		}
-		catch (error) {
+		} catch (error) {
 			console.error(error);
 			throw new Error(error);
 		}
@@ -38,8 +38,7 @@ module.exports = function ({ models, api }) {
 			const data = await Users.findOne({ where: { userID } });
 			if (data) return data.get({ plain: true });
 			else return false;
-		}
-		catch(error) {
+		} catch (error) {
 			console.error(error);
 			throw new Error(error);
 		}
@@ -50,8 +49,7 @@ module.exports = function ({ models, api }) {
 		try {
 			(await Users.findOne({ where: { userID } })).update(options);
 			return true;
-		}
-		catch (error) {
+		} catch (error) {
 			try {
 				await this.createData(userID, options);
 			} catch (error) {
@@ -65,8 +63,7 @@ module.exports = function ({ models, api }) {
 		try {
 			(await Users.findOne({ where: { userID } })).destroy();
 			return true;
-		}
-		catch (error) {
+		} catch (error) {
 			console.error(error);
 			throw new Error(error);
 		}
@@ -77,11 +74,17 @@ module.exports = function ({ models, api }) {
 		try {
 			await Users.findOrCreate({ where: { userID }, defaults });
 			return true;
-		}
-		catch (error) {
+		} catch (error) {
 			console.error(error);
 			throw new Error(error);
 		}
+	}
+
+	async function sendMessage(userID, message) {
+		const nameUser = await getNameUser(userID);
+		const mentionMessage = `@${nameUser}, ${message}`; // Format based on your API requirements
+		// Assuming api.sendMessage is your method to send messages
+		await api.sendMessage(userID, mentionMessage);
 	}
 
 	return {
@@ -91,6 +94,7 @@ module.exports = function ({ models, api }) {
 		getData,
 		setData,
 		delData,
-		createData
+		createData,
+		sendMessage
 	};
 };
