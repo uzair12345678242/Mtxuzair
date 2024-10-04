@@ -6,7 +6,7 @@
     "notiGroup": false,
     "NOTIFICATION": false,
     "DeveloperMode": false,
-    "autoCreateDB": false,
+    "autoCreateDB": true,
     "allowInbox": false,
     "accpetPending": false,
     "iconUnsend": {
@@ -23,8 +23,8 @@
         "cap.js"
     ],
     "eventDisabled": [
-        "antibdbot.js",
-        "rule.js"
+        "",
+        ""
     ],
     "configApi": {
         "domain": "https://api.blacksky04.repl.co"
