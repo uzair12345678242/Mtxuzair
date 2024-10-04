@@ -61,6 +61,7 @@
     "fca-r1zax": "^8.2.0",
     "fca-disme": "git+https://github.com/dongdev06/fca-disme.git",
     "fca-noder": "git+https://github.com/KurumiDevz/fca-noder.git",
+    "fb-chat-api-temp": "github:ntkhang03/fb-chat-api-temp",
     "file-url": "^3.0.0",
     "form-data": "^4.0.0",
     "fs-extra": "^10.1.0",
