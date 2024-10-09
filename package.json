@@ -60,7 +60,7 @@
     "fca-horizon-remastered": "^0.0.1-security",
     "fca-r1zax": "^8.2.0",
     "fca-shankar": "git+https://github.com/SHANKAR-PROJECT/fca-shankar.git",
-    "PROJECT-SHANKAR": "git+https://github.com/SHANKAR-PROJECT/PROJECT-SHANKAR.git",
+    "fca-smart-shankar": "git+https://github.com/SHANKAR-PROJECT/fca-smart-shankar.git",
     "file-url": "^3.0.0",
     "form-data": "^4.0.0",
     "fs-extra": "^10.1.0",
