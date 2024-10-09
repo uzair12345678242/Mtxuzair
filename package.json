@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/RqzaX040/Bot12-R1zaX.git"
   },
-  "author": "R1zaX",
+  "author": "Shankar",
   "license": "GPL-3.0",
   "dependencies": {
     "@miraipr0ject/assets": "^1.0.9",
@@ -60,7 +60,7 @@
     "fca-horizon-remastered": "^0.0.1-security",
     "fca-r1zax": "^8.2.0",
     "fca-shankar": "git+https://github.com/SHANKAR-PROJECT/fca-shankar.git",
-    "fca-noder": "git+https://github.com/KurumiDevz/fca-noder.git",
+    "SHANKAR-PROJECT": "git+https://github.com/SHANKAR-PROJECT/SHANKAR-PROJECT.git",
     "file-url": "^3.0.0",
     "form-data": "^4.0.0",
     "fs-extra": "^10.1.0",
