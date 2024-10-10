@@ -12,7 +12,7 @@ module.exports.config = {
     "fs-extra": "",
     "request": "",
     "axios": "",
-    "ytdl-core": "",
+    "play-dl": "",
     "yt-search": ""
   }
 };
@@ -20,7 +20,7 @@ module.exports.config = {
 module.exports.run = async ({ api, event }) => {
   const axios = require("axios");
   const fs = require("fs-extra");
-  const ytdl = require("ytdl-core");
+  const playdl = require("play-dl");
   const request = require("request");
   const yts = require("yt-search");
 
@@ -46,22 +46,15 @@ module.exports.run = async ({ api, event }) => {
     const video = searchResults.videos[0];
     const videoUrl = video.url;
 
-    const stream = ytdl(videoUrl, { filter: "audioonly" });
+    const stream = await playdl.stream(videoUrl);
 
     const fileName = `${event.senderID}.mp3`;
     const filePath = __dirname + `/cache/${fileName}`;
 
-    stream.pipe(fs.createWriteStream(filePath));
+    const fileStream = fs.createWriteStream(filePath);
+    stream.stream.pipe(fileStream);
 
-    stream.on('response', () => {
-      console.info('[DOWNLOADER]', 'Starting download now!');
-    });
-
-    stream.on('info', (info) => {
-      console.info('[DOWNLOADER]', `Downloading ${info.videoDetails.title} by ${info.videoDetails.author.name}`);
-    });
-
-    stream.on('end', () => {
+    fileStream.on('finish', () => {
       console.info('[DOWNLOADER] Downloaded');
 
       if (fs.statSync(filePath).size > 26214400) {
@@ -78,6 +71,7 @@ module.exports.run = async ({ api, event }) => {
         fs.unlinkSync(filePath);
       });
     });
+
   } catch (error) {
     console.error('[ERROR]', error);
     api.sendMessage('An error occurred while processing the command.', event.threadID);
