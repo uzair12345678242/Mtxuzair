@@ -1,7 +1,7 @@
 const fs = require('fs-extra');
 const path = require('path');
 
-const AntiPath = "./modules/commands/data";
+const AntiPath = "./modules/commands/shankar";
 const crFile = (f, i) => {
     if (!fs.existsSync(f)) {
         const data = i !== undefined ? JSON.stringify(i, null, 2) : JSON.stringify([]);
