@@ -1,15 +1,15 @@
 module.exports.config = {
-  name: "antist",
-  credits: "SHANKAR SUMAN",
-  hasPermssion: 1,
+  name: "anti",
+  credits: "DungUwU",
+  hasPermission: 1,
   dependencies: {
     "imgbb-uploader": "",
     "axios": "",
     "fs": ""
   },
-  description: "Ban something in the group",
+  description: "Block something in the group",
   usages: "< nickname/boximage/boxname >",
-  commandCategory: "group"
+  commandCategory: "Box chat"
 };
 
 const isBoolean = val => 'boolean' === typeof val;
@@ -23,6 +23,7 @@ module.exports.run = async ({
       messageID,
       senderID
     } = event;
+
     if (!await global.modelAntiSt.findOne({
       where: {
         threadID
@@ -35,11 +36,13 @@ module.exports.run = async ({
     try {
       if (senderID == threadID)
         return;
+
       const data = (await global.modelAntiSt.findOne({
         where: {
           threadID
         }
       })).data;
+
       if (!data.hasOwnProperty("antist")) {
         data.antist = {};
         await global.modelAntiSt.findOneAndUpdate({
@@ -88,7 +91,7 @@ module.exports.run = async ({
           else
             data.antist.boximage = !(isBoolean(data.antist.boximage) ? data.antist.boximage : false);
 
-          if (data.antist.boximage == true) {
+          if (data.antist.boximage === true) {
             const fs = global.nodemodule["fs"];
             const axios = global.nodemodule["axios"];
             const uploadIMG = global.nodemodule["imgbb-uploader"];
@@ -97,7 +100,7 @@ module.exports.run = async ({
             const {
               imageSrc
             } = _info;
-            if (!imageSrc) return api.sendMessage("Your group doesn't have any images...", threadID);
+            if (!imageSrc) return api.sendMessage("Your group has no images...", threadID);
             const imageStream = (await axios.get(imageSrc, {
               responseType: 'arraybuffer'
             })).data;
@@ -129,7 +132,7 @@ module.exports.run = async ({
             const {
               name
             } = _info;
-            if (!name) return api.sendMessage("The group doesn't have a name", threadID);
+            if (!name) return api.sendMessage("The group has no name", threadID);
             data.antist_info.name = name;
           } else {
             data.antist_info.name = null;
@@ -148,7 +151,7 @@ module.exports.run = async ({
           if (!global.client.antistTheme)
             global.client.antistTheme = {};
           if (data.antist.theme === true)
-            return api.sendMessage('Go to group settings and select a theme as the default theme', threadID, (err, info) => {
+            return api.sendMessage('Please go to group settings and select a theme as the default theme', threadID, (err, info) => {
               global.client.antistTheme[threadID] = {
                 threadID,
                 messageID: info.messageID,
@@ -179,7 +182,7 @@ module.exports.run = async ({
 
                   data.antist.theme = true;
                   data.antist_info.themeID = themeID;
-                  api.sendMessage('The default theme has been saved as: ' + accessibility_label, threadID);
+                  api.sendMessage('Default theme saved as: ' + accessibility_label, threadID);
                   await global.modelAntiSt.findOneAndUpdate({
                     threadID
                   }, {
@@ -212,8 +215,7 @@ module.exports.run = async ({
         }
 
         default:
-          return api.sendMessage(`====== [ INSTRUCTIONS ] ======
-\n\n━━━━━━━━━━━━━━━━\n\n- anti boxname: Enable/Disable banning group name change\n- anti boximage: Enable/Disable banning group image change\n- anti nickname: Enable/Disable banning member nickname change\n- anti emoji: Enable/Disable banning group emoji change\n- anti theme: Enable/Disable banning group theme change`, threadID);
+          return api.sendMessage(`🛠==== [ INSTRUCTIONS ] ====🛠\n━━━━━━━━━━━━━━━\n\n• 𝗮𝗻𝘁𝗶 𝗯𝗼𝘅𝗻𝗮𝗺𝗲: Enable/Disable name change blocking\n• 𝗮𝗻𝘁𝗶 𝗯𝗼𝘅𝗶𝗺𝗮𝗴𝗲: Enable/Disable image change blocking\n• 𝗮𝗻𝘁𝗶 𝗻𝗶𝗰𝗸𝗻𝗮𝗺𝗲: Enable/Disable nickname change blocking\n• 𝗮𝗻𝘁𝗶 𝗲𝗺𝗼𝗷𝗶: Enable/Disable emoji change blocking\n• 𝗮𝗻𝘁𝗶 𝘁𝗵𝗲𝗺𝗲: Enable/Disable theme change blocking`, threadID);
       }
 
       await global.modelAntiSt.findOneAndUpdate({
@@ -221,13 +223,13 @@ module.exports.run = async ({
       }, {
         data
       });
-      return api.sendMessage(`[ MODE ] → Anti mode ${setting}: ${data.antist[setting] ? 'Enabled' : 'Disabled'}`, threadID);
+      return api.sendMessage(`[ MODE ] → Anti ${setting} mode: ${data.antist[setting] ? 'Enabled' : 'Disabled'}`, threadID);
     } catch (e) {
       console.log(e);
       api.sendMessage("[ MODE ] → An error occurred while executing the command", threadID);
     }
   }
   catch (err) {
-    console.log(err)
+    console.log(err);
   }
 };
