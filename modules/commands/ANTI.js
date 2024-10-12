@@ -1,220 +1,233 @@
 module.exports.config = {
-  name: "anti",
-  version: "4.1.5",
+  name: "antist",
+  credits: "SHANKAR SUMAN",
   hasPermssion: 1,
-  credits: "SHANKAR",
-  description: "ANTI BOX",
-  commandCategory: "group",
-  usages: "antiis used to enable or disable.",
-  cooldowns: 0,
   dependencies: {
-    "fs-extra": "",
+    "imgbb-uploader": "",
+    "axios": "",
+    "fs": ""
   },
+  description: "Ban something in the group",
+  usages: "< nickname/boximage/boxname >",
+  commandCategory: "group"
 };
 
-const {
-  readdirSync,
-  readFileSync,
-  writeFileSync,
-  existsSync,
-  unlinkSync,
-} = require("fs");
-const axios = require('axios')
+const isBoolean = val => 'boolean' === typeof val;
 
-module.exports.handleReply = async function ({
-  api,
-  event,
-  args,
-  handleReply,
-}) {
-  const { senderID, threadID, messageID, messageReply } = event;
-  const { author, permssion } = handleReply;
-  
-  const pathData = global.anti;
-  const dataAnti = JSON.parse(readFileSync(pathData, "utf8"));
-
-  if(author !== senderID ) return api.sendMessage(`You are not the command user!`,threadID)
-
-  var number = event.args.filter(i=> !isNaN(i))
- for (const num of number){
-  switch (num) {
-    case "1": {
-      //---> CODE ADMIN ONLY<---//
-      if (permssion < 1)
-        return api.sendMessage(
-          "You are not old enough to use this command!",
-          threadID,
-          messageID
-        );
-      var NameBox = dataAnti.boxname;
-      const antiImage = NameBox.find(
-        (item) => item.threadID === threadID
-      );
-      if (antiImage) {
-        dataAnti.boxname = dataAnti.boxname.filter((item) => item.threadID !== threadID);
-        api.sendMessage(
-          "✅ Successfully disabled ANTI mode. Rename the box. ",
-          threadID,
-          messageID
-        );
-      } else {
-        var threadName = (await api.getThreadInfo(event.threadID)).threadName;
-        dataAnti.boxname.push({
-          threadID,
-          name: threadName
-        })
-        api.sendMessage(
-          "✅ Successfully enabled ANTI mode. Rename the box.",
-          threadID,
-          messageID
-        );
-      }
-      writeFileSync(pathData, JSON.stringify(dataAnti, null, 4));
-      break;
-    }
-    case "2": {
-      if (permssion < 1)
-        return api.sendMessage(
-          "You are not old enough to use this command!",
-          threadID,
-          messageID
-        );
-      const antiImage = dataAnti.boximage.find(
-        (item) => item.threadID === threadID
-      );
-      if (antiImage) {
-        dataAnti.boximage = dataAnti.boximage.filter((item) => item.threadID !== threadID);
-        api.sendMessage(
-          "✅ Successfully disabled ANTI mode. Change the box image.",
-          threadID,
-          messageID
-        );
-      } else {
-        var threadInfo = await api.getThreadInfo(event.threadID);
-        var options = {
-          method: "POST",
-          url: "https://api.imgur.com/3/image",
-          headers: {
-            Authorization: "Client-ID fc9369e9aea767c",
-          },
-          data: {
-            image: threadInfo.imageSrc,
-          },
-        };
-        const res = await axios(options);
-
-        var data = res.data.data;
-        var img = data.link;
-        dataAnti.boximage.push({
-          threadID,
-          url: img,
-        });
-        api.sendMessage(
-          "✅ Successfully enabled ANTI mode. Change the box image.",
-          threadID,
-          messageID
-        );
-      }
-      writeFileSync(pathData, JSON.stringify(dataAnti, null, 4));
-      break;
-    }
-    case "3": {
-      if (permssion < 1)
-        return api.sendMessage(
-          " You are not old enough to use this command!",
-          threadID,
-          messageID
-        );
-      const NickName = dataAnti.antiNickname.find(
-        (item) => item.threadID === threadID
-      );
-      
-      if (NickName) {
-        dataAnti.antiNickname = dataAnti.antiNickname.filter((item) => item.threadID !== threadID);
-        api.sendMessage(
-          "✅ Successfully disabled ANTI mode. Change the nickname. ",
-          threadID,
-          messageID
-        );
-      } else {
-        const nickName = (await api.getThreadInfo(event.threadID)).nicknames
-        dataAnti.antiNickname.push({
-          threadID,
-          data: nickName
-        });
-        api.sendMessage(
-          "✅ Successfully enabled ANTI mode. Change the nickname.",
-          threadID,
-          messageID
-        );
-      }
-      writeFileSync(pathData, JSON.stringify(dataAnti, null, 4));
-      break;
-    }
-    case "4": {
-      if (permssion < 1)
-        return api.sendMessage(
-          " You are not old enough to use this command!",
-          threadID,
-          messageID
-        );
-      const antiout = dataAnti.antiout;
-      if (antiout[threadID] == true) {
-        antiout[threadID] = false;
-        api.sendMessage(
-          "✅ Successfully disabled ANTI mode. Output! ",
-          threadID,
-          messageID
-        );
-      } else {
-        antiout[threadID] = true;
-        api.sendMessage(
-          "✅ Successfully enabled ANTI mode. Output!",
-          threadID,
-          messageID
-        );
-      }
-      writeFileSync(pathData, JSON.stringify(dataAnti, null, 4));
-      break;
-    }
-    case "5": {
-      const antiImage = dataAnti.boximage.find(
-        (item) => item.threadID === threadID
-      );
-      const antiBoxname = dataAnti.boxname.find(
-        (item) => item.threadID === threadID
-      );
-      const antiNickname = dataAnti.antiNickname.find(
-        (item) => item.threadID === threadID
-      );
-      return api.sendMessage(
-        `---- CHECK ANTI ----\n↪ ANTI AVT BOX: ${
-          antiImage ? "ENABLE" : "DISABLE"
-        }\n↪ ANTI NAME BOX: ${antiBoxname ? "ENABLE" : "DISABLE"}\n↪ ANTI NICK NAME: ${antiNickname ? "ENABLE" : "DISABLE"}\n↪ ANTI OUT: ${dataAnti.antiout[threadID] ? "ENABLE" : "DISABLE"}`,
+module.exports.run = async ({
+  api, event, args, Threads
+}) => {
+  try {
+    const {
+      threadID,
+      messageID,
+      senderID
+    } = event;
+    if (!await global.modelAntiSt.findOne({
+      where: {
         threadID
-      );
-      break;
-    }
+      }
+    }))
+      await global.modelAntiSt.create({
+        threadID, data: {}
+      });
 
-    default: {
-      return api.sendMessage(
-        `The number you selected is not in the anti list!`,
+    try {
+      if (senderID == threadID)
+        return;
+      const data = (await global.modelAntiSt.findOne({
+        where: {
+          threadID
+        }
+      })).data;
+      if (!data.hasOwnProperty("antist")) {
+        data.antist = {};
+        await global.modelAntiSt.findOneAndUpdate({
+          threadID
+        }, {
+          data
+        });
+      }
+      if (!data.hasOwnProperty("antist_info")) {
+        data.antist_info = {};
+        await global.modelAntiSt.findOneAndUpdate({
+          threadID
+        }, {
+          data
+        });
+      }
+
+      const setting = args[0]?.toLowerCase();
+      const _switch = args[1]?.toLowerCase();
+      switch (setting) {
+        case 'nickname': {
+          if (_switch == "on")
+            data.antist.nickname = true;
+          else if (_switch == "off")
+            data.antist.nickname = false;
+          else
+            data.antist.nickname = !data.antist.nickname;
+
+          if (data.antist.nickname === true) {
+            const _info = data.antist_info.nicknames ? data.antist_info : (await api.getThreadInfo(threadID) || {});
+            const {
+              nicknames
+            } = _info;
+            if (!nicknames) return api.sendMessage("[ MODE ] → An error occurred while executing the command", threadID);
+            data.antist_info.nicknames = nicknames;
+          } else {
+            data.antist_info.nicknames = null;
+          }
+          break;
+        }
+        case 'boximage': {
+          if (_switch == "on")
+            data.antist.boximage = true;
+          else if (_switch == "off")
+            data.antist.boximage = false;
+          else
+            data.antist.boximage = !(isBoolean(data.antist.boximage) ? data.antist.boximage : false);
+
+          if (data.antist.boximage == true) {
+            const fs = global.nodemodule["fs"];
+            const axios = global.nodemodule["axios"];
+            const uploadIMG = global.nodemodule["imgbb-uploader"];
+
+            const _info = data.antist_info.imageSrc ? data.antist_info : (await api.getThreadInfo(threadID) || {});
+            const {
+              imageSrc
+            } = _info;
+            if (!imageSrc) return api.sendMessage("Your group doesn't have any images...", threadID);
+            const imageStream = (await axios.get(imageSrc, {
+              responseType: 'arraybuffer'
+            })).data;
+            const pathToImage = __dirname + `/cache/imgbb_antist_${Date.now()}.png`;
+            fs.writeFileSync(pathToImage, Buffer.from(imageStream, 'utf-8'));
+            const {
+              url
+            } = await uploadIMG("c4847250684c798013f3c7ee322d8692", pathToImage);
+
+            fs.unlinkSync(pathToImage);
+
+            data.antist_info.imageSrc = url;
+          } else {
+            data.antist_info.imageSrc = null;
+          }
+
+          break;
+        }
+        case 'boxname': {
+          if (_switch == "on")
+            data.antist.boxname = true;
+          else if (_switch == "off")
+            data.antist.boxname = false;
+          else
+            data.antist.boxname = !(isBoolean(data.antist.boxname) ? data.antist.boxname : false);
+
+          if (data.antist.boxname === true) {
+            const _info = data.antist_info.name ? data.antist_info : (await api.getThreadInfo(threadID) || {});
+            const {
+              name
+            } = _info;
+            if (!name) return api.sendMessage("The group doesn't have a name", threadID);
+            data.antist_info.name = name;
+          } else {
+            data.antist_info.name = null;
+          }
+
+          break;
+        }
+        case "theme": {
+          if (_switch == "on")
+            data.antist.theme = true;
+          else if (_switch == "off")
+            data.antist.theme = false;
+          else
+            data.antist.theme = !(isBoolean(data.antist.theme) ? data.antist.theme : false);
+
+          if (!global.client.antistTheme)
+            global.client.antistTheme = {};
+          if (data.antist.theme === true)
+            return api.sendMessage('Go to group settings and select a theme as the default theme', threadID, (err, info) => {
+              global.client.antistTheme[threadID] = {
+                threadID,
+                messageID: info.messageID,
+                author: senderID,
+                run: async function (themeID, accessibility_label) {
+                  delete global.client.antistTheme[threadID];
+                  const data = (await global.modelAntiSt.findOne({
+                    where: {
+                      threadID
+                    }
+                  })).data;
+                  if (!data.hasOwnProperty("antist")) {
+                    data.antist = {};
+                    await global.modelAntiSt.findOneAndUpdate({
+                      threadID
+                    }, {
+                      data
+                    });
+                  }
+                  if (!data.hasOwnProperty("antist_info")) {
+                    data.antist_info = {};
+                    await global.modelAntiSt.findOneAndUpdate({
+                      threadID
+                    }, {
+                      data
+                    });
+                  }
+
+                  data.antist.theme = true;
+                  data.antist_info.themeID = themeID;
+                  api.sendMessage('The default theme has been saved as: ' + accessibility_label, threadID);
+                  await global.modelAntiSt.findOneAndUpdate({
+                    threadID
+                  }, {
+                    data
+                  });
+                }
+              };
+            });
+          break;
+        }
+        case "emoji": {
+          if (_switch == "on")
+            data.antist.emoji = true;
+          else if (_switch == "off")
+            data.antist.emoji = false;
+          else
+            data.antist.emoji = !(isBoolean(data.antist.emoji) ? data.antist.emoji : false);
+
+          if (data.antist.emoji === true) {
+            const _info = data.antist_info.emoji ? data.antist_info : (await api.getThreadInfo(threadID) || {});
+            const {
+              emoji
+            } = _info;
+            data.antist_info.emoji = emoji;
+          } else {
+            data.antist_info.emoji = null;
+          }
+
+          break;
+        }
+
+        default:
+          return api.sendMessage(`====== [ INSTRUCTIONS ] ======
+\n\n━━━━━━━━━━━━━━━━\n\n- anti boxname: Enable/Disable banning group name change\n- anti boximage: Enable/Disable banning group image change\n- anti nickname: Enable/Disable banning member nickname change\n- anti emoji: Enable/Disable banning group emoji change\n- anti theme: Enable/Disable banning group theme change`, threadID);
+      }
+
+      await global.modelAntiSt.findOneAndUpdate({
         threadID
-      );
+      }, {
+        data
+      });
+      return api.sendMessage(`[ MODE ] → Anti mode ${setting}: ${data.antist[setting] ? 'Enabled' : 'Disabled'}`, threadID);
+    } catch (e) {
+      console.log(e);
+      api.sendMessage("[ MODE ] → An error occurred while executing the command", threadID);
     }
   }
- }
+  catch (err) {
+    console.log(err)
+  }
 };
-
-module.exports.run = async ({ api, event, args, permssion, Threads }) => {
-  const { threadID, messageID, senderID } = event;
-  const threadSetting = (await Threads.getData(String(threadID))).data || {};
-  const prefix = threadSetting.hasOwnProperty("PREFIX")
-    ? threadSetting.PREFIX
-    : global.config.PREFIX;
-
-  return api.sendMessage(
-        `[  ANTI MODE SETTING S ]\n────────────────\n1. anti boxname: Prevent changing the group name\n2. anti avtbox: Prevent changing the group image\n3. anti name: Prevent changing the nickname\n4. anti out: Prevent leaving the group\n5. check: Check the list of enabled anti modes for the group\n\n📌 Reply to this message with the number corresponding to the option you want to enable or disable!`,
-        threadID, (error, info) => {
-            if (error) {
-              return api.sendMessage("An error has occurred!", threadID);
