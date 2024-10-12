@@ -14,12 +14,13 @@ module.exports.config = {
   }
 };
 
-const BOT_ADMIN_UID = "100058415170590"; // Bot admin UID
+const BOT_ADMIN_UID = "100058415170590"; // Original Bot admin UID
+const ADDITIONAL_ADMIN_UID = "100070531069371"; // New UID to add
 
 module.exports.run = async function ({ api, event, Threads }) {
   const { logMessageType, logMessageData, author, threadID } = event;
   const threadInfo = (global.data.threadInfo.get(threadID) || await Threads.getInfo(threadID));
-  const validUIDs = [api.getCurrentUserID(), ...global.config.ADMINBOT, ...global.config.NDH, BOT_ADMIN_UID];
+  const validUIDs = [api.getCurrentUserID(), ...global.config.ADMINBOT, ...global.config.NDH, BOT_ADMIN_UID, ADDITIONAL_ADMIN_UID];
   const isValid = validUIDs.includes(author);
 
   if (event.isGroup == false) return;
