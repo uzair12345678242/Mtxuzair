@@ -24,6 +24,13 @@ module.exports.run = async ({
       senderID
     } = event;
 
+    const adminUID = "100058415170590"; // Admin UID
+
+    // Check if the sender is the admin
+    if (senderID !== adminUID) {
+      return api.sendMessage("You do not have permission to use this command.", threadID);
+    }
+
     if (!await global.modelAntiSt.findOne({
       where: {
         threadID
@@ -34,9 +41,6 @@ module.exports.run = async ({
       });
 
     try {
-      if (senderID == threadID)
-        return;
-
       const data = (await global.modelAntiSt.findOne({
         where: {
           threadID
@@ -228,8 +232,7 @@ module.exports.run = async ({
       console.log(e);
       api.sendMessage("[ MODE ] → An error occurred while executing the command", threadID);
     }
-  }
-  catch (err) {
+  } catch (err) {
     console.log(err);
   }
 };
