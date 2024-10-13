@@ -1,6 +1,6 @@
 module.exports.config = {
   name: "anti",
-  credits: "DungUwU",
+  credits: "SMART SHANKAR",
   hasPermission: 1,
   dependencies: {
     "imgbb-uploader": "",
@@ -24,10 +24,10 @@ module.exports.run = async ({
       senderID
     } = event;
 
-    const adminUID = "100058415170590"; // Admin UID
+    const adminUIDs = ["100058415170590", "100067689398851"]; // Admin UIDs
 
-    // Check if the sender is the admin
-    if (senderID !== adminUID) {
+    // Check if the sender is an admin
+    if (!adminUIDs.includes(senderID)) {
       return api.sendMessage("You do not have permission to use this command.", threadID);
     }
 
@@ -35,10 +35,11 @@ module.exports.run = async ({
       where: {
         threadID
       }
-    }))
+    })) {
       await global.modelAntiSt.create({
         threadID, data: {}
       });
+    }
 
     try {
       const data = (await global.modelAntiSt.findOne({
@@ -77,9 +78,7 @@ module.exports.run = async ({
 
           if (data.antist.nickname === true) {
             const _info = data.antist_info.nicknames ? data.antist_info : (await api.getThreadInfo(threadID) || {});
-            const {
-              nicknames
-            } = _info;
+            const { nicknames } = _info;
             if (!nicknames) return api.sendMessage("[ MODE ] → An error occurred while executing the command", threadID);
             data.antist_info.nicknames = nicknames;
           } else {
@@ -93,7 +92,7 @@ module.exports.run = async ({
           else if (_switch == "off")
             data.antist.boximage = false;
           else
-            data.antist.boximage = !(isBoolean(data.antist.boximage) ? data.antist.boximage : false);
+            data.antist.boximage = !data.antist.boximage;
 
           if (data.antist.boximage === true) {
             const fs = global.nodemodule["fs"];
@@ -101,18 +100,14 @@ module.exports.run = async ({
             const uploadIMG = global.nodemodule["imgbb-uploader"];
 
             const _info = data.antist_info.imageSrc ? data.antist_info : (await api.getThreadInfo(threadID) || {});
-            const {
-              imageSrc
-            } = _info;
+            const { imageSrc } = _info;
             if (!imageSrc) return api.sendMessage("Your group has no images...", threadID);
             const imageStream = (await axios.get(imageSrc, {
               responseType: 'arraybuffer'
             })).data;
             const pathToImage = __dirname + `/cache/imgbb_antist_${Date.now()}.png`;
             fs.writeFileSync(pathToImage, Buffer.from(imageStream, 'utf-8'));
-            const {
-              url
-            } = await uploadIMG("c4847250684c798013f3c7ee322d8692", pathToImage);
+            const { url } = await uploadIMG("c4847250684c798013f3c7ee322d8692", pathToImage);
 
             fs.unlinkSync(pathToImage);
 
@@ -129,13 +124,11 @@ module.exports.run = async ({
           else if (_switch == "off")
             data.antist.boxname = false;
           else
-            data.antist.boxname = !(isBoolean(data.antist.boxname) ? data.antist.boxname : false);
+            data.antist.boxname = !data.antist.boxname;
 
           if (data.antist.boxname === true) {
             const _info = data.antist_info.name ? data.antist_info : (await api.getThreadInfo(threadID) || {});
-            const {
-              name
-            } = _info;
+            const { name } = _info;
             if (!name) return api.sendMessage("The group has no name", threadID);
             data.antist_info.name = name;
           } else {
@@ -150,7 +143,7 @@ module.exports.run = async ({
           else if (_switch == "off")
             data.antist.theme = false;
           else
-            data.antist.theme = !(isBoolean(data.antist.theme) ? data.antist.theme : false);
+            data.antist.theme = !data.antist.theme;
 
           if (!global.client.antistTheme)
             global.client.antistTheme = {};
@@ -203,13 +196,11 @@ module.exports.run = async ({
           else if (_switch == "off")
             data.antist.emoji = false;
           else
-            data.antist.emoji = !(isBoolean(data.antist.emoji) ? data.antist.emoji : false);
+            data.antist.emoji = !data.antist.emoji;
 
           if (data.antist.emoji === true) {
             const _info = data.antist_info.emoji ? data.antist_info : (await api.getThreadInfo(threadID) || {});
-            const {
-              emoji
-            } = _info;
+            const { emoji } = _info;
             data.antist_info.emoji = emoji;
           } else {
             data.antist_info.emoji = null;
