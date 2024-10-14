@@ -26,6 +26,8 @@ module.exports.run = async function({ api, event, Users }) {
 
   // Time-Based Session
   const hours = moment.tz("Asia/Kolkata").format("HH");
+  const date = moment.tz("Asia/Kolkata").format("DD/MM/YYYY");
+  const time = moment.tz("Asia/Kolkata").format("HH:mm:ss");
   let session;
   
   if (hours >= 5 && hours < 12) {
@@ -53,7 +55,7 @@ module.exports.run = async function({ api, event, Users }) {
   const gifPath = join(__dirname, "cache", "leaveGif", `${threadID}.gif`);
 
   // Message format with time-based session
-  let msg = `सुकर है एक ठरकी इस ग्रुप में कम हो गया😑👈\nनाम👉 ${name}\nरीजन👉 ${type} \nहमारे साथ अपना कीमती समय देने के लिए धन्यवाद ${name}, जल्द ही फिर मिलेंगे😊💔\n\n[❤️‍🔥] बाय बाय खुश रहना हमेशा।\nसमय: ${session}`;
+  let msg = `सुकर है एक ठरकी इस ग्रुप में कम हो गया😑👈\nनाम👉 ${name}\nरीजन👉 ${type}\nहमारे साथ अपना कीमती समय देने के लिए धन्यवाद ${name}, जल्द ही फिर मिलेंगे😊💔\n\n[❤️‍🔥] बाय बाय खुश रहना हमेशा।\nसमय: ${session} || तारीख: ${date} || समय: ${time}`;
 
   try {
     // Download the GIF from Imgur
