@@ -7,12 +7,14 @@ module.exports.config = {
   dependencies: {
     "fs-extra": "",
     "axios": "",
-    "path": ""
+    "path": "",
+    "moment-timezone": ""
   }
 };
 
 module.exports.run = async function({ api, event, Users }) {
   const axios = require('axios');
+  const moment = require("moment-timezone");
   const { createWriteStream, existsSync, mkdirSync } = global.nodemodule["fs-extra"];
   const { join } = global.nodemodule["path"];
   const { threadID } = event;
@@ -21,6 +23,20 @@ module.exports.run = async function({ api, event, Users }) {
 
   const name = await Users.getNameUser(event.logMessageData.leftParticipantFbId) || "उपयोगकर्ता";
   const type = (event.author == event.logMessageData.leftParticipantFbId) ? "खुद ही भाग गया😐👈" : "एडमिन ने गुस्से में निकाल दिया।😑👈";
+
+  // Time-Based Session
+  const hours = moment.tz("Asia/Kolkata").format("HH");
+  let session;
+  
+  if (hours >= 5 && hours < 12) {
+    session = "सुबह";
+  } else if (hours >= 12 && hours < 17) {
+    session = "दोपहर";
+  } else if (hours >= 17 && hours < 21) {
+    session = "शाम";
+  } else {
+    session = "रात";
+  }
 
   const path = join(__dirname, "cache", "leaveGif");
   if (!existsSync(path)) mkdirSync(path, { recursive: true });
@@ -36,8 +52,8 @@ module.exports.run = async function({ api, event, Users }) {
   const randomGif = gifLinks[Math.floor(Math.random() * gifLinks.length)];
   const gifPath = join(__dirname, "cache", "leaveGif", `${threadID}.gif`);
 
-  // Message format
-  let msg = `सुकर है एक ठरकी इस ग्रुप में कम हो गया😑👈\nनाम👉 ${name}\nरीजन👉 ${type} \nहमारे साथ अपना कीमती समय देने के लिए धन्यवाद ${name}, जल्द ही फिर मिलेंगे😊💔\n\n[❤️‍🔥] बाय बाय खुश रहना हमेशा।`;
+  // Message format with time-based session
+  let msg = `सुकर है एक ठरकी इस ग्रुप में कम हो गया😑👈\nनाम👉 ${name}\nरीजन👉 ${type} \nहमारे साथ अपना कीमती समय देने के लिए धन्यवाद ${name}, जल्द ही फिर मिलेंगे😊💔\n\n[❤️‍🔥] बाय बाय खुश रहना हमेशा।\nसमय: ${session}`;
 
   try {
     // Download the GIF from Imgur
