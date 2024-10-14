@@ -1,91 +1,108 @@
+const axios = require("axios");
+const fs = require("fs-extra");
+const path = require("path");
+
+const SPOTIFY_CLIENT_ID = "41dd52e608ee4c4ba8b196b943db9f73";
+const SPOTIFY_CLIENT_SECRET = "5c7b438712b04d0a9fe2eaae6072fa16";
+const GIF_URL = "https://i.imgur.com/ZupEOSk.png"; // Link to the GIF you want to send
+
 module.exports.config = {
-  name: "test",
-  version: "2.0.4",
+  name: "gana",
+  version: "1.0.0",
   hasPermssion: 0,
-  credits: "Grey",
-  description: "Play a song",
-  commandCategory: "utility",
-  usages: "[title]",
-  prefix: true,
-  cooldowns: 20,
-  dependencies: {
-    "fs-extra": "",
-    "request": "",
-    "axios": "",
-    "@distube/ytdl-core": "",
-    "yt-search": ""
-  }
+  credits: "SHANKAR",
+  description: "Search and download songs from Spotify and send a GIF.",
+  commandCategory: "Music",
+  usages: "music <song name>",
+  cooldowns: 5,
 };
 
-module.exports.run = async ({ api, event }) => {
-  const axios = require("axios");
-  const fs = require("fs-extra");
-  const ytdl = require("@distube/ytdl-core");
-  const yts = require("yt-search");
+// Function to get Spotify access token
+async function getSpotifyToken() {
+  const tokenRes = await axios.post("https://accounts.spotify.com/api/token", new URLSearchParams({
+    grant_type: "client_credentials"
+  }).toString(), {
+    headers: {
+      "Authorization": `Basic ${Buffer.from(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`).toString('base64')}`,
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
+  });
+  return tokenRes.data.access_token;
+}
 
-  const input = event.body;
-  const data = input.split(" ");
+// Function to search Spotify for a track
+async function searchSpotifyTrack(trackName, token) {
+  const searchRes = await axios.get(`https://api.spotify.com/v1/search`, {
+    headers: {
+      "Authorization": `Bearer ${token}`
+    },
+    params: {
+      q: trackName,
+      type: "track",
+      limit: 1
+    }
+  });
 
-  // Check if the song title is provided
-  if (data.length < 2) {
-    return api.sendMessage("कृपया एक गाना डालें।", event.threadID);
+  if (searchRes.data.tracks.items.length === 0) {
+    throw new Error("No track found with the given name.");
   }
 
-  // Remove the command part and get the song title
-  data.shift();
-  const song = data.join(" ");
+  return searchRes.data.tracks.items[0]; // Return the first track
+}
 
+module.exports.run = async function ({ api, event, args }) {
+  const { threadID, messageID } = event;
   try {
-    api.sendMessage(`"${song}" ढूंढा जा रहा है। कृपया प्रतीक्षा करें...`, event.threadID);
-
-    // Search for the song on YouTube
-    const searchResults = await yts(song);
-    if (!searchResults.videos.length) {
-      return api.sendMessage("त्रुटि: मान्य अनुरोध नहीं है।", event.threadID, event.messageID);
+    const trackName = args.join(" ").trim();
+    if (!trackName) {
+      return api.sendMessage("Please provide a song name.", threadID, messageID);
     }
 
-    const video = searchResults.videos[0];
-    const videoUrl = video.url;
+    // Get Spotify Access Token
+    const spotifyToken = await getSpotifyToken();
 
-    // Download the audio
-    const stream = ytdl(videoUrl, { filter: "audioonly" });
+    // Search for the track on Spotify
+    const track = await searchSpotifyTrack(trackName, spotifyToken);
+    const trackUrl = track.external_urls.spotify;
 
-    const fileName = `${event.senderID}.mp3`;
-    const filePath = __dirname + `/cache/${fileName}`;
+    // Fetch song download details
+    const res = await axios.get(`https://for-devs.onrender.com/api/spotify/download?url=${encodeURIComponent(trackUrl)}&apikey=r-e377e74a78b7363636jsj8ffb61ce`);
+    const songData = res.data;
 
-    // Pipe the stream to the file system
-    stream.pipe(fs.createWriteStream(filePath));
+    if (!songData || !songData.downloadUrl) {
+      return api.sendMessage(`Unable to download song for "${trackName}". Please try again.`, threadID, messageID);
+    }
 
-    stream.on('response', () => {
-      console.info('[DOWNLOADER]', 'Download शुरू हो रहा है!');
-    });
+    const songPath = path.join(__dirname, 'cache', `${songData.id}.mp3`);
 
-    stream.on('info', (info) => {
-      console.info('[DOWNLOADER]', `Downloading: ${info.videoDetails.title} by ${info.videoDetails.author.name}`);
-    });
+    // Download the song
+    const songResponse = await axios.get(songData.downloadUrl, { responseType: 'arraybuffer' });
+    await fs.outputFile(songPath, songResponse.data);
 
-    stream.on('end', () => {
-      console.info('[DOWNLOADER]', 'Download पूरा हो गया।');
+    // Download the GIF
+    const gifPath = path.join(__dirname, 'cache', 'music_gif.png'); // Local path for the GIF
+    const gifResponse = await axios.get(GIF_URL, { responseType: 'arraybuffer' });
+    await fs.outputFile(gifPath, gifResponse.data);
 
-      // Check if the file is larger than 25MB
-      if (fs.statSync(filePath).size > 26214400) {
-        fs.unlinkSync(filePath);
-        return api.sendMessage('[त्रुटि] फ़ाइल 25MB से बड़ी है और नहीं भेजी जा सकती।', event.threadID);
+    // Send the GIF first
+    await api.sendMessage({
+      attachment: fs.createReadStream(gifPath)
+    }, threadID, (error, info) => {
+      if (error) {
+        console.error("Error sending GIF:", error);
+      } else {
+        // Now send the music after the GIF has been sent
+        api.sendMessage({
+          attachment: fs.createReadStream(songPath)
+        }, threadID, messageID);
       }
-
-      const message = {
-        body: `ये रहा आपका संगीत!🥰\n\nशीर्षक: ${video.title}\nकलाकार: ${video.author.name}`,
-        attachment: fs.createReadStream(filePath)
-      };
-
-      // Send the message with the music file
-      api.sendMessage(message, event.threadID, () => {
-        // Remove the file after sending
-        fs.unlinkSync(filePath);
-      });
     });
+
+    // Clean up cached files
+    await fs.remove(songPath);
+    await fs.remove(gifPath);
   } catch (error) {
-    console.error('[ERROR]', error);
-    api.sendMessage('कमांड को प्रोसेस करते समय एक त्रुटि हुई।', event.threadID);
+    console.error("Error:", error);
+    return api.sendMessage(`An error occurred: ${error.message}`, threadID, messageID);
   }
 };
