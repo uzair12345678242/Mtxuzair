@@ -3,7 +3,7 @@ module.exports.config = {
   eventType: ["log:unsubscribe"],
   version: "1.1.0",
   credits: "SHANKAR SUMAN", // Mod by H.Thanh, Updated by Your Name
-  description: "Notify the Bot or the person leaving the group with a random Imgur GIF/photo/video",
+  description: "Notify the Bot or the person leaving the group with a random GIF/photo from cache or an Imgur link",
   dependencies: {
     "fs-extra": "",
     "path": "",
@@ -38,17 +38,14 @@ module.exports.run = async function({ api, event, Users, Threads }) {
   const type = (event.author == event.logMessageData.leftParticipantFbId) ? "खुद ही भाग गया😐👈" : "एडमिन ने गुस्से में निकाल दिया।😑👈";
 
   const path = join(__dirname, "cache", "leaveGif");
-  const pathGif = join(path, `${threadID}.mp4`);
-  let msg, formPush;
+  const randomPath = readdirSync(join(__dirname, "cache", "leaveGif", "randomgif"));
 
-  (typeof data.customLeave == "undefined") ? msg = "सुकर है एक ठरकी इस ग्रुप में कम हो गया😑👈\nनाम👉 {name}\nरीजन👉 {type} \n हमारे साथ अपना कीमती समय देने के लिए धन्यवाद {name} जल्द ही फिर मिलेंगे😊💔\n\n[❤️‍🔥] बाय बाय खुश रहना हमेशा. {session} || {time} \n▰▱▰▱▰▱▰▱▰▱▰▱▰▱▰▱ \n credit:-SHANKAR-SUMAN \n " : msg = data.customLeave;
+  let msg;
+  (typeof data.customLeave == "undefined") ? msg = "सुकर है एक ठरकी इस ग्रुप में कम हो गया😑👈\nनाम👉 {name}\nरीजन👉 {type} \n हमारे साथ अपना कीमती समय देने के लिए धन्यवाद {name} जल्द ही फिर मिलेंगे😊💔\n\n[❤️‍🔥] बाय बाय खुश रहना हमेशा. {session} || {time} \n▰▱▰▱▰▱▰▱▰▱▰▱▰▱▰▱▰▱ \n credit:-SHANKAR-SUMAN \n " : msg = data.customLeave;
   msg = msg.replace(/\{name}/g, name).replace(/\{type}/g, type).replace(/\{session}/g, hours <= 10 ? "𝙈𝙤𝙧𝙣𝙞𝙣𝙜" : 
     hours > 10 && hours <= 12 ? "𝘼𝙛𝙩𝙚𝙧𝙣𝙤𝙤𝙣" :
     hours > 12 && hours <= 18 ? "𝙀𝙫𝙚𝙣𝙞𝙣𝙜" : "𝙉𝙞𝙜𝙝𝙩").replace(/\{time}/g, time);  
 
-  const randomPath = readdirSync(join(__dirname, "cache", "leaveGif", "randomgif"));
-
-  // Fake Imgur Links
   const fakeImgurLinks = [
     "https://i.imgur.com/5n88mQU.gif",
     "https://i.imgur.com/S60tB8i.gif",
@@ -59,23 +56,26 @@ module.exports.run = async function({ api, event, Users, Threads }) {
   let imgurLink = "";
 
   try {
-    if (existsSync(pathGif)) {
-      imgurLink = await imgur.uploadFile(pathGif).then(response => response.data.link);
-    } else if (randomPath.length != 0) {
-      const pathRandom = join(__dirname, "cache", "leaveGif", "randomgif",`${randomPath[Math.floor(Math.random() * randomPath.length)]}`);
-      imgurLink = await imgur.uploadFile(pathRandom).then(response => response.data.link);
-    }
+    if (randomPath.length != 0) {
+      const randomGif = randomPath[Math.floor(Math.random() * randomPath.length)];
+      const gifPath = join(__dirname, "cache", "leaveGif", "randomgif", randomGif);
 
-    // Fallback to a random fake link if Imgur upload fails
-    if (!imgurLink) {
+      // Upload to Imgur
+      imgurLink = await imgur.uploadFile(gifPath).then(response => response.data.link);
+
+      const formPush = {
+        body: `${msg}\n\n[GIF/Photo]: ${imgurLink}`,
+        attachment: createReadStream(gifPath)  // Send both GIF and Imgur link
+      };
+
+      return api.sendMessage(formPush, threadID);
+    } else {
       imgurLink = fakeImgurLinks[Math.floor(Math.random() * fakeImgurLinks.length)];
+      return api.sendMessage(`${msg}\n\n[Fake GIF/Photo]: ${imgurLink}`, threadID);  // fallback with fake Imgur link
     }
   } catch (error) {
-    // In case of any error, use a random fake Imgur link
+    // Fallback to a random fake link if Imgur upload fails
     imgurLink = fakeImgurLinks[Math.floor(Math.random() * fakeImgurLinks.length)];
+    return api.sendMessage(`${msg}\n\n[Fake GIF/Photo]: ${imgurLink}`, threadID);
   }
-
-  formPush = { body: `${msg}\n\n[GIF/Photo]: ${imgurLink}` };
-
-  return api.sendMessage(formPush, threadID);
 };
