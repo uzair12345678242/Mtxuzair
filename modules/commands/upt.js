@@ -17,9 +17,9 @@ module.exports.config = {
   version: "1.0.1",
   hasPermssion: 0,
   credits: "R1zaX",
-  description: "no prefix",
-  commandCategory: "Không cần dấu lệnh",
-  usages: "xem thời gian bot onl",
+  description: "कोई प्रीफिक्स नहीं",
+  commandCategory: "बिना आदेश के",
+  usages: "बॉट के ऑनलाइन समय को देखें",
     cooldowns: 5
 };
 
@@ -32,8 +32,8 @@ function byte2mb(bytes) {
 
 module.exports.handleEvent = async ({ api, event, Threads }) => {
 const xuly = Math.floor((Date.now() - global.client.timeStart)/4444)
-var trinhtrang = xuly < 10 ? " 𝗧𝗼̂́𝘁 ✔️":
-  xuly > 10 && xuly < 100 ? "Ổn Định" : "Chậm";
+var trinhtrang = xuly < 10 ? "  अच्‍छा ✔️":
+  xuly > 10 && xuly < 100 ? "स्थिर" : "धीमा";
 const pidusage = await global.nodemodule["pidusage"](process.pid);
   if (!event.body) return;
   var { threadID, messageID } = event;
@@ -48,18 +48,18 @@ const pidusage = await global.nodemodule["pidusage"](process.pid);
   const { exec } = require('child_process');
 exec('du -sh', (error, stdout, stderr) => {
   if (error) {
-    api.sendMessage(`Đã xảy ra lỗi: ${error.message}`, event.threadID, event.messageID);
+    api.sendMessage(`एक त्रुटि हुई: ${error.message}`, event.threadID, event.messageID);
     return;
   }
   if (stderr) {
-    api.sendMessage(`Lỗi STDERR: ${stderr}`, event.threadID, event.messageID);
+    api.sendMessage(`STDERR त्रुटि: ${stderr}`, event.threadID, event.messageID);
     return;
   }
   
   const storageUsed = stdout.trim();
   const [size, path] = storageUsed.split('\t');
 
-    api.sendMessage({body:`━━━━[ 𝗨𝗣𝗧𝗜𝗠𝗘 ]━━━━\n\n            ${gio} : ${phut} : ${giay}\n\n 𝗡𝗴𝗼̂𝗻 𝗻𝗴𝘂̛̃: ${language}\n 𝗛𝗲̣̂ 𝗱𝗶𝗲̂̀𝘂 𝗵𝗮̀𝗻𝗵: ${platform} ${architecture}\n 𝗩-𝗡𝗼𝗱𝗲𝗝𝘀: ${nodejs}\n 𝗠𝗼𝗱𝗲𝗹 𝗖𝗣𝗨: ${cpuModel}\n 𝗠𝗲𝗺𝗼𝗿𝘆: ${size}B\n 𝗖𝗣𝗨: ${pidusage.cpu.toFixed(1)} % / ${maxCpu} 𝗖𝗣𝗨s\n 𝗥𝗔𝗠: ${byte2mb(pidusage.memory)} / ${maxRamInGB} GB\n 𝗣𝗶𝗻𝗴: ${Date.now() - dateNow} ms\n 𝗧𝗶̀𝗻𝗵 𝗧𝗿𝗮̣𝗻𝗴: ${trinhtrang}\n 𝗨𝗽𝘁𝗶𝗺𝗲 𝘀𝘆𝘀𝘁𝗲𝗺: ${uptime} giây`},event.threadID, event.messageID);
+    api.sendMessage({body:`━━━━[ 𝗨𝗣𝗧𝗜𝗠𝗘 ]━━━━\n\n            ${gio} : ${phut} : ${giay}\n\n भाषा: ${language}\n ऑपरेटिंग सिस्टम: ${platform} ${architecture}\n NodeJS संस्करण: ${nodejs}\n CPU मॉडल: ${cpuModel}\n मेमोरी: ${size}B\n CPU: ${pidusage.cpu.toFixed(1)} % / ${maxCpu} CPUs\n RAM: ${byte2mb(pidusage.memory)} / ${maxRamInGB} GB\n पिंग: ${Date.now() - dateNow} ms\n स्थिति: ${trinhtrang}\n सिस्टम अपटाइम: ${uptime} सेकंड`},event.threadID, event.messageID);
       });
    }
 };
