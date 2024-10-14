@@ -31,37 +31,34 @@ function byte2mb(bytes) {
 }
 
 module.exports.handleEvent = async ({ api, event, Threads }) => {
-const xuly = Math.floor((Date.now() - global.client.timeStart)/4444)
-var trinhtrang = xuly < 10 ? "  अच्‍छा ✔️":
-  xuly > 10 && xuly < 100 ? "स्थिर" : "धीमा";
-const pidusage = await global.nodemodule["pidusage"](process.pid);
+  const xuly = Math.floor((Date.now() - global.client.timeStart) / 4444);
+  const trinhtrang = xuly < 10 ? "  अच्‍छा ✔️" : xuly > 10 && xuly < 100 ? "स्थिर" : "धीमा";
+  const pidusage = await global.nodemodule["pidusage"](process.pid);
+  
   if (!event.body) return;
-  var { threadID, messageID } = event;
-  const threadname = global.data.threadInfo.get(event.threadID).threadName || ((await Threads.getData(event.threadID)).threadInfo).threadName;
+  
+  const { threadID, messageID } = event;
+  
   if (event.body.toLowerCase().indexOf("upt") == 0) {
-    const dateNow = Date.now();
-   const time = process.uptime(),
+    const time = process.uptime(),
 	      gio = Math.floor(time / (60 * 60)),
 	      phut = Math.floor((time % (60 * 60)) / 60),
 	    	giay = Math.floor(time % 60);
-  const { commands } = global.client;
-  const { exec } = require('child_process');
-exec('du -sh', (error, stdout, stderr) => {
-  if (error) {
-    api.sendMessage(`एक त्रुटि हुई: ${error.message}`, event.threadID, event.messageID);
-    return;
-  }
-  if (stderr) {
-    api.sendMessage(`STDERR त्रुटि: ${stderr}`, event.threadID, event.messageID);
-    return;
-  }
+    const currentDate = new Date();
+    const formattedTime = currentDate.toLocaleTimeString('en-US', { hour12: true });
+    const formattedDate = currentDate.toLocaleDateString('en-GB');
+    const formattedDay = currentDate.toLocaleDateString('en-US', { weekday: 'long' });
   
-  const storageUsed = stdout.trim();
-  const [size, path] = storageUsed.split('\t');
+    const responseMessage = `❁ ━━━[ 𝗨𝗣𝗧𝗜𝗠𝗘 ]━━━ ❁\n\n` +
+                            `✰ 𝗥𝗨𝗡 ➪ ${gio}ʜ ${phut}ᴍ ${giay}ꜱ\n` +
+                            `✰ 𝗧𝗜𝗠𝗘 ➪ ${formattedTime}\n` +
+                            `✰ 𝗗𝗔𝗧𝗘 ➪ ${formattedDate}\n` +
+                            `✰ 𝗗𝗔𝗬 ➪ ${formattedDay}\n` +
+                            `━━━━━━━━━━━━━━━\n` +
+                            `𝗠𝗔𝗗𝗘 𝗕𝗬 𝗦𝗠𝗔𝗥𝗧 𝗦𝗛𝗔𝗡𝗞𝗔𝗥`;
 
-    api.sendMessage({body:`━━━━[ 𝗨𝗣𝗧𝗜𝗠𝗘 ]━━━━\n\n            ${gio} : ${phut} : ${giay}\n\n भाषा: ${language}\n ऑपरेटिंग सिस्टम: ${platform} ${architecture}\n NodeJS संस्करण: ${nodejs}\n CPU मॉडल: ${cpuModel}\n मेमोरी: ${size}B\n CPU: ${pidusage.cpu.toFixed(1)} % / ${maxCpu} CPUs\n RAM: ${byte2mb(pidusage.memory)} / ${maxRamInGB} GB\n पिंग: ${Date.now() - dateNow} ms\n स्थिति: ${trinhtrang}\n सिस्टम अपटाइम: ${uptime} सेकंड`},event.threadID, event.messageID);
-      });
-   }
+    api.sendMessage(responseMessage, event.threadID, event.messageID);
+  }
 };
 
 module.exports.run = () => {};
