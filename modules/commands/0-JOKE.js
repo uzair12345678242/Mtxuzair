@@ -18,7 +18,7 @@ module.exports.handleEvent = async function ({ api, event }) {
 
   if (body.toLowerCase() === "joke") {
     try {
-      const response = await axios.get(`https://shankar-joke-api.onrender.com//jokes?api_key=${API_KEY}`);
+      const response = await axios.get(`https://hindi-jokes-api.onrender.com/jokes?api_key=${API_KEY}`);
       const jokeContent = response.data.jokeContent;
 
       if (jokeContent) {
