@@ -1,12 +1,12 @@
 module.exports.config = {
-	name: "kickndfb",
-	version: "1.0.0",
-	hasPermssion: 1,
-	credits: "ProCoderMew",
-	description: "Lọc người dùng Facebook",
-	commandCategory: "Nhóm",
-	usages: "",
-	cooldowns: 300
+    name: "kickndfb",
+    version: "1.0.0",
+    hasPermssion: 1,
+    credits: "SHANKAR",
+    description: "Filter Facebook users",
+    commandCategory: "Group",
+    usages: "",
+    cooldowns: 300
 };
 
 module.exports.run = async function({ api, event }) {
@@ -21,14 +21,14 @@ module.exports.run = async function({ api, event }) {
 
     adminIDs = adminIDs.map(e => e.id).some(e => e == api.getCurrentUserID());
     if (arr.length == 0) {
-        return api.sendMessage("Trong nhóm bạn không tồn tại 'Người dùng Facebook'.", event.threadID);
+        return api.sendMessage("There are no 'Facebook users' in your group.", event.threadID);
     }
     else {
-        api.sendMessage("Nhóm bạn hiện có " + arr.length + " 'Người dùng Facebook'.", event.threadID, function () {
+        api.sendMessage("Your group currently has " + arr.length + " 'Facebook users'.", event.threadID, function () {
             if (!adminIDs) {
-                api.sendMessage("Nhưng bot không phải là quản trị viên nên không thể lọc được.", event.threadID);
+                api.sendMessage("But the bot is not an admin, so it can't filter.", event.threadID);
             } else {
-                api.sendMessage("Bắt đầu lọc..", event.threadID, async function() {
+                api.sendMessage("Starting the filtering process...", event.threadID, async function() {
                     for (const e of arr) {
                         try {
                             await new Promise(resolve => setTimeout(resolve, 1000));
@@ -40,8 +40,8 @@ module.exports.run = async function({ api, event }) {
                         }
                     }
                   
-                    api.sendMessage("Đã lọc thành công " + success + " người.", event.threadID, function() {
-                        if (fail != 0) return api.sendMessage("Lọc thất bại " + fail + " người.", event.threadID);
+                    api.sendMessage("Successfully filtered " + success + " users.", event.threadID, function() {
+                        if (fail != 0) return api.sendMessage("Failed to filter " + fail + " users.", event.threadID);
                     });
                 })
             }
