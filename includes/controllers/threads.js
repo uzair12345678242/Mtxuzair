@@ -9,7 +9,7 @@ module.exports = function ({ models, api }) {
 		catch (error) { 
 			console.log(error);
 			throw new Error(error);
-		};
+		}
 	}
 
 	async function getAll(...data) {
@@ -19,16 +19,18 @@ module.exports = function ({ models, api }) {
 			if (Array.isArray(i)) attributes = i;
 			else where = i;
 		}
-		try { return (await Threads.findAll({ where, attributes })).map(e => e.get({ plain: true })); }
+		try { 
+            return (await Threads.findAll({ where, attributes })).map(e => e.get({ plain: true })); 
+        }
 		catch (error) {
 			console.error(error);
 			throw new Error(error);
 		}
-}
+	}
 
 	async function getData(threadID) {
 		try {
-			const data = await Threads.findOne({ where: { threadID }});
+			const data = await Threads.findOne({ where: { threadID } });
 			if (data) return data.get({ plain: true });
 			else return false;
 		} 
@@ -41,17 +43,17 @@ module.exports = function ({ models, api }) {
 	async function setData(threadID, options = {}) {
 		if (typeof options != 'object' && !Array.isArray(options)) throw global.getText("threads", "needObject");
 		try {
-			(await Threads.findOne({ where: { threadID } })).update(options);
+			const existingData = await Threads.findOne({ where: { threadID } });
+			await existingData.update(options);
 			return true;
 		} catch (error) { 
-			try{
-				await this.createData(threadID, options);
+			try {
+				await createData(threadID, options); // Direct call to createData
 
 			} catch (error) {
 				console.error(error);
 				throw new Error(error);
 			}
-			
 		}
 	}
 
@@ -72,7 +74,7 @@ module.exports = function ({ models, api }) {
 			await Threads.findOrCreate({ where: { threadID }, defaults });
 			return true;
 		}
-		catch {
+		catch (error) {
 			console.error(error);
 			throw new Error(error);
 		}
