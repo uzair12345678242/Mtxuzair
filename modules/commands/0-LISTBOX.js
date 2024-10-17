@@ -1,11 +1,11 @@
 module.exports.config = {
     name: 'listbox',
     version: '1.0.0',
-    credits: 'ManhG',
+    credits: 'SHANKAR',
     hasPermssion: 3,
-    description: '[Ban/Unban/Remove] List thread bot đã tham gia',
-    commandCategory: 'Dành cho Admin',
-    usages: '[số trang/all]',
+    description: '[Ban/Unban/Remove] List of groups the bot has joined',
+    commandCategory: 'For Admins',
+    usages: '[page number/all]',
     cooldowns: 5
 };
 
@@ -15,15 +15,14 @@ module.exports.handleReply = async function({ api, event, args, Threads, handleR
     const moment = require("moment-timezone");
     const time = moment.tz("Asia/Ho_Chi_minh").format("HH:MM:ss L");
     var arg = event.body.split(" ");
-    //var idgr = handleReply.groupid[arg[1] - 1];
-    //var groupName = handleReply.groupName[arg[1] - 1];
+    
     switch (handleReply.type) {
         case "reply":
             {
                 if (arg[0] == "ban" || arg[0] == "Ban") {
                     var arrnum = event.body.split(" ");
                     var msg = "";
-                    var modules = "» Thực thi Ban «\n"
+                    var modules = "» Executing Ban «\n"
                     var nums = arrnum.map(n => parseInt(n));
                     nums.shift();
                     for (let num of nums) {
@@ -38,9 +37,9 @@ module.exports.handleReply = async function({ api, event, args, Threads, handleR
                         msg += typef + ' ' + groupName + '\n» TID: ' + idgr + "\n";
                         console.log(modules, msg)
                     }
-                    api.sendMessage(`» Thông báo từ Admin «\n Nhóm Bạn Đã Bị Ban, cấm dùng bot.`, idgr, () =>
+                    api.sendMessage(`» Notification from Admin «\n Your group has been banned, you cannot use the bot anymore.`, idgr, () =>
                         api.sendMessage(`${global.data.botID}`, () =>
-                            api.sendMessage(`» Thực thi Ban «(true/false) «\n\n${msg}`, threadID, () =>
+                            api.sendMessage(`» Executing Ban «(true/false)\n\n${msg}`, threadID, () =>
                                 api.unsendMessage(handleReply.messageID))));
                     break;
                 }
@@ -48,7 +47,7 @@ module.exports.handleReply = async function({ api, event, args, Threads, handleR
                 if (arg[0] == "unban" || arg[0] == "Unban" || arg[0] == "ub" || arg[0] == "Ub") {
                     var arrnum = event.body.split(" ");
                     var msg = "";
-                    var modules = "» Thực thi Unban «\n"
+                    var modules = "» Executing Unban «\n"
                     var nums = arrnum.map(n => parseInt(n));
                     nums.shift();
                     for (let num of nums) {
@@ -63,9 +62,9 @@ module.exports.handleReply = async function({ api, event, args, Threads, handleR
                         msg += typef + ' ' + groupName + '\n» TID: ' + idgr + "\n";
                         console.log(modules, msg)
                     }
-                    api.sendMessage(`» Thông báo từ Admin «\n\n Nhóm Bạn Đã Được Gỡ Ban`, idgr, () =>
+                    api.sendMessage(`» Notification from Admin «\n\n Your group has been unbanned`, idgr, () =>
                         api.sendMessage(`${global.data.botID}`, () =>
-                            api.sendMessage(`» Thực thi Unban «(true/false)\n\n${msg}`, threadID, () =>
+                            api.sendMessage(`» Executing Unban «(true/false)\n\n${msg}`, threadID, () =>
                                 api.unsendMessage(handleReply.messageID))));
                     break;
                 }
@@ -73,7 +72,7 @@ module.exports.handleReply = async function({ api, event, args, Threads, handleR
                 if (arg[0] == "out" || arg[0] == "Out") {
                     var arrnum = event.body.split(" ");
                     var msg = "";
-                    var modules = "» Thực thi Out «\n"
+                    var modules = "» Executing Out «\n"
                     var nums = arrnum.map(n => parseInt(n));
                     nums.shift();
                     for (let num of nums) {
@@ -83,15 +82,16 @@ module.exports.handleReply = async function({ api, event, args, Threads, handleR
                         msg += typef + ' ' + groupName + '\n» TID: ' + idgr + "\n";
                         console.log(modules, msg)
                     }
-                    api.sendMessage(`» Thông báo từ Admin «\n\nTạm biệt nhé\nTớ out đây😢`, idgr, () =>
+                    api.sendMessage(`» Notification from Admin «\n\nGoodbye\nI'm leaving😢`, idgr, () =>
                         api.sendMessage(`${global.data.botID}`, () =>
-                            api.sendMessage(`★★Thực thi Out(true/false)★★\n\n${msg} `, threadID, () =>
+                            api.sendMessage(`★★Executing Out (true/false)★★\n\n${msg}`, threadID, () =>
                                 api.unsendMessage(handleReply.messageID))));
                     break;
                 }
             }
     }
 };
+
 module.exports.run = async function({ api, event, args }) {
     switch (args[0]) {
         case "all":
@@ -100,41 +100,39 @@ module.exports.run = async function({ api, event, args }) {
                 let list = [...inbox].filter(group => group.isSubscribed && group.isGroup);
                 var listthread = [];
                 var listbox = [];
-                /////////
+                
                 for (var groupInfo of list) {
-                    //let data = (await api.getThreadInfo(groupInfo.threadID));
-                    //const listUserID = event.participantIDs.filter(ID => ID);
                     listthread.push({
                         id: groupInfo.threadID,
-                        name: groupInfo.name || "Chưa đặt tên",
+                        name: groupInfo.name || "No Name",
                         participants: groupInfo.participants.length
                     });
                 }
-                /////////
+
                 var listbox = listthread.sort((a, b) => {
                     if (a.participants > b.participants) return -1;
                     if (a.participants < b.participants) return 1;
                 });
-                /////////  
+                
                 var groupid = [];
                 var groupName = [];
                 var page = 1;
                 page = parseInt(args[0]) || 1;
                 page < -1 ? page = 1 : "";
                 var limit = 100000;
-                var msg = "» DS NHÓM ĐÃ THAM GIA «\n\n";
+                var msg = "» LIST OF JOINED GROUPS «\n\n";
                 var numPage = Math.ceil(listbox.length / limit);
 
                 for (var i = limit * (page - 1); i < limit * (page - 1) + limit; i++) {
                     if (i >= listbox.length) break;
                     let group = listbox[i];
-                    msg += `${i + 1}. ${group.name}\n🔰 TID: ${group.id}\n👤 Số thành viên: ${group.participants}\n\n`;
+                    msg += `${i + 1}. ${group.name}\n🔰 TID: ${group.id}\n👤 Number of members: ${group.participants}\n\n`;
                     groupid.push(group.id);
                     groupName.push(group.name);
                 }
-                msg += `\n--Trang ${page}/${numPage}--\nDùng ${global.config.PREFIX}listbox all + số trang\n\n`
+                msg += `\n--Page ${page}/${numPage}--\nUse ${global.config.PREFIX}listbox all + page number\n\n`
 
-                api.sendMessage(msg + '🎭 Reply Out, Ban, Unban + số thứ tự, có thể rep nhiều số, cách nhau bằng dấu cách để Out, Ban, Unban thread đó!', event.threadID, (e, data) =>
+                api.sendMessage(msg + '🎭 Reply with Out, Ban, Unban + serial number (you can reply with multiple numbers, separated by spaces to Out, Ban, or Unban that thread)!', event.threadID, (e, data) =>
                     global.client.handleReply.push({
                         name: this.config.name,
                         author: event.senderID,
@@ -150,43 +148,41 @@ module.exports.run = async function({ api, event, args }) {
         default:
             try {
                 var inbox = await api.getThreadList(100, null, ['INBOX']);
-                let list = [...inbox].filter(group =>  group.isSubscribed && group.isGroup);
+                let list = [...inbox].filter(group => group.isSubscribed && group.isGroup);
                 var listthread = [];
-                var listbox = [];
-                /////////
+                
                 for (var groupInfo of list) {
-                    //let data = (await api.getThreadInfo(groupInfo.threadID));
-                    //const listUserID = event.participantIDs.filter(ID => ID);
                     listthread.push({
                         id: groupInfo.threadID,
-                        name: groupInfo.name || "Chưa đặt tên",
+                        name: groupInfo.name || "No Name",
                         participants: groupInfo.participants.length
                     });
+                }
 
-                } //for
                 var listbox = listthread.sort((a, b) => {
                     if (a.participants > b.participants) return -1;
                     if (a.participants < b.participants) return 1;
                 });
+                
                 var groupid = [];
                 var groupName = [];
                 var page = 1;
                 page = parseInt(args[0]) || 1;
                 page < -1 ? page = 1 : "";
                 var limit = 100;
-                var msg = "» DS NHÓM ĐÃ THAM GIA «\n\n";
+                var msg = "» LIST OF JOINED GROUPS «\n\n";
                 var numPage = Math.ceil(listbox.length / limit);
 
                 for (var i = limit * (page - 1); i < limit * (page - 1) + limit; i++) {
                     if (i >= listbox.length) break;
                     let group = listbox[i];
-                    msg += `${i + 1}. ${group.name}\n🔰TID: ${group.id}\n👤 Số thành viên: ${group.participants}\n\n`;
+                    msg += `${i + 1}. ${group.name}\n🔰TID: ${group.id}\n👤 Number of members: ${group.participants}\n\n`;
                     groupid.push(group.id);
                     groupName.push(group.name);
                 }
-                msg += `--Trang ${page}/${numPage}--\nDùng ${global.config.PREFIX}listbox + số trang/all\n\n`
+                msg += `--Page ${page}/${numPage}--\nUse ${global.config.PREFIX}listbox + page number/all\n\n`
 
-                api.sendMessage(msg + '🎭 Reply Out, Ban, Unban + số thứ tự, có thể rep nhiều số, cách nhau bằng dấu cách để Out, Ban, Unban thread đó!', event.threadID, (e, data) =>
+                api.sendMessage(msg + '🎭 Reply with Out, Ban, Unban + serial number, you can reply with multiple numbers, separated by spaces to Out, Ban, or Unban that thread!', event.threadID, (e, data) =>
                     global.client.handleReply.push({
                         name: this.config.name,
                         author: event.senderID,
