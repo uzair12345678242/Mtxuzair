@@ -2,7 +2,7 @@ module.exports.config = {
   name: "fbs",
   version: "1.0.1",
   hasPermssion: 0,
-  credits: "chinhle",
+  credits: "SHANKAR",
   description: "Image", // Enter what you want
   commandCategory: "utilities", // Section displayed on help
   usages: "", // Usage instructions
