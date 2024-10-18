@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sk7295/SHANKAR-BOT-SS.git"
+    "url": "git+https://github.com/SHANKAR-PROJECT/SMART-SHANKAR-BOT.git"
   },
   "author": "Shankar",
   "license": "GPL-3.0",
@@ -154,9 +154,9 @@
     "ytdl-core": "^4.11.5"
   },
   "bugs": {
-    "url": "https://github.com/RqzaX040/Global-Hokai/issues"
+    "url": "https://github.com/SHANKAR-PROJECT/SMART-SHANKAR-BOT/issues"
   },
-  "homepage": "https://github.com/RqzaX040/Global-Hokai/blob/main/README.md",
+  "homepage": "https://github.com/SHANKAR-PROJECT/SMART-SHANKAR-BOT/blob/main/README.md",
   "devDependencies": {
     "node": "^16.20.1"
   },
