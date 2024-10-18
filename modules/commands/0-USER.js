@@ -2,9 +2,9 @@ module.exports.config = {
 	name: "user",
 	version: "1.0.5",
 	hasPermssion: 2,
-	credits: "Mirai Team",
-	description: "Cấm hoặc gỡ cấm người dùng",
-	commandCategory: "Hệ Thống",
+	credits: "SHANKAR",
+	description: "TISH BOT IS MADE BY SMART SHANKAR",
+	commandCategory: "USER UNBAN",
 	usages: "[unban/ban/search] [ID or text]",
 	cooldowns: 5
 };
