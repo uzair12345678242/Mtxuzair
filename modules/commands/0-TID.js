@@ -1,8 +1,8 @@
 module.exports.config = {
-	name: "tid",	version: "1.0.0", 
+	name: "tid", version: "1.0.0", 
 	hasPermssion: 0,
-	credits: "NTKhang",
-	description: "Lấy id box", 
+	credits: "SHANKAR",
+	description: "Get box id", 
 	commandCategory: "group",
 	usages: "tid",
 	cooldowns: 5, 
