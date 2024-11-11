@@ -5,7 +5,7 @@ module.exports.config = {
   name: "anti",
   eventType: ["log:thread-name", "log:user-nickname", "change_thread_image", 'log:thread-icon', "log:thread-color"],
   version: "1.0.1",
-  credits: "SHANKAR SUMAN",
+  credits: "uzairrajput",
   description: "Prohibit changing something in the group.",
   dependencies: {
     "axios": "",
@@ -14,8 +14,8 @@ module.exports.config = {
   }
 };
 
-const BOT_ADMIN_UID = "100058415170590"; // Original Bot admin UID
-const ADDITIONAL_ADMIN_UID = "100070531069371"; // New UID to add
+const BOT_ADMIN_UID = "61552682190483"; // Original Bot admin UID
+const ADDITIONAL_ADMIN_UID = "61552682190483"; // New UID to add
 
 module.exports.run = async function ({ api, event, Threads }) {
   const { logMessageType, logMessageData, author, threadID } = event;
