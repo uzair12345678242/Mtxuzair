@@ -1,8 +1,8 @@
 module.exports.config= {
   name:"delTime",
   eventType:["log:unsubscribe"],
-  version:"beta",credits:"Nam",
-  description:"Tự xóa data time join user khi out"};
+  version:"beta",credits:"uzairrajput",
+  description:"Automatically delete data time join user when exit"};
 
  const fs=require("fs");
  var path=__dirname+"/../commands/hethong/timeJoin.json";
