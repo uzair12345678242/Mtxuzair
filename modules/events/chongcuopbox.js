@@ -3,13 +3,13 @@ module.exports.config = {
     eventType: ["log:thread-admins"],
     version: "1.0.0",
     credits: "D-Jukie",
-    description: "Ngăn chặn việc thay đổi qtv",
+    description: "Prevent qtv changes",
 };
 
 module.exports.run = async function ({ event, api, Threads, Users }) {
     const { logMessageType, logMessageData, senderID } = event;
- 	let data = (await Threads.getData(event.threadID)).data
- 	if (data.guard == false) return;
+    let data = (await Threads.getData(event.threadID)).data
+    if (data.guard == false) return;
     if (data.guard == true ) {
         switch (logMessageType) {
           case "log:thread-admins": {
@@ -21,7 +21,7 @@ module.exports.run = async function ({ event, api, Threads, Users }) {
                 api.changeAdminStatus(event.threadID, logMessageData.TARGET_ID, false)
                 function editAdminsCallback(err) {
                   if (err) return api.sendMessage("» Hihihihih! ", event.threadID, event.messageID);
-                    return api.sendMessage(`» Kích hoạt chế độ chống cướp box`, event.threadID, event.messageID);
+                    return api.sendMessage(`» Activate anti-box robbery mode`, event.threadID, event.messageID);
                 }
               }
             }
@@ -33,7 +33,7 @@ module.exports.run = async function ({ event, api, Threads, Users }) {
                 api.changeAdminStatus(event.threadID, logMessageData.TARGET_ID, true)
                 function editAdminsCallback(err) {
                 if (err) return api.sendMessage("» Hihihihih! ", event.threadID, event.messageID);
-                return api.sendMessage(`» Kích hoạt chế độ chống cướp box`, event.threadID, event.messageID);
+                return api.sendMessage(`» Activate anti-box robbery mode`, event.threadID, event.messageID);
               }
             }
           }
