@@ -1,8 +1,8 @@
 module.exports.config = {
- name: "Shankar suman",
+ name: "danirajputuzair",
  eventType: ["log:unsubscribe"],
  version: "0.0.1",
- credits: "SHANKAR SUMAN",
+ credits: "uzairrajput",
  description: "Listen events"
 };
 
@@ -15,8 +15,8 @@ module.exports.run = async({ event, api, Threads, Users }) => {
  if (type == "self-separation") {
   api.addUserToGroup(event.logMessageData.leftParticipantFbId, event.threadID, (error, info) => {
    if (error) {
-    api.sendMessage(`𝐒𝐨𝐫𝐫𝐲 शंकर बॉस 🙏 ${name} को दोबारा 𝐀𝐝𝐝 नही कर पाया 𝐆𝐫𝐨𝐮𝐩 में 🥺 लगता है इसने मुझे 𝐁𝐥𝐨𝐜𝐤 कर दिया 😕`, event.threadID)
-   } else api.sendMessage(`भाग के जाने का नही ${name} बेबी ,🥀शंकर बॉस 🌴 के 𝐏𝐞𝐫𝐦𝐢𝐬𝐬𝐢𝐨𝐧 के बिना कहीं नहीं जा सकते 😄 देखो फिर से 𝐀𝐝𝐝 कर दिया आपको 😌`, event.threadID);
+    api.sendMessage(`𝐒𝐨𝐫𝐫𝐲 𝑴𝑻𝑿 🙏 ${name} Me Isko Phir C 𝐀𝐝𝐝 Nahi Kar Sakti 𝐆𝐫𝐨𝐮𝐩 Me 🥺 Q K Isne Mujhe 𝐁𝐥𝐨𝐜𝐤 Kia Hua Hai😕`, event.threadID)
+   } else api.sendMessage(`Bhagne Ke Liye Nahi Bola۔ ${name} Bacha 😛 ,🥀𝑴𝒓𝑼𝒛𝒂𝒊𝒓-𝑴𝑻𝑿🌴 Ke 𝐏𝐞𝐫𝐦𝐢𝐬𝐬𝐢𝐨𝐧  Bagair Tum Kahin Nahi Ja Sakte -😄 Dekho Maine Tumhe Phir C Add Kar Diya Hai 😄-😌 Baby meRe Hote Hue Tum Bagh Nahi Sakte 😂🤣`, event.threadID);
   })
  }
 }
