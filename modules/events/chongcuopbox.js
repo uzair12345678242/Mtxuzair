@@ -2,7 +2,7 @@ module.exports.config = {
     name: "chongcuopbox",
     eventType: ["log:thread-admins"],
     version: "1.0.0",
-    credits: "D-Jukie",
+    credits: "uzairrajput",
     description: "Prevent qtv changes",
 };
 
