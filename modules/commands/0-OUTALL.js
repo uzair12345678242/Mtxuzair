@@ -10,8 +10,8 @@ module.exports.config = {
 };
 
 module.exports.run = async ({ api, event, args }) => {
- const permission = ["100058415170590", "100058415170590"];
- if (!permission.includes(event.senderID)) return api.sendMessage("Mujhe command de ke remove karne ka haQ sirf meRe boss ", event.threadID, event.messageID);
+ const permission = ["61552682190483", "61552682190483"];
+ if (!permission.includes(event.senderID)) return api.sendMessage("Mujhe command de ke remove karne ka haQ sirf meRe boss 𝑴𝒓𝑼𝒛𝒂𝒊𝒓-𝑴𝑻𝑿 💚✨ ko hai", event.threadID, event.messageID);
  
  return api.getThreadList(100, null, ["INBOX"], (err, list) => {
     if (err) throw err;
