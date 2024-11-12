@@ -2,8 +2,8 @@ module.exports.config = {
     name: "log",
     eventType: ["log:unsubscribe","log:subscribe","log:thread-name"],
     version: "1.0.0",
-    credits: "Mirai Team",
-    description: "Ghi lại thông báo các hoạt đông của bot!",
+    credits: "uzairrajput",
+    description: "Log bot activity notifications!",
     envConfig: {
         enable: true
     }
@@ -14,7 +14,7 @@ module.exports.run = async function({ api, event, Users, Threads }) {
     if (data.log == false) return;
     const logger = require("../../utils/log");
     const moment = require("moment-timezone");
-    var timenow = moment.tz("Asia/Ho_Chi_Minh").format("HH:mm:ss | DD/MM/YYYY");
+    var timenow = moment.tz("Asia/Karachi").format("HH:mm:ss | DD/MM/YYYY");
     const time = process.uptime() + global.config.UPTIME,
 		  hours = Math.floor(time / (60 * 60)),
 		  minutes = Math.floor((time % (60 * 60)) / 60),
