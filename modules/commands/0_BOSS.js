@@ -32,7 +32,7 @@ module.exports.handleEvent = function({ api, event, client, __GLOBAL }) {
 
         body: "🥰𝗕𝗢𝗦𝗦 𝗜𝗦 𝗛𝗘𝗥𝗘❤️",
 
-        attachment: fs.createReadStream(__dirname + `/uzairmtx/uza.jpeg`)
+        attachment: fs.createReadStream(__dirname + `/uzairmtx/uz.jpeg`)
 
       }
 
