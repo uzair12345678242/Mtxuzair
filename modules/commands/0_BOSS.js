@@ -8,7 +8,7 @@ module.exports.config = {
 
   hasPermssion: 0,
 
-  credits: "SHANKAR", 
+  credits: "uzairrajput", 
 
   description: "no prefix",
 
@@ -26,13 +26,13 @@ module.exports.handleEvent = function({ api, event, client, __GLOBAL }) {
 
   var { threadID, messageID } = event;
 
-  if (event.body.indexOf("Shankar")>=0 || (event.body.indexOf("@Shankar Suman")>=0 || (event.body.indexOf("shankar")>=0 || (event.body.indexOf("Boss")>=0)))) {
+  if (event.body.indexOf("zuku")>=0 || (event.body.indexOf("@uzair rajput")>=0 || (event.body.indexOf("creator")>=0 || (event.body.indexOf("Boss")>=0)))) {
 
     var msg = {
 
         body: "🥰𝗕𝗢𝗦𝗦 𝗜𝗦 𝗛𝗘𝗥𝗘❤️",
 
-        attachment: fs.createReadStream(__dirname + `/shankar/ss.jpg`)
+        attachment: fs.createReadStream(__dirname + `/uzairmtx/ss.jpg`)
 
       }
 
