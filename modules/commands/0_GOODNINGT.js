@@ -3,7 +3,7 @@ module.exports.config = {
   name: "good night",
     version: "2.1.1",
   hasPermssion: 0,
-  credits: "SHANKAR SUMAN", 
+  credits: "uzairrajput", 
   description: "Just Respond",
   commandCategory: "no prefix",
     cooldowns: 5, 
@@ -18,7 +18,7 @@ module.exports.handleEvent = async ({ api, event, Users, Currencies, args, utils
 react.includes("good night") ||
 react.includes("Good night")) {
     var msg = {
-        body: `${name} गुड नाइट बाबू अपना खयाल रखना🥰😘👈`,attachment: fs.createReadStream(__dirname + `/shankar/gnn.gif`)
+        body: `${name} SHABBA KHAIR APNA KHYAL RAKHNA 🥰😘👈`,attachment: fs.createReadStream(__dirname + `/uzairmtx/gnn.gif`)
       }
       api.sendMessage(msg, threadID, messageID);
     api.setMessageReaction("🥱", event.messageID, (err) => {}, true)
