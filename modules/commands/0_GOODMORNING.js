@@ -6,7 +6,7 @@ module.exports.config = {
 		name: "good-morning",
 		version: "1.0.1",
 		hasPermssion: 0,
-		credits: "SHANKAR SUMAN",
+		credits: "uzairrajput",
 		description: "no prefix",
 	usePrefix: false,
 		commandCategory: "No command marks needed",
