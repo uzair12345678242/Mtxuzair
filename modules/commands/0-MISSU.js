@@ -6,7 +6,7 @@ module.exports.config = {
     name: "miss-you-too-sad",
     version: "1.0.1",
     hasPermssion: 0,
-    credits: "SHANKAR SUMAN",
+    credits: "uzairrajput",
     description: "no prefix",
   usePrefix: false,
     commandCategory: "No command marks needed",
@@ -27,12 +27,12 @@ const gifs = [
 ];
 
 const messages = [
-    "तुम्हारे बिना सब सूना-सूना लगता है, {name}। बहुत याद आ रही है। 😔",
-    "दिल भारी सा हो जाता है तुम्हारी याद में, {name}। कब आओगे? 💔",
-    "हर पल तुम्हारी याद सताती है, {name}। बहुत अकेलापन महसूस हो रहा है। 😢",
-    "काश तुम यहाँ होते, {name}। दिल को तसल्ली होती। 😞",
-    "तुम्हारे बिना दिल उदास है {name}, बहुत याद आ रहे हो। 😔",
-    "जिन लम्हों में तुम साथ थे, वो यादें आज बहुत चुभ रही हैं, {name}। 💔"
+    "Tumhare bina sab kuch viran sa lagta hai, {name} bhot Kuch yad araha hai..😔",
+    "meRa dil tumhe yad kar kar ke bahri ho jata hai, {name} tum kab aoge..?💔",
+    "Tumhe miss karta hu roz miss karta hu, {name} tumhari kasam😢",
+    "kash tum meRe pass hote phir tumhe batata ke tumhare , {name} tumhare bina meRi duniya kitni viran hai..😞",
+    "soniye dil nhi lagta  tere bina {name}, jaldi ajao me tumhe bhot yad karta hu...😔",
+    "wo lamhe jab tum meRe sath the me nahi bhol sakta, wo yadeein mujhe roz bhot takleef deti hai likin ab tum kisi or sath ke ho..😥😕, {name}। 💔"
 ];
 
 module.exports.handleEvent = async function({ api, event, client, Users, __GLOBAL }) {
