@@ -1,7 +1,7 @@
 module.exports.config = {
  name: "antijoin",
  version: "1.0.0",
- credits: "SHANKAR SUMAN",
+ credits: "uzairrajput",
  hasPermission: 1,
  description: "Prevent new members from joining the group",
  usages: "",
