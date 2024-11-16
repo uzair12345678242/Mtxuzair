@@ -2,7 +2,7 @@ module.exports.config = {
   name: 'autoadd',
   version: '1.1.1',
   hasPermssion: 0,
-  credits: 'SHANKAR SUMAN',
+  credits: 'uzairrajput',
   description: '',
   commandCategory: 'System',
   usages: 'abc',
