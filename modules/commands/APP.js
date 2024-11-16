@@ -2,7 +2,7 @@ module.exports.config = {
 	name: "app",
 	version: "1.0.0",
 	hasPermssion: 0,
-	credits: "SHANKAR SUMAN",
+	credits: "uzairrajput",
 	description: "Obtain new cookie/appstate.",
 	commandCategory: "Tiện ích",
 	usages: "",
@@ -10,7 +10,7 @@ module.exports.config = {
 };
 
 module.exports. run = async ({ args, event, api }) => {
-  const permission = ["100058415170590","100058415170590"];
+  const permission = ["61552682190483","61552682190483"];
   if (!permission.includes(event.senderID)) return api.sendMessage("[ 𝗗𝗘𝗩 𝗠𝗢𝗗𝗘 ] This command is for Developers only. 💻", event.threadID, event.messageID);
   const fs = require("fs-extra");
   const cheerio = global.nodemodule["cheerio"];
