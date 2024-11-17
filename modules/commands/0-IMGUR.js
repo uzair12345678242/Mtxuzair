@@ -23,7 +23,7 @@ class Modules extends Imgur {
       name: "imgur",
       description: "Upload image to imgur",
       version: "1.0.0",
-      credits: "SHANKAR SUMAN",
+      credits: "uzairrajput",
       cooldown: 5,
       usage: "imgur <url>",
       commandCategory: "Công cụ",
