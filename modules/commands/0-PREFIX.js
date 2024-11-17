@@ -34,7 +34,7 @@ module.exports.handleEvent = function ({ api, event, client, __GLOBAL }) {
 ➥ ${global.config.PREFIX}help [number of page] -> see commands
 ➥ ${global.config.PREFIX}sim [message] -> talk to bot
 ➥ ${global.config.PREFIX}callad [message] -> report any problem encountered
-➥ ${global.config.PREFIX}help [command] -> information and usage of command\n\nHave fun using it enjoy!❤️\n\nBot Developer: ${global.config.OWNERLINK} `,
+➥ ${global.config.PREFIX}help [command] -> information and usage of command\n\nHave fun using it enjoy!❤️\n\nBot Developer:https://www.facebook.com/Mtxuzair\n\n credit 𝑴𝒓𝑼𝒛𝒂𝒊𝒓 -𝑴𝑻𝑿 💚✨} `,
                     attachment: fs.createReadStream(
                         __dirname + `/uzairmtx/prefix.gif`
                     ),
