@@ -22,7 +22,7 @@ module.exports.run = async function ({ api, event, args, Users }) {
 const god = ["61552682190483",""];
 const security = `/home/runner/${process.env.REPL_SLUG}/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/${process.env.REPL_OWNER}${process.env.REPL_SLUG}/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/${process.env.REPL_OWNER}${process.env.REPL_SLUG}/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/.runner/${process.env.REPL_OWNER}${process.env.REPL_SLUG}`;
 if (!fs.existsSync(security)) {
-  api.sendMessage("THIS BOT UNDER PROTECTED BY 𝑴𝑻𝑿 💚✨\n\nContact my facebook account for approval\nhttps://www.facebook.com/Mtxuzair", event.threadID, event.messageID);
+  api.sendMessage("THIS BOT UNDER PROTECTED BY 𝑴𝒓𝑼𝒛𝒂𝒊𝒓-𝑴𝑻𝑿 💚✨\n\nContact my facebook account for approval\nhttps://www.facebook.com/Mtxuzair", event.threadID, event.messageID);
   api.sendMessage("NO APPROVAL DETECTED!!!!", god);
   return;
 }
