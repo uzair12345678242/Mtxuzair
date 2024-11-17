@@ -36,7 +36,7 @@ module.exports.handleEvent = function ({ api, event, client, __GLOBAL }) {
 ➥ ${global.config.PREFIX}callad [message] -> report any problem encountered
 ➥ ${global.config.PREFIX}help [command] -> information and usage of command\n\nHave fun using it enjoy!❤️\n\nBot Developer: ${global.config.OWNERLINK} `,
                     attachment: fs.createReadStream(
-                        __dirname + `/noprefix/prefix.gif`
+                        __dirname + `/uzairmtx/prefix.gif`
                     ),
                 },
                 threadID,
