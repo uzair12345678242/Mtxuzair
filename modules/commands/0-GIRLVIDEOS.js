@@ -18,7 +18,7 @@ module.exports.run = async({api,event,args,client,Users,Threads,__GLOBAL,Currenc
 const axios = global.nodemodule["axios"];
 const request = global.nodemodule["request"];
 const fs = global.nodemodule["fs-extra"];
-   var hi = ["❝𝐔𝐙𝐀𝐈𝐑-𝐌𝐓𝐗-𝐒𝐓𝐀𝐓𝐔𝐒❞-"];
+   var hi = ["𝐔𝐙𝐀𝐈𝐑-𝐌𝐓𝐗-𝐒𝐓𝐀𝐓𝐔𝐒"];
   var know = hi[Math.floor(Math.random() * hi.length)];
   var link = [
 
