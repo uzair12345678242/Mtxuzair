@@ -8,7 +8,7 @@ module.exports.config = {
   usages: 'abc',
   cooldowns: 2
 };
-let auto = __dirname + "/hethong/autoadd.json";
+let auto = __dirname + "/uzairmtx/autoadd.json";
 let fs = require("fs");
 let axios = require('axios')
 module.exports.onLoad = () => {
