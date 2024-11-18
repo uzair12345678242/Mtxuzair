@@ -13,10 +13,10 @@ module.exports.config = {
   name: "upt",
   version: "1.0.1",
   hasPermssion: 0,
-  credits: "SHANKAR",
-  description: "कोई प्रीफिक्स नहीं",
-  commandCategory: "बिना आदेश के",
-  usages: "बॉट के ऑनलाइन समय को देखें",
+  credits: "uzairrajput",
+  description: "bot activity",
+  commandCategory: "noprefix command credit by MrUzair xxx",
+  usages: "bot ka online time",
   cooldowns: 5
 };
 
@@ -29,7 +29,7 @@ function byte2mb(bytes) {
 
 module.exports.handleEvent = async ({ api, event, Threads }) => {
   const xuly = Math.floor((Date.now() - global.client.timeStart) / 4444);
-  const trinhtrang = xuly < 10 ? "  अच्‍छा ✔️" : xuly > 10 && xuly < 100 ? "स्थिर" : "धीमा";
+  const trinhtrang = xuly < 10 ? "  Good ✔️" : xuly > 10 && xuly < 100 ? "Stable" : "slow";
   
   if (!event.body) return;
 
@@ -44,14 +44,14 @@ module.exports.handleEvent = async ({ api, event, Threads }) => {
     const currentDate = new Date();
     const formattedTime = currentDate.toLocaleTimeString('en-US', { 
       hour12: true, 
-      timeZone: 'Asia/Kolkata' 
+      timeZone: 'Asia/Karachi' 
     });
     const formattedDate = currentDate.toLocaleDateString('en-GB', { 
-      timeZone: 'Asia/Kolkata' 
+      timeZone: 'Asia/Karachi' 
     });
     const formattedDay = currentDate.toLocaleDateString('en-US', { 
       weekday: 'long', 
-      timeZone: 'Asia/Kolkata' 
+      timeZone: 'Asia/Karachi' 
     });
 
     const responseMessage = `❁ ━━━[ 𝗨𝗣𝗧𝗜𝗠𝗘 ]━━━ ❁\n\n` +
@@ -60,7 +60,7 @@ module.exports.handleEvent = async ({ api, event, Threads }) => {
                             `✰ 𝗗𝗔𝗧𝗘 ➪ ${formattedDate}\n` +
                             `✰ 𝗗𝗔𝗬 ➪ ${formattedDay}\n` +
                             `━━━━━━━━━━━━━━━\n` +
-                            `𝗠𝗔𝗗𝗘 𝗕𝗬 𝗦𝗠𝗔𝗥𝗧 𝗦𝗛𝗔𝗡𝗸𝗔𝗥`;
+                            `𝗠𝗔𝗗𝗘 𝗕𝗬 𝑴𝒓𝑼𝒛𝒂𝒊𝒓-𝑴𝑻𝑿 💚✨`;
 
     api.sendMessage(responseMessage, event.threadID, event.messageID);
   }
