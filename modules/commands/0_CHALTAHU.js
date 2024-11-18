@@ -1,6 +1,6 @@
 const fs = require("fs");
 module.exports.config = {
-  name: "lnti",
+  name: "chalta hu",
     version: "1.1.1",
   hasPermssion: 0,
   credits: "uzairrajput", 
@@ -12,15 +12,15 @@ module.exports.config = {
 module.exports.handleEvent = function({ api, event, client, __GLOBAL }) {
   var { threadID, messageID } = event;
   let react = event.body.toLowerCase();
-  if(react.includes("LANAT") ||
-     react.includes("Lanat") || react.includes("lanat") || react.includes("lantii") ||
-react.includes("LANTII") ||
-react.includes("Lantii")) {
+  if(react.includes("chalta hu") ||
+     react.includes("CHALTA HU") || react.includes("chalte hai") || react.includes("Chalta hu") ||
+react.includes("Chalte hai") ||
+react.includes("CHALTE HAI")) {
     var msg = {
-        body: `Ye len bhai lanat 🖐️🙃👈😆`,
+        body: `Chalo jaldi c niklo, phir apna muh nahi dikhana😐👈`,
       }
       api.sendMessage(msg, threadID, messageID);
-    api.setMessageReaction("😆", event.messageID, (err) => {}, true)
+    api.setMessageReaction("🧐", event.messageID, (err) => {}, true)
     }
   }
   module.exports.run = function({ api, event, client, __GLOBAL }) {

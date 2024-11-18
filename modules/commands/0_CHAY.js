@@ -1,6 +1,6 @@
 const fs = require("fs");
 module.exports.config = {
-  name: "uuuuzzzz",
+  name: "chay",
     version: "2.1.1",
   hasPermssion: 0,
   credits: "uzairrajput", 
@@ -13,14 +13,16 @@ module.exports.handleEvent = async ({ api, event, Users, Currencies, args, utils
   var name = await Users.getNameUser(event.senderID);
   var { threadID, messageID } = event;
   let react = event.body.toLowerCase();
-  if(react.includes("KIRAN") ||
-     react.includes("Kìrâñ RajPööt") || react.includes("Kiran Rajput") || 
-react.includes("kiran")) {
+  if(react.includes("chay") ||
+     react.includes("tea") ||
+     react.includes("coffee") ||
+     react.includes("chai") ||
+react.includes("chae")) {
     var msg = {
-        body: `${name} 🥰𝗕𝗢𝗦𝗦 𝗜𝗦 𝗛𝗘𝗥𝗘❤️`,attachment: fs.createReadStream(__dirname + `/uzair/uza.jpeg`)
+        body: `${name} 😘Ye lo babu, aram c pina garam hai😒👈`,attachment: fs.createReadStream(__dirname + `/uzair/tea.gif`)
       }
       api.sendMessage(msg, threadID, messageID);
-    api.setMessageReaction("💙", event.messageID, (err) => {}, true)
+    api.setMessageReaction("☕", event.messageID, (err) => {}, true)
     }
   }
   module.exports.run = async ({ api, event, Currencies, args, utils, client, global }) => {
