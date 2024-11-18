@@ -2,8 +2,8 @@ module.exports.config = {
     name: "shayri",
     version: "1.0.0",
     hasPermssion: 0,
-    credits: "SHANKAR-PROJECT", // Credit lock kiya gaya hai yahan
-    description: "YEH BOT SHANKAR SUMAN DWARA BANAYA GAYA HAI",
+    credits: "uzairrajput", // Credit lock kiya gaya hai yahan
+    description: "YEH BOT UZAIR RAJPUT NE BANAYA HAI",
     commandCategory: "SHAYRI+PROFILE",
     usePrefix: false,
     cooldowns: 0
@@ -13,14 +13,14 @@ module.exports.run = async function({ event, api, args, client, Currencies, User
     const fs = global.nodemodule["fs-extra"];
     const request = global.nodemodule["request"];
     const axios = global.nodemodule['axios'];
-    
+
     // Shayari ka array
     const shayariList = [
-        "तेरी मोहब्बत में बेहद कुछ ऐसा है, तू जो मिल जाए तो दुनिया हसीं है।",
-        "तेरी आदत मेरी हो गई है, तेरे खयालों में खो गया हूं।",
-        "तेरी हर ख्वाहिश को पूरा करने की चाहत रखता हूं, तू चाहे कुछ भी मांग ले मैं दे दूंगा।",
-        "तेरी हंसी की खुशबू में खो जाऊं, तेरी हर मुस्कान को अपना बना लूं।",
-        "तेरी बातें मेरे दिल को छू जाती हैं, तेरा साथ मेरे जीने की वजह बन जाता है।",
+        "تیرے پیار میں کچھ خاص ہے تجھے مل جائے تو دنیا ہنسے گی۔",
+        "تم میری عادت بن گئی ہو میں تمہارے خیالوں میں گم ہوں",
+        "میں تمہاری ہر خواہش پوری کرنا چاہتا ہوں، تم جو مانگو گے میں دوں گا۔",
+        "تیری ہنسی کی خوشبو میں کھو جانے دو تیری ہر مسکراہٹ کو میری",
+        "آپ کی باتیں میرے دل کو چھوتی ہیں، آپ کی صحبت میری زندگی کی وجہ بن جاتی ہے۔",
         // Aur bhi Shayari jaise chahiye add karein
     ];
 
