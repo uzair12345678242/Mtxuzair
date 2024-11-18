@@ -1,5 +1,5 @@
 module.exports.config = {
-  name: "help",
+  name: "helllop",
   version: "1.0.2",
   hasPermssion: 0,
   credits: "SHANKAR-SUMAN",// don't change the credits SHANKAR-SUMAN
