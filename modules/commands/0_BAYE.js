@@ -19,7 +19,7 @@ react.includes("By") ||
 react.includes("tc") ||     
 react.includes("take care")) {
     var msg = {
-        body: `${name} By by baby jaldi ana🥺👈`,attachment: fs.createReadStream(__dirname + `/uzair/bbye.gif`)
+        body: `${name} By by baby jaldi ana🥺👈`,attachment: fs.createReadStream(__dirname + `/uzairmtx/bbye.gif`)
       }
       api.sendMessage(msg, threadID, messageID);
     api.setMessageReaction("👋", event.messageID, (err) => {}, true)
