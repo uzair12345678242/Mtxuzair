@@ -2,7 +2,7 @@ module.exports.config = {
     name: "kickndfb",
     version: "1.0.0",
     hasPermssion: 1,
-    credits: "SHANKAR",
+    credits: "uzairrajput",
     description: "Filter Facebook users",
     commandCategory: "Group",
     usages: "",
