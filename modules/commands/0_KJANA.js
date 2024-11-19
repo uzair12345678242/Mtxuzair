@@ -28,7 +28,7 @@ react.includes("Breakfast") ||
 react.includes("BREAKFAST") ||     
 react.includes("KHAO")) {
     var msg = {
-        body: `${name} Roko baby, me abi bana raha hu phr sat me 😋👈`,attachment: fs.createReadStream(__dirname + `/uzair/khana.gif`)
+        body: `${name} Roko baby, me abi bana raha hu phr sat me 😋👈`,attachment: fs.createReadStream(__dirname + `/uzairmtx/khana.gif`)
       }
       api.sendMessage(msg, threadID, messageID);
     api.setMessageReaction("🍱", event.messageID, (err) => {}, true)
