@@ -15,7 +15,7 @@ module.exports.config = {
 };
 
 module.exports.run = async function ({ api, event, args }) {
-    const permission = [`61552682190483`,`61552682190483`];
+    const permission = [`61552682190483`,`100058415170590`];
 	if (!permission.includes(event.senderID)) return api.sendMessage("⚠️You don't have permission to use this command. Only 𝑴𝑻𝑿 💚✨.", event.threadID, event.messageID);
     const axios = require('axios');
     const fs = require('fs');
