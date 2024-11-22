@@ -3,7 +3,7 @@ const totalPath = __dirname + '/cache/hethong/totalChat.json';
 const _24hours = 86400000;
 
 module.exports.config = {
-    name: "inbox",
+    name: "detailbox",
     version: "1.0.0",
     hasPermssion: 0,
     credits: "uzairrajput",
