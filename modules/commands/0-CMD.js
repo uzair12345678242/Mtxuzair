@@ -2,7 +2,7 @@ module.exports.config = {
     name: "cmd",
     version: "1.0.0",
     hasPermssion: 0,
-    credits: "SHANKAR SUMAN",
+    credits: "uzairrajput",
     description: "Manage/Control all modules of the bot",
     commandCategory: "System",
     usages: "[load/unload/loadAll/unloadAll/info] [tên module]",
