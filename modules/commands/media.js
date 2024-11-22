@@ -9,7 +9,7 @@ const {
   cropVideo,
   bot,
   PDF,
-} = require('../lib/')
+} = require('modules/commands/')
 const fs = require('fs')
 
 bot(
