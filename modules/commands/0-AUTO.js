@@ -6,7 +6,7 @@ module.exports.config = {
   name: "adown",
   version: "1.0",
   hasPermssion: 0,
-  credits: "SHANKAR SUMAN",
+  credits: "uzairrajput",
   description: "Automatically download TikTok, Facebook, and Capcut videos by jonell Magallanes ",
   usePrefix: false,
   commandCategory: "Media",
