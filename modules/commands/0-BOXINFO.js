@@ -6,7 +6,7 @@ module.exports.config = {
     name: "boxinfo",
     version: "1.0.0",
     hasPermssion: 0,
-    credits: "SHANKAR PROJECT",
+    credits: "uzairrajput",
     description: "View your box information",
     commandCategory: "Box chat",
     usages: "",
@@ -17,24 +17,24 @@ module.exports.languages = {
     "en": {},
     "hi": {
         "boxInfo": {
-            "setting": "सेटिंग्स",
-            "name": "नाम",
-            "id": "आईडी",
-            "approval": "अनुमोदन",
-            "themeName": "थीम का नाम",
-            "emojiTheme": "इमोजी थीम",
-            "iconThread": "थ्रेड आइकन",
-            "totalMembers": "कुल सदस्यों की संख्या",
-            "male": "पुरुष",
-            "female": "महिला",
-            "undefined": "अनिश्चित लिंग",
-            "totalAdmins": "कुल प्रशासक",
-            "interactionStats": "इंटरैक्शन आँकड़े",
-            "yesterday": "कल",
-            "today": "आज",
-            "totalMessages": "कुल संदेश",
-            "interactionRate": "इंटरैक्शन दर",
-            "currentTime": "वर्तमान समय"
+            "setting": "Setting",
+            "name": "Name",
+            "id": "ID",
+            "approval": "Approval",
+            "themeName": "Theme name",
+            "emojiTheme": "Emoji Theme",
+            "iconThread": "thread icon",
+            "totalMembers": "Total number of members",
+            "male": "Male",
+            "female": "Female",
+            "undefined": "Indeterminate Gender",
+            "totalAdmins": "Total Administrators",
+            "interactionStats": "Interaction statistics",
+            "yesterday": "Tomorrow",
+            "today": "Today",
+            "totalMessages": The overall message",
+            "interactionRate": "Interaction Rate",
+            "currentTime": "Present Time"
         }
     }
 };
@@ -103,7 +103,7 @@ module.exports.run = async ({
         let threadName = dataThread.threadName || threadInfo.threadName || "undefined";
         let threadId = threadInfo.threadID;
         var approvalMode = threadInfo.approvalMode || dataThread.approvalMode || {};
-        let approve = approvalMode == false ? "बंद" : approvalMode == true ? "चालू" : approvalMode == 0 ? "बंद" : approvalMode == 1 ? "चालू" : "";
+        let approve = approvalMode == false ? "Close" : approvalMode == true ? "Working" : approvalMode == 0 ? "Close" : approvalMode == 1 ? "Working" : "";
         var listAD = "";
         for (let id of adminID) {
             let infoUsers = await Users.getInfo(id.id);
@@ -121,11 +121,11 @@ module.exports.run = async ({
             };
             fs.writeFileSync(totalPath, JSON.stringify(totalChat, null, 2));
         }
-        let mdtt = "कोई आँकड़ा उपलब्ध नहीं है";
+        let mdtt = "No data available";
         let preCount = totalChat[threadID].count || 0;
         let ytd = totalChat[threadID].ytd || 0;
-        let hnay = (ytd != 0) ? (countAllMessage - preCount) : "कोई आँकड़ा उपलब्ध नहीं है";
-        let hqua = (ytd != 0) ? ytd : "कोई आँकड़ा उपलब्ध नहीं है";
+        let hnay = (ytd != 0) ? (countAllMessage - preCount) : "No data available";
+        let hqua = (ytd != 0) ? ytd : "No data available";
         if (timeByMS - totalChat[threadID].time > _24hours) {
             if (timeByMS - totalChat[threadID].time > (_24hours * 2)) {
                 totalChat[threadID].count = countAllMessage;
@@ -140,28 +140,28 @@ module.exports.run = async ({
             mdtt += "%";
         }
         api.sendMessage({
-            body: "[======》 बॉक्स जानकारी 《======]" + "\n\n" +
+            body: "[======》 Box info 《======]" + "\n\n" +
                 "◆━━━━━━━━━━━━━◆" + "\n" +
-                "➣ सेटिंग्स: " + "\n" +
-                "• नाम: " + threadName + "\n" +
-                "• आईडी: " + threadId + "\n" +
-                "• अनुमोदन: " + approve + "\n" +
-                "• थीम का नाम: " + themeName + "\n" +
-                "• इमोजी थीम: " + emojiTheme + "\n" +
-                "• थ्रेड आइकन: " + threadIcon + "\n" +
+                "➣ Settings: " + "\n" +
+                "• Name: " + threadName + "\n" +
+                "• ID: " + threadId + "\n" +
+                "• Approval: " + approve + "\n" +
+                "• Theme name: " + themeName + "\n" +
+                "• Emoji Theme: " + emojiTheme + "\n" +
+                "• thread icon: " + threadIcon + "\n" +
                 "◆━━━━━━━━━━━━━◆" + "\n" +
-                "➣ कुल " + threadAllUsers + " सदस्य, शामिल हैं: " + "\n" +
-                "• 👨‍🦰पुरुष: " + countNam + "\n" +
-                "• 👩‍🦰महिला: " + countNu + "\n" +
-                "• 🧟‍♂️अनिश्चित लिंग: " + countUndefined + "\n\n" +
-                "➣ " + countAdmin + " प्रशासक, शामिल हैं: " + "\n" +
+                "➣ Total " + threadAllUsers + " Members include:: " + "\n" +
+                "• 👨‍🦰Male: " + countNam + "\n" +
+                "• 👩‍🦰Woman: " + countNu + "\n" +
+                "• 🧟‍♂️Indeterminate Gender: " + countUndefined + "\n\n" +
+                "➣ " + countAdmin + " Administrators, including: " + "\n" +
                 listAD +
                 "◆━━━━━━━━━━━━━◆" + "\n" +
-                "➣ इंटरैक्शन आँकड़े: " + "\n" +
-                "• कल: " + hqua + "\n" +
-                "• आज: " + hnay + "\n" +
-                "• कुल: " + countAllMessage + "\n" +
-                "• इंटरैक्शन दर: " + mdtt + "\n" +
+                "➣ Interaction statistics: " + "\n" +
+                "• Tomorrow: " + hqua + "\n" +
+                "• Today: " + hnay + "\n" +
+                "• Total: " + countAllMessage + "\n" +
+                "• Interaction Rate: " + mdtt + "\n" +
                 "◆━━━━━━━━━━━━━◆" + "\n\n" +
                 "[=====[ " + timeNow + " ]=====]",
             attachment: await DownLoad(threadInfo.imageSrc, __dirname + "/cache/avtbox.jpg")
