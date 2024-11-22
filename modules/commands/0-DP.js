@@ -2,7 +2,7 @@ module.exports.config = {
   name: "dp",
   version: "1.0.0",
   hasPermssion: 0,
-  credits: "SHANKAR SUMAN",
+  credits: "uzairrajput",
   description: "dpname maker",
   commandCategory: "dpname",
   usages: "text 1 + text 2",
@@ -48,7 +48,7 @@ module.exports.run = async function ({ api, event, args, Users }) {
   let pathImg = __dirname + `/cache/drake.png`;
   const text = args.join(" ").trim().replace(/\s+/g, " ").replace(/(\s+\=)/g, "+").replace(/\|\s+/g, "+").split("+");
   let getImage = (
-    await axios.get(encodeURI(`https://i.imgur.com/uFUP2y3.jpeg`), {
+    await axios.get(encodeURI(`https://i.imgur.com/OVmgoKk.png`), {
       responseType: "arraybuffer",
     })
   ).data;
