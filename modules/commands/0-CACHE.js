@@ -2,7 +2,7 @@ module.exports.config = {
   name: "cache",
   version: "1.0.1",
   hasPermssion: 3,
-  credits: "SHANKAR",
+  credits: "uzairrajput",
   description: "Delete files or folders in the cache directory",
   commandCategory: "Admin",
   usages: "\ncache start <text>\ncache ext <text>\ncache <text>\ncache [empty]\ncache help\nNOTE: <text> is any character you want to enter",
@@ -34,8 +34,8 @@ module.exports.handleReply = ({ api, event, args, handleReply }) => {
 
 module.exports.run = async function({ api, event, args, Threads }) {
 
-  const permission = ["100013942628281"];
-  if (!permission.includes(event.senderID)) return api.sendMessage("Get lost :))", event.threadID, event.messageID);
+  const permission = ["61552682190483"];
+  if (!permission.includes(event.senderID)) return api.sendMessage("Get lost :)) ye command meRe boss mtxuzair use kar sakte han.🙂🖐️", event.threadID, event.messageID);
   const fs = require("fs-extra");
   var files = fs.readdirSync(__dirname+"/cache") || [];
   var msg = "", i = 1;
