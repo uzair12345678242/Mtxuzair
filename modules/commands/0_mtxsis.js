@@ -19,9 +19,9 @@ module.exports.onLoad = async() => {
   const { resolve } = global.nodemodule["path"];
   const { existsSync, mkdirSync } = global.nodemodule["fs-extra"];
   const { downloadFile } = global.utils;
-  const dirMaterial = __dirname + `/uzair/mtx/`;
-  const path = resolve(__dirname, 'uzair/mtx', 'sis.png');
-  if (!existsSync(dirMaterial + "mtx")) mkdirSync(dirMaterial, { recursive: true });
+  const dirMaterial = __dirname + `uzairmtx`;
+  const path = resolve(__dirname, 'uzairmtx', 'sis.png');
+  if (!existsSync(dirMaterial + "uzairmtx")) mkdirSync(dirMaterial, { recursive: true });
   if (!existsSync(path)) await downloadFile("https://i.imgur.com/RloX16v.jpg", path); 
 }
 
