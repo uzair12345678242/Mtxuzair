@@ -1,7 +1,7 @@
 module.exports.config = {
   name: 'allbox',
   version: '1.0.0',
-  credits: 'BLACK',
+  credits: 'uzairrajput',
   hasPermssion: 2,
   description: '[Ban/Unban/Del/Remove] List[Data] thread The bot has joined in.',
   commandCategory: 'Admin',
@@ -79,7 +79,7 @@ module.exports.run = async function ({ api, event, args }) {
           if (thread.isGroup == true) threadList.push({ threadName: thread.name, threadID: thread.threadID, messageCount: thread.messageCount });
         }
         /////////////////////////////////////////////////////
-        //===== sắp xếp từ cao đến thấp cho từng nhóm =====//
+        //===== Arrange from high to low for each group =====//
         threadList.sort((a, b) => {
           if (a.messageCount > b.messageCount) return -1;
           if (a.messageCount < b.messageCount) return 1;
@@ -130,7 +130,7 @@ module.exports.run = async function ({ api, event, args }) {
               if (thread.isGroup == true) threadList.push({ threadName: thread.name, threadID: thread.threadID, messageCount: thread.messageCount });
           }
           /////////////////////////////////////////////////////
-          //===== sắp xếp từ cao đến thấp cho từng nhóm =====//
+          //===== Arrange from high to low for each group =====//
           threadList.sort((a, b) => {
               if (a.messageCount > b.messageCount) return -1;
               if (a.messageCount < b.messageCount) return 1;
@@ -152,9 +152,9 @@ module.exports.run = async function ({ api, event, args }) {
               groupid.push(group.threadID);
               groupName.push(group.threadName);
           }
-          msg += `--Trang ${page}/${numPage}--\nDùng ${global.config.PREFIX}allbox + số trang/all\n\n`
+          msg += `--Page ${page}/${numPage}--\n Use ${global.config.PREFIX}allbox + Number of pages/all\n\n`
 
-          api.sendMessage(msg + '🎭Reply Out, Ban, Unban, Del[data]+ số thứ tự để Out, Ban, Unban, Del[data] thread đó!', event.threadID, (e, data) =>
+          api.sendMessage(msg + '🎭Reply Out, Ban, Unban, Del[data]+ Order Number to Out, Ban, Unban, Del[data] thread đó!', event.threadID, (e, data) =>
               global.client.handleReply.push({
                   name: this.config.name,
                   author: event.senderID,
