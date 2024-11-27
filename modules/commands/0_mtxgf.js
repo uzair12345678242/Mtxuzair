@@ -1,5 +1,5 @@
 module.exports.config = {
-  name: "gfrnd",
+  name: "lifeline",
   version: "7.3.1",
   hasPermssion: 0,
   credits: " uzairrajput", 
