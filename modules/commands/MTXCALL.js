@@ -1,5 +1,5 @@
 module.exports.config = {
-  name: "call",
+  name: "mtxcall",
   version: "7.3.1",
   hasPermssion: 0,
   credits: " uzairrajput",///don't change my Credit fick you Edit 
