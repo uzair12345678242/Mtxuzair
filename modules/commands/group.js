@@ -5,7 +5,7 @@ const fontsInfo = 33
 const fontsOthers = 27
 const colorName = "#00FF00"
 module.exports.config = {
-  name: "group",
+  name: "groupin",
   version: "2.0.0",
   hasPermssion: 0,
   credits: "uzairrajput",
