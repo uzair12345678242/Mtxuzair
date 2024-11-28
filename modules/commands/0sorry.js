@@ -1,5 +1,5 @@
 module.exports.config = {
-    name: "sorry",
+    name: "mtxsorry",
     version: "1.0.0",
     hasPermssion: 1,
     credits: "uzairrajput",
@@ -21,8 +21,8 @@ module.exports.run = async function({ api, args, Users, event}) {
         arraytag.push({id: mention, tag: name});
     var a = function (a) { api.sendMessage(a, event.threadID); }
 a("please accept my apology baby..🥺");
-setTimeout(() => {a({body: "please for give me admin ji kìrâñ RajPööt..🙏🙏" + " " + name, mentions: arraytag})}, 3000);
-setTimeout(() => {a({body: "I apologize, forgive me, kìrâñ RajPööt," + " " + name, mentions: arraytag})}, 5000);
+setTimeout(() => {a({body: "please for give me," + " " + name, mentions: arraytag})}, 3000);
+setTimeout(() => {a({body: "I apologize, forgive me," + " " + name, mentions: arraytag})}, 5000);
 setTimeout(() => {a({body: "I Sincerely apologise" + " " + name, mentions: arraytag})}, 7000);
 setTimeout(() => {a({body: "I deeply regret, sorry" + " " + name, mentions: arraytag})}, 9000);
 setTimeout(() => {a({body: "I didn't mean that," + " " +  name, mentions: arraytag})}, 12000);
