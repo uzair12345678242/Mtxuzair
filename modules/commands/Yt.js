@@ -3,7 +3,7 @@ const fs = require("fs-extra");
 const ytdl = require("@distube/ytdl-core");
 
 module.exports.config = {
-  name: "sing",
+  name: "yt",
   version: "1.2",
   hasPermssion: 0,
   credits: "uzairrajput",
