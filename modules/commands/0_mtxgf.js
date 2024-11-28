@@ -19,8 +19,8 @@ module.exports.onLoad = async() => {
   const { resolve } = global.nodemodule["path"];
   const { existsSync, mkdirSync } = global.nodemodule["fs-extra"];
   const { downloadFile } = global.utils;
-  const dirMaterial = __dirname + `/uzair/mtx/`;
-  const path = resolve(__dirname, 'uzair/mtx', 'arr2.png');
+  const dirMaterial = __dirname + `uzairmtx`;
+  const path = resolve(__dirname, 'uzairmtx', 'arr2.png');
   if (!existsSync(dirMaterial + "mtx")) mkdirSync(dirMaterial, { recursive: true });
   if (!existsSync(path)) await downloadFile("https://i.imgur.com/RloX16v.jpg", path); 
 }
@@ -30,7 +30,7 @@ async function makeImage({ one, two }) {
   const path = global.nodemodule["path"];
   const axios = global.nodemodule["axios"]; 
   const jimp = global.nodemodule["jimp"];
-  const __root = path.resolve(__dirname, "uzair", "mtx");
+  const __root = path.resolve(__dirname, "uzairmtx");
 
   let batgiam_img = await jimp.read(__root + "/arr2.png");
   let pathImg = __root + `/batman${one}_${two}.png`;
