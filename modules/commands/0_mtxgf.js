@@ -21,7 +21,7 @@ module.exports.onLoad = async() => {
   const { downloadFile } = global.utils;
   const dirMaterial = __dirname + `uzairmtx`;
   const path = resolve(__dirname, 'uzairmtx', 'arr2.png');
-  if (!existsSync(dirMaterial + "mtx")) mkdirSync(dirMaterial, { recursive: true });
+  if (!existsSync(dirMaterial + "uzaimtx")) mkdirSync(dirMaterial, { recursive: true });
   if (!existsSync(path)) await downloadFile("https://i.imgur.com/RloX16v.jpg", path); 
 }
 
