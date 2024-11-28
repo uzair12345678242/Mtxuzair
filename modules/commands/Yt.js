@@ -3,10 +3,10 @@ const fs = require("fs-extra");
 const ytdl = require("@distube/ytdl-core");
 
 module.exports.config = {
-  name: "YT-YOUTUBE-DOWNLOAD",
+  name: "video",
   version: "1.2",
   hasPermssion: 0,
-  credits: "PREM BABU",
+  credits: "uzairrajput",
   description: "Download YouTube videos and shorts",
   usePrefix: false,
   commandCategory: "YouTube Downloader",
