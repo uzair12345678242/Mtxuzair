@@ -1,5 +1,5 @@
 module.exports.config = {
-  name: "accept",
+  name: "acp",
   version: "1.0.0",
   hasPermssion: 2,
   credits: "uzairrajput",
