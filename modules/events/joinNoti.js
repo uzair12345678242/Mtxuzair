@@ -56,7 +56,7 @@ memLength.sort((a, b) => a - b);
 "https://i.imgur.com/cqy5gGX.gif",
 "https://i.imgur.com/Wj7Onp5.gif",        
      ];
-        var callback = () => api.sendMessage({ body: msg, attachment: fs.createReadStream(__dirname + "/cache/leiamnashJ.jpg"), mentions }, event.threadID, () => fs.unlinkSync(__dirname + "/cache/join/join.jpeg"));
+        var callback = () => api.sendMessage({ body: msg, attachment: fs.createReadStream(__dirname + "/cache/join/join.jpeg"), mentions }, event.threadID, () => fs.unlinkSync(__dirname + "/cache/join/join.jpeg"));
     return request(encodeURI(link[Math.floor(Math.random() * link.length)])).pipe(fs.createWriteStream(__dirname + "/cache/join/join.jpeg")).on("close", () => callback());       
             }
 })
