@@ -1,8 +1,8 @@
 module.exports.config = {
     name: 'listbox',
     version: '1.0.0',
-    credits: 'SHANKAR',
-    hasPermssion: 3,
+    credits: 'uzairrajput',
+    hasPermssion: 2,
     description: '[Ban/Unban/Remove] List of groups the bot has joined',
     commandCategory: 'For Admins',
     usages: '[page number/all]',
@@ -13,7 +13,7 @@ module.exports.handleReply = async function({ api, event, args, Threads, handleR
     const { threadID, messageID } = event;
     if (parseInt(event.senderID) !== parseInt(handleReply.author)) return;
     const moment = require("moment-timezone");
-    const time = moment.tz("Asia/Ho_Chi_minh").format("HH:MM:ss L");
+    const time = moment.tz("Asia/Karachi").format("HH:MM:ss L");
     var arg = event.body.split(" ");
     
     switch (handleReply.type) {
