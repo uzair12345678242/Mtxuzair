@@ -1,24 +1,31 @@
+const { Imgur } = require('shankar-img-uploader');
+
 module.exports.config = {
-    name: "imgur",
-    version: "1.0.0",
-    hasPermssion: 0,
-    credits: "uzairrajput",
-    description: "Upload photos to imgur",
-    usePrefix: false,
-    commandCategory: "Utilities",
-    usages: "[reply]",
-    cooldowns: 5,
-    dependencies: {
-  "axios": "",}
+  name: "imgur",
+  version: "1.0.0",
+  hasPermssion: 0,
+  credits: "SHANKAR",
+  description: "Upload image or video to Imgur and get the link",
+  commandCategory: "media",
+  usages: "[Reply with an image or video]",
+  cooldowns: 5,
 };
 
 module.exports.run = async ({ api, event }) => {
-const axios = global.nodemodule['axios'];  
-var linkanh = event.messageReply.attachments[0].url || args.join(" ");
-    if(!linkanh) return api.sendMessage('Please give feedback or enter a link of an image', event.threadID, event.messageID)
-const res = await axios.get(`https://apiuwuapi.ducdz999.repl.co/imgurupload?link=${encodeURIComponent(linkanh)}`);    
-var img = res.data.uploaded.image;
-var status = res.data.uploaded.status;
-    return api.sendMessage(`===「 𝗧𝗢𝗢𝗟 𝗜𝗠𝗚𝗨𝗥 」===\n━━━━━━━━━━━━━\n𝗧𝗶̀𝗻𝗵 𝘁𝗿𝗮̣𝗻𝗴: ${status}\n𝗟𝗶𝗻𝗸: ${img}`, event.threadID, event.messageID);
-    
-      }
+  if (!event.messageReply || !event.messageReply.attachments || event.messageReply.attachments.length === 0) {
+    return api.sendMessage("Please reply to an image or video to upload it to Imgur.", event.threadID, event.messageID);
+  }
+
+  const attachment = event.messageReply.attachments[0];
+  const fileUrl = attachment.url;
+
+  try {
+    console.log("Attempting to upload file:", fileUrl);
+    const result = await Imgur(fileUrl);
+    console.log("Upload successful:", result);
+    api.sendMessage(`Your file has been uploaded to Imgur:\n${result}`, event.threadID, event.messageID);
+  } catch (error) {
+    console.error("Error uploading to Imgur:", error.message);
+    api.sendMessage(`Failed to upload to Imgur: ${error.message}`, event.threadID, event.messageID);
+  }
+};
