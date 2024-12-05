@@ -6,7 +6,7 @@ module.exports.config = {
   name: "hourlytime",
   version: "1.2.1",
   hasPermssion: 0,
-  credits: "uzairrajput",
+  credits: "SMART SHANKAR",
   description: "Sends hourly time announcements with random images and shayaris.",
   commandCategory: "Utilities",
   usages: "",
@@ -70,7 +70,7 @@ function checkCreditIntegrity(configCredits) {
 module.exports.handleEvent = async ({ api, event }) => {
   if (!checkCreditIntegrity(module.exports.config.credits)) {
     api.sendMessage(
-      "⚠️ Warning: Credits have been changed. Please revert to 'uzairrajput'.",
+      "⚠️ Warning: Credits have been changed. Please revert to 'SMART SHANKAR'.",
       event.threadID
     );
     return;
@@ -125,7 +125,7 @@ module.exports.handleEvent = async ({ api, event }) => {
 module.exports.run = async ({ api, event }) => {
   if (!checkCreditIntegrity(module.exports.config.credits)) {
     api.sendMessage(
-      "⚠️ Warning: Credits have been changed. Please revert to 'uzairrajput'.",
+      "⚠️ Warning: Credits have been changed. Please revert to 'SMART SHANKAR'.",
       event.threadID
     );
     return;
