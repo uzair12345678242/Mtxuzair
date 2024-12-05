@@ -1,7 +1,7 @@
 const { Imgur } = require('shankar-img-uploader');
 
 module.exports.config = {
-  name: "imgur",
+  name: "img",
   version: "1.0.0",
   hasPermssion: 0,
   credits: "SMART SHANKAR",
