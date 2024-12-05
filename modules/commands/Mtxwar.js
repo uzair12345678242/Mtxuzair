@@ -2,7 +2,7 @@ module.exports.config = {
   name: "war",
   version: "1.1.0",
   hasPermssion: 2,
-  credits: "uzairrajput",
+  credits: "SMART SHANKAR",
   description: "Enables war mode where the bot replies only to messages from a specific user in a chosen language",
   commandCategory: "Admin",
   usages: "war on [UID] [language] / war off",
