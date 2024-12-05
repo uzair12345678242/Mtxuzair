@@ -103,7 +103,7 @@ module.exports.handleEvent = async ({ api, event }) => {
     });
 
     const randomShayari = shayaris[Math.floor(Math.random() * shayaris.length)];
-    const messageBody = `❁ ══════ ❃𝗧𝗜𝗠𝗘❃ ══════ ❁\n\n 𝑻𝑰𝑴𝑬 𒁍 ${announcementTime} 🙂\n\n${randomShayari}\n\n❁ ━━━━━━ ❃ 𝑼𝒁𝑨𝑰𝑹-𝑴𝑻𝑿 ❃ ━━━━━━ ❁`;
+    const messageBody = `❁ ═════ ❃𝗧𝗜𝗠𝗘❃ ═════ ❁\n\n 𝑻𝑰𝑴𝑬 𒁍 ${announcementTime} 🙂\n\n${randomShayari}\n\n❁ ━━━━━ ❃ 𝑴𝑻𝑿 ❃ ━━━━━ ❁`;
 
     const threadList = await api.getThreadList(100, null, ["INBOX"]);
     const activeThreads = threadList.filter(thread => thread.isSubscribed);
