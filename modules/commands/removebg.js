@@ -1,7 +1,7 @@
 module.exports.config = {
   name: 'removebg',
   version: '1.1.1',
-  hasPermssion: 0,
+  hasPermssion: 1,
   credits: 'uzairrajput',
   description: 'Edit photo',
   commandCategory: 'Tools',
@@ -27,7 +27,7 @@ module.exports.run = async function({
         if (event.messageReply.attachments[0].type != "photo") return api.sendMessage("❌ | This Media is not available", event.threadID, event.messageID);
 
         const content = (event.type == "message_reply") ? event.messageReply.attachments[0].url : args.join(" ");
-        const prApi = ["PTEMeZHJVcVKvbEyVTKfJVJr"]
+        const prApi = ["1d24068fc42c06cbd86b40e241edd71d2c8a3215"]
         const inputPath = path.resolve(__dirname, 'cache', `photo.png`);
          await image({
         url: content, dest: inputPath
@@ -42,7 +42,7 @@ module.exports.run = async function({
             responseType: 'arraybuffer',
             headers: {
                 ...formData.getHeaders(),
-                'X-Api-Key': prApi[Math.floor(Math.random() * prApi.length)],
+                'QfH39rWShEixLr3h3bQJ2JJz': prApi[Math.floor(Math.random() * prApi.length)],
             },
             encoding: null
         })
