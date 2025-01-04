@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 module.exports.config = {
-  name: "hourlytime",
+  name: "autosend",
   version: "4.1.1",
   hasPermssion: 0,
   credits: "SHANKAR",
