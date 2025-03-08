@@ -2,7 +2,7 @@ module.exports.config = {
         name: "pairv2",
         version: "1.0.1",
         hasPermssion: 0,
-        credits: "LEGEND ARYAN",
+        credits: "uzairrajput",
         description: "MADE BY LEGEND ARYAN",
         commandCategory: "Picture",
         cooldowns: 5,
@@ -41,7 +41,7 @@ async function makeImage({ one, two }) {
 
     let circleOne = await jimp.read(await circle(avatarOne));
     let circleTwo = await jimp.read(await circle(avatarTwo));
-    pairing_img.composite(circleOne.resize(240, 240), 116, 110).composite(circleTwo.resize(240, 240), 479, 115);
+    pairing_img.composite(circleOne.resize(220, 220), 116, 110).composite(circleTwo.resize(220, 220), 479, 115);
 
     let raw = await pairing_img.getBufferAsync("image/png");
 
