@@ -3,7 +3,7 @@ module.exports.config = {
         version: "1.0.1",
         hasPermssion: 0,
         credits: "uzairrajput",
-        description: "MADE BY LEGEND ARYAN",
+        description: "MADE BY UZAIR RAJPUT MTX",
         commandCategory: "Picture",
         cooldowns: 5,
         dependencies: {
@@ -41,7 +41,7 @@ async function makeImage({ one, two }) {
 
     let circleOne = await jimp.read(await circle(avatarOne));
     let circleTwo = await jimp.read(await circle(avatarTwo));
-    pairing_img.composite(circleOne.resize(220, 220), 116, 110).composite(circleTwo.resize(220, 220), 479, 115);
+    pairing_img.composite(circleOne.resize(150, 150), 116, 110).composite(circleTwo.resize(150, 150), 479, 115);
 
     let raw = await pairing_img.getBufferAsync("image/png");
 
