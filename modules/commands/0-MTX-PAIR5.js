@@ -93,7 +93,7 @@ module.exports.run = async function ({ args, Users, Threads, api, event, Currenc
   let ctx = canvas.getContext("2d");
   ctx.drawImage(baseImage, 1, 0, canvas.width, canvas.height);
   ctx.drawImage(baseAvt1, 410, 200, 270, 200);
-  ctx.drawImage(baseAvt2, 400, 200, 270, 300);
+  ctx.drawImage(baseAvt2, 400, 200, 270, 200);
   const imageBuffer = canvas.toBuffer();
   fs.writeFileSync(pathImg, imageBuffer);
   fs.removeSync(pathAvt1);
